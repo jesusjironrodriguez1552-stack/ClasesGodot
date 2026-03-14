@@ -6,6 +6,7 @@ import subprocess
 import urllib.request
 import urllib.parse
 import tempfile
+import requests
 
 # ── Config ────────────────────────────────────────────────────────────────────
 PIXELDRAIN_API_KEY = '79cb2d33-ee92-4835-8e14-eacd61c61451'
@@ -16,48 +17,37 @@ PENDIENTES_FILE    = 'pendientes.txt'
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def supabase_request(method, path, body=None):
     url = f"{SUPABASE_URL}/rest/v1/{path}"
-    data = json.dumps(body).encode() if body else None
-    req = urllib.request.Request(url, data=data, method=method)
-    req.add_header('apikey', SUPABASE_KEY)
-    req.add_header('Authorization', f'Bearer {SUPABASE_KEY}')
-    req.add_header('Content-Type', 'application/json')
-    req.add_header('Prefer', 'return=representation')
-    with urllib.request.urlopen(req) as resp:
-        return json.loads(resp.read())
+    headers = {
+        'apikey': SUPABASE_KEY,
+        'Authorization': f'Bearer {SUPABASE_KEY}',
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation',
+    }
+    resp = requests.request(method, url, headers=headers, json=body)
+    return resp.json()
 
 def upload_to_pixeldrain(filepath, filename):
     print(f"  → Subiendo a Pixeldrain: {filename}")
     auth = base64.b64encode(f":{PIXELDRAIN_API_KEY}".encode()).decode()
-    boundary = '----FormBoundary7MA4YWxkTrZu0gW'
+    headers = {'Authorization': f'Basic {auth}'}
     with open(filepath, 'rb') as f:
-        file_data = f.read()
-    body = (
-        f'--{boundary}\r\n'
-        f'Content-Disposition: form-data; name="name"\r\n\r\n'
-        f'{filename}\r\n'
-        f'--{boundary}\r\n'
-        f'Content-Disposition: form-data; name="file"; filename="{filename}"\r\n'
-        f'Content-Type: video/mp4\r\n\r\n'
-    ).encode() + file_data + f'\r\n--{boundary}--\r\n'.encode()
-
-    req = urllib.request.Request(
-        'https://pixeldrain.com/api/file/',
-        data=body,
-        method='POST'
-    )
-    req.add_header('Authorization', f'Basic {auth}')
-    req.add_header('Content-Type', f'multipart/form-data; boundary={boundary}')
-    with urllib.request.urlopen(req) as resp:
-        result = json.loads(resp.read())
-    return f"https://pixeldrain.com/u/{result['id']}"
+        files = {'file': (filename, f, 'video/mp4')}
+        data = {'name': filename}
+        resp = requests.post(
+            'https://pixeldrain.com/api/file/',
+            headers=headers,
+            files=files,
+            data=data,
+            timeout=3600  # 1 hora máximo
+        )
+    if resp.status_code != 201:
+        raise Exception(f"Pixeldrain error {resp.status_code}: {resp.text}")
+    return f"https://pixeldrain.com/u/{resp.json()['id']}"
 
 def download_m3u8(m3u8_url, output_path):
     print(f"  → Descargando m3u8...")
-    
-    # Extraer dominio base para el Referer
     parsed = urllib.parse.urlparse(m3u8_url)
     referer = f"{parsed.scheme}://{parsed.netloc}/"
-    
     cmd = [
         'ffmpeg', '-y',
         '-headers', (
@@ -65,7 +55,7 @@ def download_m3u8(m3u8_url, output_path):
             'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
             'AppleWebKit/537.36 (KHTML, like Gecko) '
             'Chrome/120.0.0.0 Safari/537.36\r\n'
-            'Origin: ' + referer + '\r\n'
+            f'Origin: {referer}\r\n'
         ),
         '-i', m3u8_url,
         '-c', 'copy',
