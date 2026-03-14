@@ -28,9 +28,12 @@ jobs:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python procesar.py
 
-      - name: Guardar cambios en pendientes.txt
+     - name: Guardar cambios en pendientes.txt
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git reset --hard origin/main
           git add pendientes.txt
-          git diff --staged --quiet || (git pull --rebase origin main && git commit -m "Auto: actualizar pendientes.txt" && git push)
+          git diff --staged --quiet || git commit -m "Auto: actualizar pendientes.txt"
+          git push origin main
