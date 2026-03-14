@@ -53,8 +53,20 @@ def upload_to_pixeldrain(filepath, filename):
 
 def download_m3u8(m3u8_url, output_path):
     print(f"  → Descargando m3u8...")
+    
+    # Extraer dominio base para el Referer
+    parsed = urllib.parse.urlparse(m3u8_url)
+    referer = f"{parsed.scheme}://{parsed.netloc}/"
+    
     cmd = [
         'ffmpeg', '-y',
+        '-headers', (
+            f'Referer: {referer}\r\n'
+            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+            'AppleWebKit/537.36 (KHTML, like Gecko) '
+            'Chrome/120.0.0.0 Safari/537.36\r\n'
+            'Origin: ' + referer + '\r\n'
+        ),
         '-i', m3u8_url,
         '-c', 'copy',
         '-bsf:a', 'aac_adtstoasc',
@@ -62,7 +74,7 @@ def download_m3u8(m3u8_url, output_path):
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        raise Exception(f"ffmpeg error: {result.stderr[-500:]}")
+        raise Exception(f"ffmpeg error: {result.stderr[-800:]}")
 
 def guardar_en_supabase(tipo, tmdb_id, temporada, episodio, pixeldrain_url):
     print(f"  → Guardando link en Supabase...")
@@ -71,7 +83,6 @@ def guardar_en_supabase(tipo, tmdb_id, temporada, episodio, pixeldrain_url):
             'url_pixeldrain': pixeldrain_url
         })
     else:
-        # Buscar serie_id
         series = supabase_request('GET', f'series?tmdb_id=eq.{tmdb_id}&select=id')
         if not series:
             raise Exception(f"Serie tmdb_id={tmdb_id} no encontrada en Supabase")
@@ -98,9 +109,8 @@ def main():
     errores = []
 
     for linea in lineas:
-        print(f"\n── Procesando: {linea}")
+        print(f"\n── Procesando: {linea[:80]}...")
         try:
-            # Parsear línea: tmdb_id=X|tipo=movie|url=https://...
             params = dict(p.split('=', 1) for p in linea.split('|'))
             tmdb_id   = params['tmdb_id']
             tipo      = params.get('tipo', 'movie')
@@ -115,18 +125,12 @@ def main():
 
             with tempfile.TemporaryDirectory() as tmpdir:
                 output_path = os.path.join(tmpdir, f'{safe_name}.mp4')
-
-                # 1. Descargar
                 download_m3u8(m3u8_url, output_path)
-
                 size_mb = os.path.getsize(output_path) / 1024 / 1024
                 print(f"  → Descargado: {size_mb:.1f} MB")
-
-                # 2. Subir a Pixeldrain
                 pixeldrain_url = upload_to_pixeldrain(output_path, f'{safe_name}.mp4')
                 print(f"  → Pixeldrain: {pixeldrain_url}")
 
-            # 3. Guardar en Supabase
             guardar_en_supabase(tipo, tmdb_id, temporada, episodio, pixeldrain_url)
             print(f"  ✅ Listo: {pixeldrain_url}")
             procesadas.append(linea)
@@ -135,7 +139,6 @@ def main():
             print(f"  ❌ Error: {e}")
             errores.append(f"# ERROR: {e}\n# {linea}")
 
-    # Reescribir pendientes.txt — quitar procesadas, dejar errores
     restantes = [l for l in lineas if l not in procesadas]
     with open(PENDIENTES_FILE, 'w') as f:
         if restantes:
