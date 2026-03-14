@@ -1,4 +1,4 @@
-# Formato: tmdb_id=ID|tipo=movie|titulo=NOMBRE|url=https://...m3u8
+# Formato: tmdb_id=1271|tipo=movie|titulo=300|url=https://minochinos.com/stream/YkcwKO2zAanlLKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8
 # Para series: tmdb_id=ID|tipo=tv|titulo=NOMBRE|temporada=1|episodio=1|url=https://...m3u8
 # Ejemplos:
 # tmdb_id=550|tipo=movie|titulo=Fight Club|url=https://ejemplo.com/video.m3u8
