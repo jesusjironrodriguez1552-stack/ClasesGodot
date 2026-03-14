@@ -1,16 +1,1 @@
-tmdb_id=1271|tipo=movie|titulo=300|url=https://minochinos.com/stream/YkcwKO2zAan1LKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8
-# ERROR: ffmpeg error: nable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
-  libavutil      58. 29.100 / 58. 29.100
-  libavcodec     60. 31.102 / 60. 31.102
-  libavformat    60. 16.100 / 60. 16.100
-  libavdevice    60.  3.100 / 60.  3.100
-  libavfilter     9. 12.100 /  9. 12.100
-  libswscale      7.  5.100 /  7.  5.100
-  libswresample   4. 12.100 /  4. 12.100
-  libpostproc    57.  3.100 / 57.  3.100
-[https @ 0x564e5d487740] HTTP error 403 Forbidden
-[in#0 @ 0x564e5d486e80] Error opening input: Server returned 403 Forbidden (access denied)
-Error opening input file https://minochinos.com/stream/YkcwKO2zAan1LKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8.
-Error opening input files: Server returned 403 Forbidden (access denied)
-
-# tmdb_id=1271|tipo=movie|titulo=300|url=https://minochinos.com/stream/YkcwKO2zAan1LKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8
+tmdb_id=1271|tipo=movie|titulo=300|url=https://v-mp4.randomrainever.workers.dev/p/afc7d47f/ma9yIsUHLd1oEUKmveBRD6NAoS6Qk2xnLBhlgyk6QFygrDV2AJLOguLncXrIha0_18KaGoa15oYX878h9OjfLAlCZ7yq8oFfVLvxekd-QK5dwHpFS2EFp-SLpxd_kkyaq8QHgq-L0CUYoq5wv7bNfOlZ08pXED2PpKBmz8Ls12iXyKe2ples6Z13v72qu48_6HT1fA8S5dF4TSxVS2Cpt5ddZXh3nGS5X1uKhuRpKq1Gub7SwjULPBcOOKcDZP2kHOOyJLeaTBPpnWC1iug-bo1o-zOSBkxLYUVarT0DYqbBtix4Rncs61Ju2QGNAvjdBQIVLg1hUw6vtqgGFZJfRdtgh9YDYpW36NNcALxlPTShUUwWr528Do787xk0f87ROcSDx3eew4nDFAM3sIeuNuRnBMKkNCXdXCS1-C6yoACx8GftqsJlBgpa3tF_NIdG1BwTqGEVPkQwNlEWB9wYRwZShPvLHE9jaH11oH7ehLSxTw5joiEEvt3Yok4r8iq03bcnG0icXdz2ccy7R71_zg.m3u8
