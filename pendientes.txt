@@ -1,11 +1,1 @@
 tmdb_id=1271|tipo=movie|titulo=300|url=https://minochinos.com/stream/YkcwKO2zAan1LKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8
-# ERROR: ffmpeg error: ibavfilter     9. 12.100 /  9. 12.100
-  libswscale      7.  5.100 /  7.  5.100
-  libswresample   4. 12.100 /  4. 12.100
-  libpostproc    57.  3.100 / 57.  3.100
-[https @ 0x55f9f54554c0] HTTP error 403 Forbidden
-[in#0 @ 0x55f9f5454d80] Error opening input: Server returned 403 Forbidden (access denied)
-Error opening input file https://minochinos.com/stream/YkcwKO2zAan1LKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8.
-Error opening input files: Server returned 403 Forbidden (access denied)
-
-# tmdb_id=1271|tipo=movie|titulo=300|url=https://minochinos.com/stream/YkcwKO2zAan1LKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8
