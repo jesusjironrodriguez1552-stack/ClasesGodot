@@ -1,4 +1,4 @@
-name: Procesar M3U8   
+name: Procesar M3U8
 on:
   push:
     paths:
@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Instalar dependencias
+        run: pip install requests
       - name: Procesar pendientes
         env:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
