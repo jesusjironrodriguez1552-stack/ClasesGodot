@@ -1,0 +1,5 @@
+# Formato: tmdb_id=ID|tipo=movie|titulo=NOMBRE|url=https://...m3u8
+# Para series: tmdb_id=ID|tipo=tv|titulo=NOMBRE|temporada=1|episodio=1|url=https://...m3u8
+# Ejemplos:
+# tmdb_id=550|tipo=movie|titulo=Fight Club|url=https://ejemplo.com/video.m3u8
+# tmdb_id=1396|tipo=tv|titulo=Breaking Bad|temporada=1|episodio=1|url=https://ejemplo.com/ep.m3u8
