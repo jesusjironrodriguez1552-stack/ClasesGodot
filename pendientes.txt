@@ -1,3 +1,3 @@
-# Formato: tmdb_id=1271|tipo=movie|titulo=300|url=https://minochinos.com/stream/YkcwKO2zAanlLKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8
-# Para series: tmdb_id=ID|tipo=tv|titulo=NOMBRE|temporada=1|episodio=1|url=https://...m3u8
+tmdb_id=1271|tipo=movie|titulo=300|url=https://minochinos.com/stream/YkcwKO2zAan1LKDFAi_P2Q/hjkrhuihghfvu/1773550313/10022925/master.m3u8
+
 
