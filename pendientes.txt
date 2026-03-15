@@ -1,1 +1,16 @@
 tmdb_id=1271|tipo=movie|titulo=movie_1271|url=https://fin-3dg-b1.r66nv9ed.com/hls2/04/10881/x7wtf03rozwq_,n,x,.urlset/master.m3u8?t=zoY9JAT4_kRipf9yTmAtZCpBXsWOaC1SyZzkwLMocQk&s=1773618545&e=10800&f=54406455&srv=1075&asn=52762&sp=5500&p=0
+# ERROR: ffmpeg error: --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[https @ 0x55a49532d840] HTTP error 404 Not Found
+[in#0 @ 0x55a49532ce80] Error opening input: Server returned 404 Not Found
+Error opening input file https://fin-3dg-b1.r66nv9ed.com/hls2/04/10881/x7wtf03rozwq_,n,x,.urlset/master.m3u8?t=zoY9JAT4_kRipf9yTmAtZCpBXsWOaC1SyZzkwLMocQk&s=1773618545&e=10800&f=54406455&srv=1075&asn=52762&sp=5500&p=0.
+Error opening input files: Server returned 404 Not Found
+
+# tmdb_id=1271|tipo=movie|titulo=movie_1271|url=https://fin-3dg-b1.r66nv9ed.com/hls2/04/10881/x7wtf03rozwq_,n,x,.urlset/master.m3u8?t=zoY9JAT4_kRipf9yTmAtZCpBXsWOaC1SyZzkwLMocQk&s=1773618545&e=10800&f=54406455&srv=1075&asn=52762&sp=5500&p=0
