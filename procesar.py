@@ -27,22 +27,27 @@ def supabase_request(method, path, body=None):
     return resp.json()
 
 def upload_to_pixeldrain(filepath, filename):
-    print(f"  → Subiendo a Pixeldrain: {filename}")
-    auth = base64.b64encode(f":{PIXELDRAIN_API_KEY}".encode()).decode()
-    headers = {'Authorization': f'Basic {auth}'}
-    with open(filepath, 'rb') as f:
-        files = {'file': (filename, f, 'video/mp4')}
-        data = {'name': filename}
-        resp = requests.post(
-            'https://pixeldrain.com/api/file/',
-            headers=headers,
-            files=files,
-            data=data,
-            timeout=3600  # 1 hora máximo
-        )
-    if resp.status_code != 201:
-        raise Exception(f"Pixeldrain error {resp.status_code}: {resp.text}")
-    return f"https://pixeldrain.com/u/{resp.json()['id']}"
+    print(f"  → Subiendo a Pixeldrain con curl: {filename}")
+    # Usar curl directamente — maneja mejor SSL para archivos grandes
+    cmd = [
+        'curl', '-X', 'POST',
+        '-u', f':{PIXELDRAIN_API_KEY}',
+        '-F', f'file=@{filepath};filename={filename}',
+        '-F', f'name={filename}',
+        '--retry', '3',
+        '--retry-delay', '5',
+        '-s',
+        'https://pixeldrain.com/api/file/'
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        raise Exception(f"curl error: {result.stderr}")
+    
+    response = json.loads(result.stdout)
+    if 'id' not in response:
+        raise Exception(f"Pixeldrain error: {result.stdout}")
+    
+    return f"https://pixeldrain.com/u/{response['id']}"
 
 def download_m3u8(m3u8_url, output_path):
     print(f"  → Descargando m3u8...")
