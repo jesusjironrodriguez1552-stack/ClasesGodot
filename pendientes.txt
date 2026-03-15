@@ -1,1 +1,12 @@
 tmdb_id=810693|tipo=movie|titulo=movie_810693|url=https://storm.vodvidl.site/proxy/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/MTA4MA==/aW5kZXgubTN1OA==.m3u8?headers=%7B%22origin%22%3A%22https%3A%2F%2Fvideostr.net%22%2C%22referer%22%3A%22https%3A%2F%2Fvideostr.net%2F%22%7D&host=https%3A%2F%2Faurorabird6.live
+# ERROR: ffmpeg error: 
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[https @ 0x558afc0c98c0] HTTP error 403 Forbidden
+[in#0 @ 0x558afc0c8e80] Error opening input: Server returned 403 Forbidden (access denied)
+Error opening input file https://storm.vodvidl.site/proxy/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/MTA4MA==/aW5kZXgubTN1OA==.m3u8?headers=%7B%22origin%22%3A%22https%3A%2F%2Fvideostr.net%22%2C%22referer%22%3A%22https%3A%2F%2Fvideostr.net%2F%22%7D&host=https%3A%2F%2Faurorabird6.live.
+Error opening input files: Server returned 403 Forbidden (access denied)
+
+# tmdb_id=810693|tipo=movie|titulo=movie_810693|url=https://storm.vodvidl.site/proxy/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/MTA4MA==/aW5kZXgubTN1OA==.m3u8?headers=%7B%22origin%22%3A%22https%3A%2F%2Fvideostr.net%22%2C%22referer%22%3A%22https%3A%2F%2Fvideostr.net%2F%22%7D&host=https%3A%2F%2Faurorabird6.live
