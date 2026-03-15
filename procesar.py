@@ -23,31 +23,40 @@ def supabase_request(method, path, body=None):
         'Content-Type': 'application/json',
         'Prefer': 'return=representation',
     }
-    resp = requests.request(method, url, headers=headers, json=body)
+    resp = requests.request(method, url, headers=headers, json=body, timeout=30)
     return resp.json()
 
 def upload_to_pixeldrain(filepath, filename):
-    print(f"  → Subiendo a Pixeldrain con curl: {filename}")
-    # Usar curl directamente — maneja mejor SSL para archivos grandes
-    cmd = [
-        'curl', '-X', 'POST',
-        '-u', f':{PIXELDRAIN_API_KEY}',
-        '-F', f'file=@{filepath};filename={filename}',
-        '-F', f'name={filename}',
-        '--retry', '3',
-        '--retry-delay', '5',
-        '-s',
-        'https://pixeldrain.com/api/file/'
-    ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        raise Exception(f"curl error: {result.stderr}")
+    print(f"  → Subiendo a Pixeldrain: {filename}")
+    size_mb = os.path.getsize(filepath) / 1024 / 1024
+    print(f"  → Tamaño: {size_mb:.1f} MB")
     
-    response = json.loads(result.stdout)
-    if 'id' not in response:
-        raise Exception(f"Pixeldrain error: {result.stdout}")
+    auth = base64.b64encode(f":{PIXELDRAIN_API_KEY}".encode()).decode()
     
-    return f"https://pixeldrain.com/u/{response['id']}"
+    # Subir en chunks con session para mejor manejo SSL
+    session = requests.Session()
+    session.headers.update({'Authorization': f'Basic {auth}'})
+    
+    with open(filepath, 'rb') as f:
+        resp = session.post(
+            'https://pixeldrain.com/api/file/',
+            files={'file': (filename, f, 'video/mp4')},
+            data={'name': filename},
+            timeout=7200,  # 2 horas
+            verify=True,
+        )
+    
+    print(f"  → Status Pixeldrain: {resp.status_code}")
+    print(f"  → Respuesta: {resp.text[:200]}")
+    
+    if resp.status_code != 201:
+        raise Exception(f"Pixeldrain error {resp.status_code}: {resp.text}")
+    
+    data = resp.json()
+    if 'id' not in data:
+        raise Exception(f"Pixeldrain sin id: {resp.text}")
+    
+    return f"https://pixeldrain.com/u/{data['id']}"
 
 def download_m3u8(m3u8_url, output_path):
     print(f"  → Descargando m3u8...")
