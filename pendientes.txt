@@ -1,1 +1,13 @@
 tmdb_id=1243460|tipo=movie|titulo=movie_1243460|url=https://v-mp4.randomrainever.workers.dev/p/afc7d47f/ma9yIsUHLd1oEUKmveBRD-C_aF2Wf7Vu31eZnRXXaHOOob08pCLqcffeGs3wnByrxy9oABnBt86oYnAQbQ0KV4OxvygGGQQF81oN7SoKCKppLihYNGl2gPnX7HhsU4Ukaw4FPmFG0G97RiuUehqbhtndJ7RurjQjiriZqDIEqNkvFp24kKs7zsjBL4eUVTxzQRt5tE1dfcuc_SawXl-64dgRD-nYN0I9EHwtmcjGmspMF63bFVsi41G7m8yP7pETDncNrwrYzrmxzKeY59nOmg.m3u8
+# ERROR: ffmpeg error:  16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[https @ 0x561b33644900] HTTP error 500 Internal Server Error
+[in#0 @ 0x561b33643ec0] Error opening input: Server returned 5XX Server Error reply
+Error opening input file https://v-mp4.randomrainever.workers.dev/p/afc7d47f/ma9yIsUHLd1oEUKmveBRD-C_aF2Wf7Vu31eZnRXXaHOOob08pCLqcffeGs3wnByrxy9oABnBt86oYnAQbQ0KV4OxvygGGQQF81oN7SoKCKppLihYNGl2gPnX7HhsU4Ukaw4FPmFG0G97RiuUehqbhtndJ7RurjQjiriZqDIEqNkvFp24kKs7zsjBL4eUVTxzQRt5tE1dfcuc_SawXl-64dgRD-nYN0I9EHwtmcjGmspMF63bFVsi41G7m8yP7pETDncNrwrYzrmxzKeY59nOmg.m3u8.
+Error opening input files: Server returned 5XX Server Error reply
+
+# tmdb_id=1243460|tipo=movie|titulo=movie_1243460|url=https://v-mp4.randomrainever.workers.dev/p/afc7d47f/ma9yIsUHLd1oEUKmveBRD-C_aF2Wf7Vu31eZnRXXaHOOob08pCLqcffeGs3wnByrxy9oABnBt86oYnAQbQ0KV4OxvygGGQQF81oN7SoKCKppLihYNGl2gPnX7HhsU4Ukaw4FPmFG0G97RiuUehqbhtndJ7RurjQjiriZqDIEqNkvFp24kKs7zsjBL4eUVTxzQRt5tE1dfcuc_SawXl-64dgRD-nYN0I9EHwtmcjGmspMF63bFVsi41G7m8yP7pETDncNrwrYzrmxzKeY59nOmg.m3u8
