@@ -1,12 +1,3 @@
-tmdb_id=810693|tipo=movie|titulo=movie_810693|url=https://storm.vodvidl.site/proxy/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/MTA4MA==/aW5kZXgubTN1OA==.m3u8?headers=%7B%22origin%22%3A%22https%3A%2F%2Fvideostr.net%22%2C%22referer%22%3A%22https%3A%2F%2Fvideostr.net%2F%22%7D&host=https%3A%2F%2Faurorabird6.live
-# ERROR: ffmpeg error: 
-  libavfilter     9. 12.100 /  9. 12.100
-  libswscale      7.  5.100 /  7.  5.100
-  libswresample   4. 12.100 /  4. 12.100
-  libpostproc    57.  3.100 / 57.  3.100
-[https @ 0x558afc0c98c0] HTTP error 403 Forbidden
-[in#0 @ 0x558afc0c8e80] Error opening input: Server returned 403 Forbidden (access denied)
-Error opening input file https://storm.vodvidl.site/proxy/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/MTA4MA==/aW5kZXgubTN1OA==.m3u8?headers=%7B%22origin%22%3A%22https%3A%2F%2Fvideostr.net%22%2C%22referer%22%3A%22https%3A%2F%2Fvideostr.net%2F%22%7D&host=https%3A%2F%2Faurorabird6.live.
-Error opening input files: Server returned 403 Forbidden (access denied)
-
-# tmdb_id=810693|tipo=movie|titulo=movie_810693|url=https://storm.vodvidl.site/proxy/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/MTA4MA==/aW5kZXgubTN1OA==.m3u8?headers=%7B%22origin%22%3A%22https%3A%2F%2Fvideostr.net%22%2C%22referer%22%3A%22https%3A%2F%2Fvideostr.net%2F%22%7D&host=https%3A%2F%2Faurorabird6.live
+tmdb_id=1291608|tipo=movie|titulo=movie_1291608|url=https://v-mp4.randomrainever.workers.dev/p/afc7d47f/ma9yIsUHLd1oEUKmveBRD1VWeWxcU999wFZ5DMOZCuLk9MlrRxrBW3mGnduY9yw8sR1ConYj_2PidXH0oMp-CkAgoTGJNI-4CCcKop6ReUtxiIxlJCFniZDWfVmazrL3w4FagzYkQ7Jjhz5imGtiheCyO6BSXTU4GINZQ_CpOvSxWVkVybkwZKqk-CLP9ctvzNRQetsXkg3yAE2PZthA4I7bqwxe2FTTVFcu09JLj4JOjNDAatuDerRFhCbUGoS2mZluyJ9AGpX4zYk8lfACf65CwTK01pywoqbLc09PT-088M1rE3jhvNgqeYQPMtEGnPJ1os6FdmpLAVtyaVN_ESMYdOsrbBYI2udUjGoOXA_55uYuHmh5esfFyHcYRjjZw53DNbIkIlhHEcEI7mFqcFcxCCrHtX3F1MQlE5UbI23j3TuNDzktulJC-0JCfHq5BiWT7WrSExUQQSht374UecDZ-i47ECE4zgljp6uKJsc1Mlg-ie_hcMytnRh47isoPm1z5feGSHKGR6OGo-NaJg.m3u8
+tmdb_id=1243460|tipo=movie|titulo=movie_1243460|url=PEGA_M3U8_AQUI
+tmdb_id=810693|tipo=movie|titulo=movie_810693|url=PEGA_M3U8_AQUI
