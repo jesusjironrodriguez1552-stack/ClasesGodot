@@ -1,1 +1,16 @@
 tmdb_id=1291608|tipo=movie|titulo=movie_1291608|url=https://v-mp4.randomrainever.workers.dev/p/afc7d47f/ma9yIsUHLd1oEUKmveBRD-C_aF2Wf7Vu31eZnRXXaHOOob08pCLqcffeGs3wnByr-9kI9IuP9oG501KTOROy9hIGOs1OM1VT8SbWbWZhdUxXyycFs5opzjMb01TWeGF8aRrX5jLzY2JxmjyLikjYbGiicZAs5tAGtL7L2avlj92qdPT2EIeb3fcJETEpYaCBExX79p5-VFj93iW-v5huoxOH_dlvSn4IHQsOvf5lG2jbOW1GuDjDbCXoUQqNgigo-xrPtjXUO3z1L1asxkswwg.m3u8
+# ERROR: ffmpeg error: esize' (5000000) options
+Input #0, hls, from 'https://v-mp4.randomrainever.workers.dev/p/afc7d47f/ma9yIsUHLd1oEUKmveBRD-C_aF2Wf7Vu31eZnRXXaHOOob08pCLqcffeGs3wnByr-9kI9IuP9oG501KTOROy9hIGOs1OM1VT8SbWbWZhdUxXyycFs5opzjMb01TWeGF8aRrX5jLzY2JxmjyLikjYbGiicZAs5tAGtL7L2avlj92qdPT2EIeb3fcJETEpYaCBExX79p5-VFj93iW-v5huoxOH_dlvSn4IHQsOvf5lG2jbOW1GuDjDbCXoUQqNgigo-xrPtjXUO3z1L1asxkswwg.m3u8':
+  Duration: 03:25:34.67, bitrate: N/A
+  Program 0 
+    Metadata:
+      variant_bitrate : 0
+  Stream #0:0: Video: png, none(pc), 25 tbr, 25 tbn
+    Metadata:
+      variant_bitrate : 0
+Output #0, mp4, to '/tmp/tmpynm4opif/movie_1291608.mp4':
+[out#0/mp4 @ 0x559ef734f9c0] Output file does not contain any stream
+Error opening output file /tmp/tmpynm4opif/movie_1291608.mp4.
+Error opening output files: Invalid argument
+
+# tmdb_id=1291608|tipo=movie|titulo=movie_1291608|url=https://v-mp4.randomrainever.workers.dev/p/afc7d47f/ma9yIsUHLd1oEUKmveBRD-C_aF2Wf7Vu31eZnRXXaHOOob08pCLqcffeGs3wnByr-9kI9IuP9oG501KTOROy9hIGOs1OM1VT8SbWbWZhdUxXyycFs5opzjMb01TWeGF8aRrX5jLzY2JxmjyLikjYbGiicZAs5tAGtL7L2avlj92qdPT2EIeb3fcJETEpYaCBExX79p5-VFj93iW-v5huoxOH_dlvSn4IHQsOvf5lG2jbOW1GuDjDbCXoUQqNgigo-xrPtjXUO3z1L1asxkswwg.m3u8
