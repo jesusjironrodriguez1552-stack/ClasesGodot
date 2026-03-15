@@ -1,3 +1,45 @@
 tmdb_id=1291608|tipo=movie|titulo=movie_1291608|url=https://wind.10018.workers.dev/thunderleaf12.online/file2/OjOJVvC28Cs19XPWm1bC3QyeMAjo2tSx0gbcXWoSzMz+mSflENJ3JzFx0Xpkz1C0rWCQdQL6C9htMDqXbtddbfKs47pCuDd6znkFFe3QmmJcc9Tl4~ocag29rszvOuWXnHizeaMrW0jGnCRFnIDlR5PpJjSI+167P+1tfiXYQ2Y=/cGxheWxpc3QubTN1OA==.m3u8
 tmdb_id=1243460|tipo=movie|titulo=movie_1243460|url=https://wind.10018.workers.dev/thunderleaf12.online/file2/TuZ8Wes5LvC~wG8UpocjpWjXUb5SWBthsfmsrEvsfJ7lYpZEuUhSgrf+cc3JjDI6Av~tu456sMs3six8DUsN9s+mJqYtJhz8Kl~hOu3wm9pGaXg9QobJk+tRSlrm7R+f7VXhp5+4RfgYSq4Z1pGNv2HlZSXsKuoGDAemTJP4fko=/cGxheWxpc3QubTN1OA==.m3u8
 tmdb_id=810693|tipo=movie|titulo=movie_810693|url=https://wind.10018.workers.dev/nightbreeze17.site/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/cGxheWxpc3QubTN1OA==.m3u8
+# ERROR: ffmpeg error: 00 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[https @ 0x55fe756af580] HTTP error 403 Forbidden
+[in#0 @ 0x55fe756aee80] Error opening input: Server returned 403 Forbidden (access denied)
+Error opening input file https://wind.10018.workers.dev/thunderleaf12.online/file2/OjOJVvC28Cs19XPWm1bC3QyeMAjo2tSx0gbcXWoSzMz+mSflENJ3JzFx0Xpkz1C0rWCQdQL6C9htMDqXbtddbfKs47pCuDd6znkFFe3QmmJcc9Tl4~ocag29rszvOuWXnHizeaMrW0jGnCRFnIDlR5PpJjSI+167P+1tfiXYQ2Y=/cGxheWxpc3QubTN1OA==.m3u8.
+Error opening input files: Server returned 403 Forbidden (access denied)
+
+# tmdb_id=1291608|tipo=movie|titulo=movie_1291608|url=https://wind.10018.workers.dev/thunderleaf12.online/file2/OjOJVvC28Cs19XPWm1bC3QyeMAjo2tSx0gbcXWoSzMz+mSflENJ3JzFx0Xpkz1C0rWCQdQL6C9htMDqXbtddbfKs47pCuDd6znkFFe3QmmJcc9Tl4~ocag29rszvOuWXnHizeaMrW0jGnCRFnIDlR5PpJjSI+167P+1tfiXYQ2Y=/cGxheWxpc3QubTN1OA==.m3u8
+# ERROR: ffmpeg error: 00 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[https @ 0x56014fd2d580] HTTP error 403 Forbidden
+[in#0 @ 0x56014fd2ce80] Error opening input: Server returned 403 Forbidden (access denied)
+Error opening input file https://wind.10018.workers.dev/thunderleaf12.online/file2/TuZ8Wes5LvC~wG8UpocjpWjXUb5SWBthsfmsrEvsfJ7lYpZEuUhSgrf+cc3JjDI6Av~tu456sMs3six8DUsN9s+mJqYtJhz8Kl~hOu3wm9pGaXg9QobJk+tRSlrm7R+f7VXhp5+4RfgYSq4Z1pGNv2HlZSXsKuoGDAemTJP4fko=/cGxheWxpc3QubTN1OA==.m3u8.
+Error opening input files: Server returned 403 Forbidden (access denied)
+
+# tmdb_id=1243460|tipo=movie|titulo=movie_1243460|url=https://wind.10018.workers.dev/thunderleaf12.online/file2/TuZ8Wes5LvC~wG8UpocjpWjXUb5SWBthsfmsrEvsfJ7lYpZEuUhSgrf+cc3JjDI6Av~tu456sMs3six8DUsN9s+mJqYtJhz8Kl~hOu3wm9pGaXg9QobJk+tRSlrm7R+f7VXhp5+4RfgYSq4Z1pGNv2HlZSXsKuoGDAemTJP4fko=/cGxheWxpc3QubTN1OA==.m3u8
+# ERROR: ffmpeg error: .100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[https @ 0x56243ec5a580] HTTP error 403 Forbidden
+[in#0 @ 0x56243ec59e80] Error opening input: Server returned 403 Forbidden (access denied)
+Error opening input file https://wind.10018.workers.dev/nightbreeze17.site/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/cGxheWxpc3QubTN1OA==.m3u8.
+Error opening input files: Server returned 403 Forbidden (access denied)
+
+# tmdb_id=810693|tipo=movie|titulo=movie_810693|url=https://wind.10018.workers.dev/nightbreeze17.site/file2/GKqwbykCL7KbVY9ShuNWbxQsktrC2U2C26Lj930slGojgFXI0Hc8SczWSwjduhJZ5GUW8TLXyBr2zbguKrp5LhEIl5zIgMHf8GU+zfbbgwP8j+mIMqrIst4FBCtVBhEpraTmhuR5onRFZ2jKUkA6H5WMMuPyJoQXdgK3IqeR3rA=/cGxheWxpc3QubTN1OA==.m3u8
