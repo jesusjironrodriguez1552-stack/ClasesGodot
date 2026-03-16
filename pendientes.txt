@@ -1,1 +1,15 @@
 tmdb_id=1271|tipo=movie|titulo=movie_1271|url=https://filemirage.com/file/7po5lbiz
+# ERROR: ffmpeg error:  --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[in#0 @ 0x56491dec1e80] Error opening input: Invalid data found when processing input
+Error opening input file https://filemirage.com/file/7po5lbiz.
+Error opening input files: Invalid data found when processing input
+
+# tmdb_id=1271|tipo=movie|titulo=movie_1271|url=https://filemirage.com/file/7po5lbiz
