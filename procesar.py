@@ -150,4 +150,4 @@ def main():
     print(f"\n── Resumen: {len(procesadas)} procesadas, {len(errores)} errores")
 
 if __name__ == '__main__':
-    main()
+    main()     
