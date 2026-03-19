@@ -1,1 +1,1 @@
-tmdb_id=1271|tipo=movie|titulo=2_Fast_2_Furious|url=http://lista.lamtv.site:8080/movie/STD-00008/TVTV2829/20479.mkv
+tmdb_id=1271|tipo=movie|titulo=2_Fast_2_Furious|url=http://lista.lamtv.site:8080/movie/STD-00008/TVTV2829/20479.mkv 
