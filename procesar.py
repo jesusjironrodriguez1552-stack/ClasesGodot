@@ -6,11 +6,89 @@ import tempfile
 import requests
 
 # ── Config ────────────────────────────────────────────────────────────────────
-ARCHIVE_ACCESS_KEY = 'zOugYIKf9hoBlS5p'
-ARCHIVE_SECRET_KEY = 'XwnPRXY7qLk6tee3'
+B2_KEY_ID          = 'fd1505cd100c'
+B2_APP_KEY         = '005b9ab6794f863e7a5e280be75b94cb1b5785b04b'
+B2_BUCKET_NAME     = 'netfix-vidios'
 SUPABASE_URL       = 'https://ngnutcjeuknwiaebduun.supabase.co'
 SUPABASE_KEY       = os.environ['SUPABASE_KEY']
 PENDIENTES_FILE    = 'pendientes.txt'
+
+# ── Backblaze B2 ──────────────────────────────────────────────────────────────
+def b2_authorize():
+    resp = requests.get(
+        'https://api.backblazeb2.com/b2api/v2/b2_authorize_account',
+        auth=(B2_KEY_ID, B2_APP_KEY)
+    )
+    data = resp.json()
+    return data['authorizationToken'], data['apiUrl'], data['downloadUrl']
+
+def b2_get_upload_url(api_url, auth_token, bucket_id):
+    resp = requests.post(
+        f'{api_url}/b2api/v2/b2_get_upload_url',
+        headers={'Authorization': auth_token},
+        json={'bucketId': bucket_id}
+    )
+    data = resp.json()
+    return data['uploadUrl'], data['authorizationToken']
+
+def b2_get_bucket_id(api_url, auth_token):
+    resp = requests.post(
+        f'{api_url}/b2api/v2/b2_list_buckets',
+        headers={'Authorization': auth_token},
+        json={'accountId': requests.get(
+            'https://api.backblazeb2.com/b2api/v2/b2_authorize_account',
+            auth=(B2_KEY_ID, B2_APP_KEY)
+        ).json()['accountId']}
+    )
+    buckets = resp.json()['buckets']
+    for b in buckets:
+        if b['bucketName'] == B2_BUCKET_NAME:
+            return b['bucketId']
+    raise Exception(f"Bucket {B2_BUCKET_NAME} no encontrado")
+
+def upload_to_b2(filepath, filename):
+    print(f"  → Autorizando Backblaze B2...")
+    auth_token, api_url, download_url = b2_authorize()
+
+    print(f"  → Obteniendo bucket...")
+    resp = requests.post(
+        f'{api_url}/b2api/v2/b2_list_buckets',
+        headers={'Authorization': auth_token},
+        json={'accountId': requests.get(
+            'https://api.backblazeb2.com/b2api/v2/b2_authorize_account',
+            auth=(B2_KEY_ID, B2_APP_KEY)
+        ).json()['accountId'], 'bucketName': B2_BUCKET_NAME}
+    )
+    bucket_id = resp.json()['buckets'][0]['bucketId']
+
+    upload_url, upload_token = b2_get_upload_url(api_url, auth_token, bucket_id)
+
+    size = os.path.getsize(filepath)
+    size_mb = size / 1024 / 1024
+    print(f"  → Subiendo a B2: {filename} ({size_mb:.1f} MB)")
+
+    import hashlib
+    with open(filepath, 'rb') as f:
+        data = f.read()
+    sha1 = hashlib.sha1(data).hexdigest()
+
+    resp = requests.post(
+        upload_url,
+        headers={
+            'Authorization': upload_token,
+            'X-Bz-File-Name': urllib.parse.quote(filename),
+            'Content-Type': 'video/mp4',
+            'Content-Length': str(size),
+            'X-Bz-Content-Sha1': sha1,
+        },
+        data=data
+    )
+
+    if resp.status_code != 200:
+        raise Exception(f"B2 error {resp.status_code}: {resp.text[:300]}")
+
+    print(f"  → Status B2: {resp.status_code}")
+    return f"{download_url}/file/{B2_BUCKET_NAME}/{filename}"
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def supabase_request(method, path, body=None):
@@ -24,33 +102,9 @@ def supabase_request(method, path, body=None):
     resp = requests.request(method, url, headers=headers, json=body, timeout=30)
     return resp.json()
 
-def upload_to_archive(filepath, filename, identifier):
-    print(f"  → Subiendo a Internet Archive: {filename}")
-    size_mb = os.path.getsize(filepath) / 1024 / 1024
-    print(f"  → Tamaño: {size_mb:.1f} MB")
-
-    url = f"https://s3.us.archive.org/{identifier}/{filename}"
-    headers = {
-        'Authorization': f'LOW {ARCHIVE_ACCESS_KEY}:{ARCHIVE_SECRET_KEY}',
-        'x-archive-auto-make-bucket': '1',
-        'x-archive-meta-mediatype': 'movies',
-        'x-archive-meta-subject': 'movie',
-        'x-archive-ignore-preexisting-bucket': '1',
-        'Content-Type': 'video/mp4',
-    }
-
-    with open(filepath, 'rb') as f:
-        resp = requests.put(url, headers=headers, data=f, timeout=7200)
-
-    print(f"  → Status Archive: {resp.status_code}")
-    if resp.status_code not in (200, 201):
-        raise Exception(f"Archive error {resp.status_code}: {resp.text[:300]}")
-
-    return f"https://archive.org/download/{identifier}/{filename}"
-
-def download_m3u8(m3u8_url, output_path):
+def download_video(url, output_path):
     print(f"  → Descargando video...")
-    parsed = urllib.parse.urlparse(m3u8_url)
+    parsed = urllib.parse.urlparse(url)
     referer = f"{parsed.scheme}://{parsed.netloc}/"
     cmd = [
         'ffmpeg', '-y',
@@ -64,19 +118,20 @@ def download_m3u8(m3u8_url, output_path):
             'Chrome/120.0.0.0 Safari/537.36\r\n'
             f'Origin: {referer}\r\n'
         ),
-        '-i', m3u8_url,
-        '-c', 'copy',
+        '-i', url,
+        '-c:v', 'copy',
+        '-c:a', 'ac3',
         output_path
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         raise Exception(f"ffmpeg error: {result.stderr[-800:]}")
 
-def guardar_en_supabase(tipo, tmdb_id, temporada, episodio, archive_url):
+def guardar_en_supabase(tipo, tmdb_id, temporada, episodio, b2_url):
     print(f"  → Guardando link en Supabase...")
     if tipo == 'movie':
         supabase_request('PATCH', f'peliculas?tmdb_id=eq.{tmdb_id}', {
-            'url_pixeldrain': archive_url
+            'url_pixeldrain': b2_url
         })
     else:
         series = supabase_request('GET', f'series?tmdb_id=eq.{tmdb_id}&select=id')
@@ -85,7 +140,7 @@ def guardar_en_supabase(tipo, tmdb_id, temporada, episodio, archive_url):
         serie_id = series[0]['id']
         supabase_request('PATCH',
             f'episodios?serie_id=eq.{serie_id}&temporada=eq.{temporada}&episodio=eq.{episodio}',
-            {'url_pixeldrain': archive_url}
+            {'url_pixeldrain': b2_url}
         )
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -110,7 +165,7 @@ def main():
             params = dict(p.split('=', 1) for p in linea.split('|'))
             tmdb_id   = params['tmdb_id']
             tipo      = params.get('tipo', 'movie')
-            m3u8_url  = params['url']
+            video_url = params['url']
             titulo    = params.get('titulo', f'{tipo}_{tmdb_id}')
             temporada = int(params.get('temporada', 1))
             episodio  = int(params.get('episodio', 1))
@@ -119,20 +174,16 @@ def main():
             if tipo == 'tv':
                 safe_name += f'_s{temporada:02d}e{episodio:02d}'
 
-            identifier = f"netfix-app-{safe_name}-{tmdb_id}"
-            if tipo == 'tv':
-                identifier += f"-s{temporada:02d}e{episodio:02d}"
-
             with tempfile.TemporaryDirectory() as tmpdir:
                 output_path = os.path.join(tmpdir, f'{safe_name}.mp4')
-                download_m3u8(m3u8_url, output_path)
+                download_video(video_url, output_path)
                 size_mb = os.path.getsize(output_path) / 1024 / 1024
                 print(f"  → Descargado: {size_mb:.1f} MB")
-                archive_url = upload_to_archive(output_path, f'{safe_name}.mp4', identifier)
-                print(f"  → Archive: {archive_url}")
+                b2_url = upload_to_b2(output_path, f'{safe_name}.mp4')
+                print(f"  → B2: {b2_url}")
 
-            guardar_en_supabase(tipo, tmdb_id, temporada, episodio, archive_url)
-            print(f"  ✅ Listo: {archive_url}")
+            guardar_en_supabase(tipo, tmdb_id, temporada, episodio, b2_url)
+            print(f"  ✅ Listo: {b2_url}")
             procesadas.append(linea)
 
         except Exception as e:
