@@ -28,25 +28,10 @@ jobs:
         env:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python procesar.py
-      - name: Guardar cambios en pendientes.txt
+      - name: Guardar cambios
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pendientes.txt
           git diff --staged --quiet || git commit -m "Auto: actualizar pendientes.txt"
           git push origin HEAD:main
-```
-
----
-
-**¿Dónde se guarda el video?**
-
-El script lo descarga en una carpeta temporal (`tempfile.TemporaryDirectory`) y luego lo sube a **Internet Archive**. Una vez subido, la carpeta temporal se borra automáticamente.
-```
-GitHub Actions descarga video
-        ↓
-Sube a Internet Archive
-        ↓
-Guarda el link en Supabase
-        ↓
-Borra el archivo temporal
