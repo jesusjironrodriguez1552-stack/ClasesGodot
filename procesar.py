@@ -4,6 +4,7 @@ import subprocess
 import urllib.parse
 import tempfile
 import requests
+import hashlib
 
 # ── Config ────────────────────────────────────────────────────────────────────
 B2_KEY_ID          = 'fd1505cd100c'
@@ -20,59 +21,37 @@ def b2_authorize():
         auth=(B2_KEY_ID, B2_APP_KEY)
     )
     data = resp.json()
-    return data['authorizationToken'], data['apiUrl'], data['downloadUrl']
-
-def b2_get_upload_url(api_url, auth_token, bucket_id):
-    resp = requests.post(
-        f'{api_url}/b2api/v2/b2_get_upload_url',
-        headers={'Authorization': auth_token},
-        json={'bucketId': bucket_id}
-    )
-    data = resp.json()
-    return data['uploadUrl'], data['authorizationToken']
-
-def b2_get_bucket_id(api_url, auth_token):
-    resp = requests.post(
-        f'{api_url}/b2api/v2/b2_list_buckets',
-        headers={'Authorization': auth_token},
-        json={'accountId': requests.get(
-            'https://api.backblazeb2.com/b2api/v2/b2_authorize_account',
-            auth=(B2_KEY_ID, B2_APP_KEY)
-        ).json()['accountId']}
-    )
-    buckets = resp.json()['buckets']
-    for b in buckets:
-        if b['bucketName'] == B2_BUCKET_NAME:
-            return b['bucketId']
-    raise Exception(f"Bucket {B2_BUCKET_NAME} no encontrado")
+    return data['authorizationToken'], data['apiUrl'], data['downloadUrl'], data['accountId']
 
 def upload_to_b2(filepath, filename):
     print(f"  → Autorizando Backblaze B2...")
-    auth_token, api_url, download_url = b2_authorize()
+    auth_token, api_url, download_url, account_id = b2_authorize()
 
     print(f"  → Obteniendo bucket...")
     resp = requests.post(
         f'{api_url}/b2api/v2/b2_list_buckets',
         headers={'Authorization': auth_token},
-        json={'accountId': requests.get(
-            'https://api.backblazeb2.com/b2api/v2/b2_authorize_account',
-            auth=(B2_KEY_ID, B2_APP_KEY)
-        ).json()['accountId'], 'bucketName': B2_BUCKET_NAME}
+        json={'accountId': account_id, 'bucketName': B2_BUCKET_NAME}
     )
     bucket_id = resp.json()['buckets'][0]['bucketId']
 
-    upload_url, upload_token = b2_get_upload_url(api_url, auth_token, bucket_id)
+    resp2 = requests.post(
+        f'{api_url}/b2api/v2/b2_get_upload_url',
+        headers={'Authorization': auth_token},
+        json={'bucketId': bucket_id}
+    )
+    upload_url = resp2.json()['uploadUrl']
+    upload_token = resp2.json()['authorizationToken']
 
     size = os.path.getsize(filepath)
     size_mb = size / 1024 / 1024
     print(f"  → Subiendo a B2: {filename} ({size_mb:.1f} MB)")
 
-    import hashlib
     with open(filepath, 'rb') as f:
         data = f.read()
     sha1 = hashlib.sha1(data).hexdigest()
 
-    resp = requests.post(
+    resp3 = requests.post(
         upload_url,
         headers={
             'Authorization': upload_token,
@@ -84,10 +63,10 @@ def upload_to_b2(filepath, filename):
         data=data
     )
 
-    if resp.status_code != 200:
-        raise Exception(f"B2 error {resp.status_code}: {resp.text[:300]}")
+    if resp3.status_code != 200:
+        raise Exception(f"B2 error {resp3.status_code}: {resp3.text[:300]}")
 
-    print(f"  → Status B2: {resp.status_code}")
+    print(f"  → Status B2: {resp3.status_code}")
     return f"{download_url}/file/{B2_BUCKET_NAME}/{filename}"
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -103,7 +82,7 @@ def supabase_request(method, path, body=None):
     return resp.json()
 
 def download_video(url, output_path):
-    print(f"  → Descargando video...")
+    print(f"  → Descargando y convirtiendo video...")
     parsed = urllib.parse.urlparse(url)
     referer = f"{parsed.scheme}://{parsed.netloc}/"
     cmd = [
@@ -119,8 +98,15 @@ def download_video(url, output_path):
             f'Origin: {referer}\r\n'
         ),
         '-i', url,
-        '-c:v', 'copy',
-        '-c:a', 'ac3',
+        '-map', '0:v:0',
+        '-map', '0:a:0',
+        '-c:v', 'libx264',
+        '-preset', 'fast',
+        '-b:v', '3000k',
+        '-vf', 'fps=30',
+        '-c:a', 'aac',
+        '-ac', '2',
+        '-b:a', '192k',
         output_path
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
