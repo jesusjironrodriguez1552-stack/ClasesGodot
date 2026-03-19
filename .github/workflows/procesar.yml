@@ -15,7 +15,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - name: Instalar ffmpeg
-        run: sudo apt-get install -y ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --fix-missing ffmpeg
       - name: Instalar Python
         uses: actions/setup-python@v5
         with:
@@ -33,3 +35,18 @@ jobs:
           git add pendientes.txt
           git diff --staged --quiet || git commit -m "Auto: actualizar pendientes.txt"
           git push origin HEAD:main
+```
+
+---
+
+**¿Dónde se guarda el video?**
+
+El script lo descarga en una carpeta temporal (`tempfile.TemporaryDirectory`) y luego lo sube a **Internet Archive**. Una vez subido, la carpeta temporal se borra automáticamente.
+```
+GitHub Actions descarga video
+        ↓
+Sube a Internet Archive
+        ↓
+Guarda el link en Supabase
+        ↓
+Borra el archivo temporal
