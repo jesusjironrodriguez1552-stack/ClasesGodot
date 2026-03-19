@@ -1,9 +1,1 @@
-[aost#0:1/copy @ 0x56532c5a6c40] Error initializing bitstream filter: aac_adtstoasc
-Error opening output file /tmp/tmptk59v_0h/video.mp4.
-Error opening output files: Invalid argument
-# ERROR: dictionary update sequence element #0 has length 1; 2 is required
-# [aost#0:1/copy @ 0x56532c5a6c40] Error initializing bitstream filter: aac_adtstoasc
-# ERROR: dictionary update sequence element #0 has length 1; 2 is required
-# Error opening output file /tmp/tmptk59v_0h/video.mp4.
-# ERROR: dictionary update sequence element #0 has length 1; 2 is required
-# Error opening output files: Invalid argument
+tmdb_id=1271|tipo=movie|titulo=2_fast_2_furious|url=http://lista.lamtv.site:8080/movie/STD-00008/TVTV2829/20479.mkv
