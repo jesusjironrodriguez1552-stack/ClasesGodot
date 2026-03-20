@@ -1,3 +1,4 @@
+
 import os
 import re
 import subprocess
@@ -9,7 +10,7 @@ import hashlib
 # ── Config ────────────────────────────────────────────────────────────────────
 B2_KEY_ID          = '45f913cac131'
 B2_APP_KEY         = '0055b0af6ae7b63475a1ff5fa890f6da577bbcba56'
-B2_BUCKET_NAME     = 'netfix-vidios'
+B2_BUCKET_NAME     = 'netfix-videos'
 SUPABASE_URL       = 'https://ngnutcjeuknwiaebduun.supabase.co'
 SUPABASE_KEY       = os.environ['SUPABASE_KEY']
 TMDB_API_KEY       = '7ab2b03ffaf39b40c6582c4fb1989d9d'
@@ -36,49 +37,54 @@ def b2_authorize():
     data = resp.json()
     return data['authorizationToken'], data['apiUrl'], data['downloadUrl'], data['accountId']
 
-def b2_espacio_disponible(api_url, auth_token, account_id):
-    resp = requests.post(
-        f'{api_url}/b2api/v2/b2_get_account_info',
-        headers={'Authorization': auth_token}
-    )
-    data = resp.json()
-    usado_gb = data.get('storageBytes', 0) / 1024 / 1024 / 1024
-    disponible_gb = 10.0 - usado_gb
-    print(f"  → Espacio usado: {usado_gb:.2f} GB / Disponible: {disponible_gb:.2f} GB")
-    return disponible_gb
-
 def upload_to_b2(filepath, filename):
     print(f"  → Autorizando Backblaze B2...")
     auth_token, api_url, download_url, account_id = b2_authorize()
 
-    disponible = b2_espacio_disponible(api_url, auth_token, account_id)
-    if disponible < ESPACIO_MINIMO_GB:
-        raise Exception(f"⚠️ Espacio insuficiente en B2: {disponible:.2f} GB disponibles, se necesitan {ESPACIO_MINIMO_GB} GB")
-
-    resp = requests.post(
+    # Verificar espacio
+    resp_info = requests.post(
         f'{api_url}/b2api/v2/b2_list_buckets',
         headers={'Authorization': auth_token},
-        json={'accountId': account_id, 'bucketName': B2_BUCKET_NAME}
+        json={'accountId': account_id}
     )
-    bucket_id = resp.json()['buckets'][0]['bucketId']
+    buckets = resp_info.json().get('buckets', [])
+    bucket = next((b for b in buckets if b['bucketName'] == B2_BUCKET_NAME), None)
+    if not bucket:
+        raise Exception(f"Bucket '{B2_BUCKET_NAME}' no encontrado")
+    bucket_id = bucket['bucketId']
 
+    # Verificar espacio disponible
     resp2 = requests.post(
+        f'{api_url}/b2api/v2/b2_get_download_authorization',
+        headers={'Authorization': auth_token},
+        json={'bucketId': bucket_id, 'fileNamePrefix': '', 'validDurationInSeconds': 60}
+    )
+    usado_bytes = bucket.get('bucketInfo', {}).get('storageBytes', 0)
+    usado_gb = usado_bytes / 1024 / 1024 / 1024
+    disponible_gb = 10.0 - usado_gb
+    print(f"  → Espacio disponible: {disponible_gb:.2f} GB")
+
+    if disponible_gb < ESPACIO_MINIMO_GB:
+        raise Exception(f"⚠️ Espacio insuficiente: {disponible_gb:.2f} GB disponibles")
+
+    # Obtener URL de subida
+    resp3 = requests.post(
         f'{api_url}/b2api/v2/b2_get_upload_url',
         headers={'Authorization': auth_token},
         json={'bucketId': bucket_id}
     )
-    upload_url = resp2.json()['uploadUrl']
-    upload_token = resp2.json()['authorizationToken']
+    upload_url = resp3.json()['uploadUrl']
+    upload_token = resp3.json()['authorizationToken']
 
     size = os.path.getsize(filepath)
     size_mb = size / 1024 / 1024
-    print(f"  → Subiendo a B2: {filename} ({size_mb:.1f} MB)")
+    print(f"  → Subiendo: {filename} ({size_mb:.1f} MB)")
 
     with open(filepath, 'rb') as f:
         data = f.read()
     sha1 = hashlib.sha1(data).hexdigest()
 
-    resp3 = requests.post(
+    resp4 = requests.post(
         upload_url,
         headers={
             'Authorization': upload_token,
@@ -90,8 +96,8 @@ def upload_to_b2(filepath, filename):
         data=data
     )
 
-    if resp3.status_code != 200:
-        raise Exception(f"B2 error {resp3.status_code}: {resp3.text[:300]}")
+    if resp4.status_code != 200:
+        raise Exception(f"B2 error {resp4.status_code}: {resp4.text[:300]}")
 
     return f"{download_url}/file/{B2_BUCKET_NAME}/{filename}"
 
@@ -120,21 +126,19 @@ def guardar_en_supabase(tipo, tmdb_id, temporada, episodio, b2_url):
                 'url_pixeldrain': b2_url,
                 'titulo': titulo,
                 'sinopsis': sinopsis,
-                'poster': poster,
             })
         else:
             supabase_request('POST', 'peliculas', {
                 'tmdb_id': tmdb_id,
                 'titulo': titulo,
                 'sinopsis': sinopsis,
-                'poster': poster,
                 'url_video': b2_url,
                 'url_pixeldrain': b2_url,
             })
     else:
         series = supabase_request('GET', f'series?tmdb_id=eq.{tmdb_id}&select=id')
         if not series:
-            raise Exception(f"Serie tmdb_id={tmdb_id} no encontrada en Supabase")
+            raise Exception(f"Serie tmdb_id={tmdb_id} no encontrada")
         serie_id = series[0]['id']
         supabase_request('PATCH',
             f'episodios?serie_id=eq.{serie_id}&temporada=eq.{temporada}&episodio=eq.{episodio}',
