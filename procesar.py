@@ -7,12 +7,25 @@ import requests
 import hashlib
 
 # ── Config ────────────────────────────────────────────────────────────────────
-B2_KEY_ID          = 'fd1505cd100c'
-B2_APP_KEY         = '005b9ab6794f863e7a5e280be75b94cb1b5785b04b'
+B2_KEY_ID          = '45f913cac131'
+B2_APP_KEY         = '0055b0af6ae7b63475a1ff5fa890f6da577bbcba56'
 B2_BUCKET_NAME     = 'netfix-vidios'
 SUPABASE_URL       = 'https://ngnutcjeuknwiaebduun.supabase.co'
 SUPABASE_KEY       = os.environ['SUPABASE_KEY']
+TMDB_API_KEY       = '7ab2b03ffaf39b40c6582c4fb1989d9d'
 PENDIENTES_FILE    = 'pendientes.txt'
+ESPACIO_MINIMO_GB  = 3.0
+
+# ── TMDB ──────────────────────────────────────────────────────────────────────
+def obtener_info_tmdb(tmdb_id, tipo):
+    endpoint = 'movie' if tipo == 'movie' else 'tv'
+    url = f'https://api.themoviedb.org/3/{endpoint}/{tmdb_id}?api_key={TMDB_API_KEY}&language=es-ES'
+    resp = requests.get(url)
+    data = resp.json()
+    titulo = data.get('title') or data.get('name', f'{tipo}_{tmdb_id}')
+    sinopsis = data.get('overview', '')
+    poster = f"https://image.tmdb.org/t/p/w500{data.get('poster_path', '')}" if data.get('poster_path') else ''
+    return titulo, sinopsis, poster
 
 # ── Backblaze B2 ──────────────────────────────────────────────────────────────
 def b2_authorize():
@@ -23,11 +36,25 @@ def b2_authorize():
     data = resp.json()
     return data['authorizationToken'], data['apiUrl'], data['downloadUrl'], data['accountId']
 
+def b2_espacio_disponible(api_url, auth_token, account_id):
+    resp = requests.post(
+        f'{api_url}/b2api/v2/b2_get_account_info',
+        headers={'Authorization': auth_token}
+    )
+    data = resp.json()
+    usado_gb = data.get('storageBytes', 0) / 1024 / 1024 / 1024
+    disponible_gb = 10.0 - usado_gb
+    print(f"  → Espacio usado: {usado_gb:.2f} GB / Disponible: {disponible_gb:.2f} GB")
+    return disponible_gb
+
 def upload_to_b2(filepath, filename):
     print(f"  → Autorizando Backblaze B2...")
     auth_token, api_url, download_url, account_id = b2_authorize()
 
-    print(f"  → Obteniendo bucket...")
+    disponible = b2_espacio_disponible(api_url, auth_token, account_id)
+    if disponible < ESPACIO_MINIMO_GB:
+        raise Exception(f"⚠️ Espacio insuficiente en B2: {disponible:.2f} GB disponibles, se necesitan {ESPACIO_MINIMO_GB} GB")
+
     resp = requests.post(
         f'{api_url}/b2api/v2/b2_list_buckets',
         headers={'Authorization': auth_token},
@@ -66,10 +93,9 @@ def upload_to_b2(filepath, filename):
     if resp3.status_code != 200:
         raise Exception(f"B2 error {resp3.status_code}: {resp3.text[:300]}")
 
-    print(f"  → Status B2: {resp3.status_code}")
     return f"{download_url}/file/{B2_BUCKET_NAME}/{filename}"
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# ── Supabase ──────────────────────────────────────────────────────────────────
 def supabase_request(method, path, body=None):
     url = f"{SUPABASE_URL}/rest/v1/{path}"
     headers = {
@@ -81,6 +107,41 @@ def supabase_request(method, path, body=None):
     resp = requests.request(method, url, headers=headers, json=body, timeout=30)
     return resp.json()
 
+def guardar_en_supabase(tipo, tmdb_id, temporada, episodio, b2_url):
+    print(f"  → Obteniendo info de TMDB...")
+    titulo, sinopsis, poster = obtener_info_tmdb(tmdb_id, tipo)
+    print(f"  → Título: {titulo}")
+
+    print(f"  → Guardando en Supabase...")
+    if tipo == 'movie':
+        existe = supabase_request('GET', f'peliculas?tmdb_id=eq.{tmdb_id}&select=tmdb_id')
+        if existe:
+            supabase_request('PATCH', f'peliculas?tmdb_id=eq.{tmdb_id}', {
+                'url_pixeldrain': b2_url,
+                'titulo': titulo,
+                'sinopsis': sinopsis,
+                'poster': poster,
+            })
+        else:
+            supabase_request('POST', 'peliculas', {
+                'tmdb_id': tmdb_id,
+                'titulo': titulo,
+                'sinopsis': sinopsis,
+                'poster': poster,
+                'url_video': b2_url,
+                'url_pixeldrain': b2_url,
+            })
+    else:
+        series = supabase_request('GET', f'series?tmdb_id=eq.{tmdb_id}&select=id')
+        if not series:
+            raise Exception(f"Serie tmdb_id={tmdb_id} no encontrada en Supabase")
+        serie_id = series[0]['id']
+        supabase_request('PATCH',
+            f'episodios?serie_id=eq.{serie_id}&temporada=eq.{temporada}&episodio=eq.{episodio}',
+            {'url_pixeldrain': b2_url}
+        )
+
+# ── ffmpeg ────────────────────────────────────────────────────────────────────
 def download_video(url, output_path):
     print(f"  → Descargando y convirtiendo video...")
     parsed = urllib.parse.urlparse(url)
@@ -113,22 +174,6 @@ def download_video(url, output_path):
     if result.returncode != 0:
         raise Exception(f"ffmpeg error: {result.stderr[-800:]}")
 
-def guardar_en_supabase(tipo, tmdb_id, temporada, episodio, b2_url):
-    print(f"  → Guardando link en Supabase...")
-    if tipo == 'movie':
-        supabase_request('PATCH', f'peliculas?tmdb_id=eq.{tmdb_id}', {
-            'url_pixeldrain': b2_url
-        })
-    else:
-        series = supabase_request('GET', f'series?tmdb_id=eq.{tmdb_id}&select=id')
-        if not series:
-            raise Exception(f"Serie tmdb_id={tmdb_id} no encontrada en Supabase")
-        serie_id = series[0]['id']
-        supabase_request('PATCH',
-            f'episodios?serie_id=eq.{serie_id}&temporada=eq.{temporada}&episodio=eq.{episodio}',
-            {'url_pixeldrain': b2_url}
-        )
-
 # ── Main ──────────────────────────────────────────────────────────────────────
 def main():
     if not os.path.exists(PENDIENTES_FILE):
@@ -143,7 +188,6 @@ def main():
         return
 
     procesadas = []
-    errores = []
 
     for linea in lineas:
         print(f"\n── Procesando: {linea[:80]}...")
@@ -152,11 +196,10 @@ def main():
             tmdb_id   = params['tmdb_id']
             tipo      = params.get('tipo', 'movie')
             video_url = params['url']
-            titulo    = params.get('titulo', f'{tipo}_{tmdb_id}')
             temporada = int(params.get('temporada', 1))
             episodio  = int(params.get('episodio', 1))
 
-            safe_name = re.sub(r'[^\w]', '_', titulo.lower())
+            safe_name = re.sub(r'[^\w]', '_', f'{tipo}_{tmdb_id}')
             if tipo == 'tv':
                 safe_name += f'_s{temporada:02d}e{episodio:02d}'
 
@@ -173,17 +216,14 @@ def main():
             procesadas.append(linea)
 
         except Exception as e:
-            print(f"  ❌ Error: {e}")
-            errores.append(f"# ERROR: {e}\n# {linea}")
+            print(f"  ❌ Detenido: {e}")
+            break
 
     restantes = [l for l in lineas if l not in procesadas]
     with open(PENDIENTES_FILE, 'w') as f:
-        if restantes:
-            f.write('\n'.join(restantes) + '\n')
-        if errores:
-            f.write('\n'.join(errores) + '\n')
+        f.write('\n'.join(restantes) + '\n')
 
-    print(f"\n── Resumen: {len(procesadas)} procesadas, {len(errores)} errores")
+    print(f"\n── Resumen: {len(procesadas)} procesadas")
 
 if __name__ == '__main__':
     main()
