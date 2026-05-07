@@ -25,6 +25,26 @@ body {
 #hintBox, 
 #btnSiguienteEditor, 
 #quizResult, 
+
+/* Estilo para cuando escriben el código completo */
+.ch-input.full-code {
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  padding: 15px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.1rem;
+  color: #00ff41;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+.ch-input.full-code::placeholder {
+  color: #444;
+}
+.ch-input.full-code:focus {
+  border-color: #00ff41;
+  box-shadow: 0 0 10px rgba(0,255,65,0.2);
+}
 #completionScreen {
   display: none;
 }
