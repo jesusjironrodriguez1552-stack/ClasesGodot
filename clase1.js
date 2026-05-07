@@ -5,16 +5,21 @@ const totalSections = 6;
 const sectionIds = ['sec-intro', 'sec-historia', 'sec-editor', 'sec-explicacion', 'sec-quiz', 'sec-ejercicio'];
 
 function goTo(targetId) {
+  // Ocultar todas las secciones
   document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+  // Mostrar la solicitada
   document.getElementById(targetId).classList.add('active');
+  // Subir al tope suavemente
   window.scrollTo({ top: 0, behavior: 'smooth' });
   
+  // Actualizar barra de progreso
   const currentIndex = sectionIds.indexOf(targetId) + 1;
   const progressPercent = Math.floor((currentIndex / totalSections) * 100);
   
   document.getElementById('progressBar').style.width = progressPercent + '%';
   document.getElementById('progressLabel').textContent = progressPercent + '%';
 
+  // Iniciar quiz si llega a esa sección
   if(targetId === 'sec-quiz' && currentQuestion === 0) {
     renderQuestion();
   }
@@ -156,7 +161,7 @@ function showQuizResult() {
 }
 
 // ===========================
-// SECCIÓN 6: RETOS FINALES
+// SECCIÓN 6: RETOS FINALES (CÓDIGO COMPLETO)
 // ===========================
 let challengesDone = { 1: false, 2: false, 3: false };
 
@@ -167,21 +172,30 @@ function checkChallenge(num) {
   let resultText = "";
   let isValid = false;
 
+  // Expresión regular que exige: console.log("texto") o console.log('texto')
+  // Permite espacios en blanco extra y punto y coma opcional al final.
+  const regexCode = /^console\.log\s*\(\s*['"](.*?)['"]\s*\)\s*;?$/;
+
   if (num === 1) {
     const val = document.getElementById('ch1-input').value.trim();
-    if (val !== "") { resultText = val; isValid = true; }
+    const match = val.match(regexCode);
+    if (match && match[1].trim() !== "") { resultText = match[1]; isValid = true; }
   } 
   else if (num === 2) {
     const val1 = document.getElementById('ch2-input1').value.trim();
     const val2 = document.getElementById('ch2-input2').value.trim();
-    if (val1 !== "" && val2 !== "") { 
-      resultText = `${val1}<br/>${val2}`; 
+    const match1 = val1.match(regexCode);
+    const match2 = val2.match(regexCode);
+    
+    if (match1 && match2 && match1[1].trim() !== "" && match2[1].trim() !== "") { 
+      resultText = `${match1[1]}<br/>${match2[1]}`; 
       isValid = true; 
     }
   } 
   else if (num === 3) {
     const val = document.getElementById('ch3-input').value.trim();
-    if (val !== "") { resultText = val; isValid = true; }
+    const match = val.match(regexCode);
+    if (match && match[1].trim() !== "") { resultText = match[1]; isValid = true; }
   }
 
   if (isValid) {
@@ -191,6 +205,7 @@ function checkChallenge(num) {
     challengeDiv.classList.add('success');
     challengesDone[num] = true;
     
+    // Si completó los 3, mostramos la pantalla final
     if(challengesDone[1] && challengesDone[2] && challengesDone[3]) {
       setTimeout(() => {
         document.querySelector('.challenges-wrap').style.display = 'none';
@@ -198,11 +213,13 @@ function checkChallenge(num) {
       }, 1000);
     }
   } else {
-    output.innerHTML = `<span style="color:#ff4141">Error: Debes escribir algo entre las comillas.</span>`;
+    // Mensaje de error más específico si se equivocan en la sintaxis
+    output.innerHTML = `<span style="color:#ff4141">Error de sintaxis. Recuerda escribir exactamente:<br/> console.log("tu mensaje");</span>`;
     output.style.display = "block";
   }
 }
 
+// Iniciar en la primera sección al cargar
 window.onload = () => {
   goTo('sec-intro');
 };
