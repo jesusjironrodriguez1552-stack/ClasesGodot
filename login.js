@@ -76,8 +76,8 @@ async function doLogin(event) {
   console.log("Sesión iniciada:", data.user);
   alert('¡ACCESO CONCEDIDO! Conectando al sistema...');
 
-  //Descomenta la siguiente línea para redirigir a tu panel cuando el usuario entre
-  window.location.href = 'panel.html';
+  // Usamos replace() en lugar de href para que no puedan volver atrás
+  window.location.replace('panel.html');
 
   return false;
 }
@@ -134,3 +134,18 @@ async function doRegister(event) {
 
   return false;
 }
+
+// ===========================
+// EVITAR QUE REGRESEN AL LOGIN
+// ===========================
+// Esta función revisa si el usuario ya está conectado al abrir la página.
+// Si ya tiene sesión, lo manda directo al panel sin dejar historial.
+async function revisarSesionActiva() {
+  const { data: { session } } = await clienteSupabase.auth.getSession();
+  if (session) {
+    window.location.replace('panel.html');
+  }
+}
+
+// Ejecutamos la revisión apenas carga la página index.html
+revisarSesionActiva();
