@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 1 — Comunicación con la Computadora | CodeMatrix</title>
+  
+  <link rel="stylesheet" href="clase1.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="scanline"></div>
+<div class="particles" id="particles"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="panel.html" class="back-btn">← PANEL</a>
+    <div class="logo">CODE<span>MATRIX</span></div>
+    <div class="clase-badge">CLASE 01</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+    <span class="progress-label" id="progressLabel">0%</span>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <section class="section active" id="sec-intro">
+    <div class="section-tag">// SECCIÓN 01 — INTRODUCCIÓN</div>
+    <h1 class="sec-title">Comunicación con<br/><span>la Computadora</span></h1>
+    <p class="sec-sub">No empezamos con teoría aburrida. Empezamos con una idea simple.</p>
+
+    <div class="idea-box">
+      <div class="idea-icon">💬</div>
+      <p>"Las computadoras son inteligentes,<br/>pero <strong>no entienden nuestro idioma.</strong>"</p>
+    </div>
+
+    <div class="cards-row">
+      <div class="card-info" data-delay="0">
+        <div class="card-icon">🌍</div>
+        <h3>Idiomas humanos</h3>
+        <p>Español, inglés, japonés... cada persona habla un idioma distinto.</p>
+      </div>
+      <div class="card-arrow">→</div>
+      <div class="card-info" data-delay="1">
+        <div class="card-icon">💻</div>
+        <h3>Lenguajes de programación</h3>
+        <p>Python, JavaScript, C++... la computadora entiende instrucciones precisas.</p>
+      </div>
+      <div class="card-arrow">→</div>
+      <div class="card-info" data-delay="2">
+        <div class="card-icon">⚡</div>
+        <h3>La PC ejecuta</h3>
+        <p>Recibe la orden, la procesa y actúa. Rápido y exacto.</p>
+      </div>
+    </div>
+
+    <div class="analogy-block">
+      <div class="analogy-title">// ANALOGÍA</div>
+      <div class="analogy-grid">
+        <div class="analogy-item">
+          <span class="aly-label">HUMANO</span>
+          <span class="aly-word">"Dame agua"</span>
+          <span class="aly-desc">Idioma natural</span>
+        </div>
+        <div class="aly-vs">≠</div>
+        <div class="analogy-item">
+          <span class="aly-label">COMPUTADORA</span>
+          <span class="aly-word">print("Agua")</span>
+          <span class="aly-desc">Lenguaje de programación</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="goTo('sec-historia')">SIGUIENTE: LA HISTORIA →</button>
+  </section>
+
+  <section class="section" id="sec-historia">
+    <div class="section-tag">// SECCIÓN 02 — MISIÓN</div>
+    <h2 class="sec-title">Una computadora que<br/><span>no sabe hablar</span></h2>
+
+    <div class="robot-scene">
+      <div class="robot-container">
+        <div class="robot" id="robot">
+          <div class="robot-head">
+            <div class="robot-eyes">
+              <div class="robot-eye" id="eye1"></div>
+              <div class="robot-eye" id="eye2"></div>
+            </div>
+            <div class="robot-mouth" id="robotMouth">···</div>
+          </div>
+          <div class="robot-body">
+            <div class="robot-panel">
+              <div class="panel-light" id="pLight1"></div>
+              <div class="panel-light" id="pLight2"></div>
+              <div class="panel-light" id="pLight3"></div>
+            </div>
+          </div>
+        </div>
+        <div class="robot-bubble" id="robotBubble">
+          <span id="bubbleText">Soy BYTE. No sé hablar todavía.<br/>¿Me enseñas mi primera palabra?</span>
+        </div>
+      </div>
+
+      <div class="mission-text">
+        <div class="mission-tag">// TU MISIÓN</div>
+        <p>BYTE es una computadora que acaba de encenderse por primera vez.<br/>
+        Puede procesar instrucciones, pero nadie le ha enseñado a comunicarse.</p>
+        <p>En esta clase, le enseñarás su primera habilidad:<br/>
+        <strong>mostrar un mensaje en pantalla.</strong></p>
+        <div class="mission-highlight">
+          Una sola instrucción. Un resultado visible. Tu primer programa real.
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="goTo('sec-editor')">SIGUIENTE: EL EDITOR →</button>
+  </section>
+
+  <section class="section" id="sec-editor">
+    <div class="section-tag">// SECCIÓN 03 — PRIMER PROGRAMA</div>
+    <h2 class="sec-title">Tu primer<br/><span>código real</span></h2>
+    <p class="sec-sub">El editor ya tiene casi todo listo. Solo falta una cosa...</p>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span class="editor-filename">main.py</span>
+        <span class="editor-lang">Python 3</span>
+      </div>
+
+      <div class="editor-body">
+        <div class="line-numbers">
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+        </div>
+        <div class="code-area">
+          <div class="code-line comment"># Mi primer programa en Python</div>
+          <div class="code-line comment"># Instrucción para mostrar un mensaje:</div>
+          <div class="code-line editable-line">
+            <span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input
+              type="text"
+              id="codeInput"
+              class="inline-input"
+              placeholder="escribe aquí..."
+              maxlength="40"
+              autocomplete="off"
+            /><span class="str-close">"</span><span class="paren">)</span>
+          </div>
+          <div class="code-line empty"></div>
+        </div>
+      </div>
+
+      <div class="editor-toolbar">
+        <button class="run-btn" id="runBtn" onclick="ejecutarCodigo()">
+          <span class="run-icon">▶</span> EJECUTAR
+        </button>
+        <button class="hint-btn" onclick="mostrarHint()">💡 PISTA</button>
+        <button class="reset-btn" onclick="resetEditor()">↺ LIMPIAR</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap" id="terminalWrap">
+      <div class="terminal-bar">
+        <span class="terminal-title">TERMINAL — SALIDA DEL PROGRAMA</span>
+        <span class="terminal-status" id="termStatus">LISTO</span>
+      </div>
+      <div class="terminal-body" id="terminalBody">
+        <span class="term-prompt">$</span> <span class="term-wait">esperando ejecución...</span>
+      </div>
+    </div>
+
+    <div class="byte-reaction" id="byteReaction">
+      <div class="byte-mini">🤖</div>
+      <div class="byte-msg" id="byteMsg"></div>
+    </div>
+
+    <div class="hint-box" id="hintBox">
+      <div class="hint-title">// PISTA</div>
+      <p>El comando <code>print()</code> muestra texto en pantalla.<br/>
+      Dentro de las comillas escribe lo que quieres mostrar.<br/>
+      Prueba escribir: <strong>Hola Mundo</strong></p>
+    </div>
+
+    <button class="btn-next" id="btnSiguienteEditor" onclick="goTo('sec-explicacion')">SIGUIENTE: EXPLICACIÓN →</button>
+  </section>
+
+  <section class="section" id="sec-explicacion">
+    <div class="section-tag">// SECCIÓN 04 — ¿QUÉ ACABAS DE HACER?</div>
+    <h2 class="sec-title">Entendiendo<br/><span>cada parte</span></h2>
+
+    <div class="code-display">
+      <span class="cd-kw" data-part="print">print</span><span class="cd-paren">(</span><span class="cd-str" data-part="str">"Hola Mundo"</span><span class="cd-paren">)</span>
+    </div>
+
+    <div class="parts-grid">
+      <div class="part-card" id="part-print" onclick="highlightPart('print')">
+        <div class="part-name">print</div>
+        <div class="part-tag">FUNCIÓN</div>
+        <p>Es una <strong>instrucción</strong> que le dice a Python:<br/>"muestra esto en pantalla".<br/>Como darle una orden a la computadora.</p>
+        <div class="part-example">print → "imprimir / mostrar"</div>
+      </div>
+
+      <div class="part-card" id="part-paren" onclick="highlightPart('paren')">
+        <div class="part-name">( )</div>
+        <div class="part-tag">PARÉNTESIS</div>
+        <p>Envuelven lo que quieres mostrar.<br/>Son como una <strong>caja</strong> donde pones el contenido que print mostrará.</p>
+        <div class="part-example">print( aquí va el mensaje )</div>
+      </div>
+
+      <div class="part-card" id="part-str" onclick="highlightPart('str')">
+        <div class="part-name">"Hola Mundo"</div>
+        <div class="part-tag">TEXTO / STRING</div>
+        <p>Es el mensaje que quieres mostrar.<br/>Las <strong>comillas</strong> le dicen a Python:<br/>"esto es texto, no una instrucción".</p>
+        <div class="part-example">"cualquier texto aquí"</div>
+      </div>
+    </div>
+
+    <div class="flow-diagram">
+      <div class="flow-step">
+        <div class="flow-icon">👨‍💻</div>
+        <div class="flow-label">Tú escribes</div>
+        <div class="flow-code">print("Hola")</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">🐍</div>
+        <div class="flow-label">Python lee</div>
+        <div class="flow-code">interpreta</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">💻</div>
+        <div class="flow-label">PC ejecuta</div>
+        <div class="flow-code">muestra: Hola</div>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="goTo('sec-quiz')">SIGUIENTE: QUIZ →</button>
+  </section>
+
+  <section class="section" id="sec-quiz">
+    <div class="section-tag">// SECCIÓN 05 — LECTURA INTERACTIVA</div>
+    <h2 class="sec-title">Comprueba lo que<br/><span>aprendiste</span></h2>
+
+    <div class="quiz-container" id="quizContainer">
+      </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="qr-score" id="qrScore"></div>
+      <div class="qr-msg" id="qrMsg"></div>
+      <button class="btn-next" onclick="goTo('sec-ejercicio')">SIGUIENTE: EJERCICIO FINAL →</button>
+    </div>
+  </section>
+
+  <section class="section" id="sec-ejercicio">
+    <div class="section-tag">// SECCIÓN 06 — EJERCICIO FINAL</div>
+    <h2 class="sec-title">Ahora hazlo<br/><span>tú solo</span></h2>
+    <p class="sec-sub">Ya entiendes el patrón. Completa los 3 desafíos.</p>
+
+    <div class="challenges-wrap">
+
+      <div class="challenge" id="ch1">
+        <div class="ch-header">
+          <span class="ch-num">01</span>
+          <span class="ch-title">Preséntate a la computadora</span>
+          <span class="ch-status" id="ch1-status">PENDIENTE</span>
+        </div>
+        <p class="ch-desc">Haz que Python muestre tu nombre.</p>
+        <div class="ch-editor">
+          <div class="ch-line"><span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch1-input" placeholder="Tu nombre..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
+        </div>
+        <button class="ch-run" onclick="checkChallenge(1)">▶ EJECUTAR</button>
+        <div class="ch-output" id="ch1-output"></div>
+      </div>
+
+      <div class="challenge" id="ch2">
+        <div class="ch-header">
+          <span class="ch-num">02</span>
+          <span class="ch-title">Segundo mensaje</span>
+          <span class="ch-status" id="ch2-status">PENDIENTE</span>
+        </div>
+        <p class="ch-desc">Muestra dos mensajes seguidos. ¿Qué pasa si usas print dos veces?</p>
+        <div class="ch-editor">
+          <div class="ch-line"><span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch2-input1" placeholder="Primer mensaje..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
+          <div class="ch-line"><span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch2-input2" placeholder="Segundo mensaje..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
+        </div>
+        <button class="ch-run" onclick="checkChallenge(2)">▶ EJECUTAR</button>
+        <div class="ch-output" id="ch2-output"></div>
+      </div>
+
+      <div class="challenge" id="ch3">
+        <div class="ch-header">
+          <span class="ch-num">03</span>
+          <span class="ch-title">Mensaje secreto para BYTE</span>
+          <span class="ch-status" id="ch3-status">PENDIENTE</span>
+        </div>
+        <p class="ch-desc">Escribe cualquier mensaje que quieras enviarle a BYTE.</p>
+        <div class="ch-editor">
+          <div class="ch-line"><span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch3-input" placeholder="Tu mensaje para BYTE..." maxlength="50" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
+        </div>
+        <button class="ch-run" onclick="checkChallenge(3)">▶ EJECUTAR</button>
+        <div class="ch-output" id="ch3-output"></div>
+      </div>
+
+    </div>
+
+    <div class="completion-screen" id="completionScreen">
+      <div class="comp-robot">🤖</div>
+      <div class="comp-title">¡CLASE 1 COMPLETADA!</div>
+      <div class="comp-sub">BYTE aprendió a comunicarse gracias a ti.</div>
+      <div class="comp-stats">
+        <div class="comp-stat">
+          <div class="cs-num">3</div>
+          <div class="cs-label">Ejercicios</div>
+        </div>
+        <div class="comp-stat">
+          <div class="cs-num">1</div>
+          <div class="cs-label">Concepto</div>
+        </div>
+        <div class="comp-stat">
+          <div class="cs-num">∞</div>
+          <div class="cs-label">Posibilidades</div>
+        </div>
+      </div>
+      <div class="comp-xp">+150 XP GANADOS</div>
+      <a href="panel.html" class="btn-next btn-return">
+        VOLVER AL PANEL →
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<script src="clase1.js"></script>
+</body>
+</html>
