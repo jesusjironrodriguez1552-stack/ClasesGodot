@@ -1,109 +1,112 @@
-/* =============================================
-   GODOTDESDE0 — INTRO
-   script.js
-   ============================================= */
+// ===========================
+// CAMBIAR ENTRE TABS
+// ===========================
+function switchTab(tab) {
+  const formLogin    = document.getElementById('form-login');
+  const formRegister = document.getElementById('form-register');
+  const tabLogin     = document.getElementById('tab-login');
+  const tabRegister  = document.getElementById('tab-register');
+  const alertBox     = document.getElementById('alert-box');
 
-/* --- Scroll fade-in observer --- */
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.12 }
-);
+  alertBox.style.display = 'none';
 
-document.querySelectorAll(
-  '.for-card, .how-step, .clase-row, .stat'
-).forEach((el) => {
-  el.classList.add('fade-in');
-  observer.observe(el);
-});
+  if (tab === 'login') {
+    formLogin.style.display    = 'block';
+    formRegister.style.display = 'none';
+    tabLogin.classList.add('active');
+    tabRegister.classList.remove('active');
+  } else {
+    formLogin.style.display    = 'none';
+    formRegister.style.display = 'block';
+    tabLogin.classList.remove('active');
+    tabRegister.classList.add('active');
+  }
+}
 
-/* --- Stagger delays for grids --- */
-document.querySelectorAll('.cards-grid .for-card').forEach((el, i) => {
-  el.style.transitionDelay = `${i * 60}ms`;
-});
+// ===========================
+// INICIAR SESIÓN
+// ===========================
+function doLogin(event) {
+  event.preventDefault();
 
-document.querySelectorAll('.how-step').forEach((el, i) => {
-  el.style.transitionDelay = `${i * 80}ms`;
-});
+  const user  = document.getElementById('login-user').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  const error = document.getElementById('login-error');
 
-document.querySelectorAll('.clase-row').forEach((el, i) => {
-  el.style.transitionDelay = `${i * 50}ms`;
-});
+  // Validación básica
+  if (!user || !pass) {
+    error.textContent = 'ERROR: Completa todos los campos.';
+    return false;
+  }
 
-/* --- Nav active link highlight --- */
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
+  // Buscar usuario guardado en localStorage
+  const guardado = JSON.parse(localStorage.getItem('usuario_' + user));
 
-const navObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        navLinks.forEach((link) => {
-          link.classList.remove('nav-active');
-          if (link.getAttribute('href') === `#${entry.target.id}`) {
-            link.classList.add('nav-active');
-          }
-        });
-      }
-    });
-  },
-  { rootMargin: '-40% 0px -55% 0px' }
-);
+  if (!guardado) {
+    error.textContent = 'ERROR: Usuario no encontrado.';
+    return false;
+  }
 
-sections.forEach((s) => navObserver.observe(s));
+  if (guardado.password !== pass) {
+    error.textContent = 'ERROR: Contraseña incorrecta.';
+    return false;
+  }
 
-/* --- Locked class rows: prevent navigation --- */
-document.querySelectorAll('.clase-row.locked').forEach((row) => {
-  row.addEventListener('click', (e) => {
-    e.preventDefault();
-    showToast('Esta clase estará disponible pronto 👀');
-  });
-});
+  // Login exitoso → guardar sesión y redirigir
+  error.textContent = '';
+  localStorage.setItem('sesion_activa', user);
 
-/* --- Toast notification --- */
-function showToast(msg) {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
+  // Aquí redirigirías a la página principal
+  alert('Bienvenido, ' + user + '! (Aquí irá la redirección al panel)');
+  // window.location.href = 'index.html';
 
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = msg;
-  toast.style.cssText = `
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: #18181f;
-    border: 1px solid rgba(255,255,255,0.12);
-    color: #f0f0f5;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 20px;
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    white-space: nowrap;
-    pointer-events: none;
-  `;
+  return false;
+}
 
-  document.body.appendChild(toast);
+// ===========================
+// REGISTRARSE
+// ===========================
+function doRegister(event) {
+  event.preventDefault();
 
-  requestAnimationFrame(() => {
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateX(-50%) translateY(0)';
-  });
+  const user  = document.getElementById('reg-user').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pass  = document.getElementById('reg-pass').value;
+  const error = document.getElementById('reg-error');
 
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-50%) translateY(10px)';
-    setTimeout(() => toast.remove(), 300);
-  }, 2800);
+  // Validaciones
+  if (!user || !email || !pass) {
+    error.textContent = 'ERROR: Completa todos los campos.';
+    return false;
+  }
+
+  if (pass.length < 8) {
+    error.textContent = 'ERROR: La contraseña debe tener al menos 8 caracteres.';
+    return false;
+  }
+
+  if (localStorage.getItem('usuario_' + user)) {
+    error.textContent = 'ERROR: Ese usuario ya existe.';
+    return false;
+  }
+
+  // Guardar usuario en localStorage
+  const nuevoUsuario = {
+    username: user,
+    email:    email,
+    password: pass,
+    xp:       0,
+    clases:   [],
+    logros:   []
+  };
+
+  localStorage.setItem('usuario_' + user, JSON.stringify(nuevoUsuario));
+
+  // Mostrar alerta y cambiar a login
+  error.textContent = '';
+  document.getElementById('alert-box').style.display = 'block';
+  switchTab('login');
+  document.getElementById('login-user').value = user;
+
+  return false;
 }
