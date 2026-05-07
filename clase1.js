@@ -5,21 +5,16 @@ const totalSections = 6;
 const sectionIds = ['sec-intro', 'sec-historia', 'sec-editor', 'sec-explicacion', 'sec-quiz', 'sec-ejercicio'];
 
 function goTo(targetId) {
-  // Ocultar todas las secciones
   document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-  // Mostrar la solicitada
   document.getElementById(targetId).classList.add('active');
-  // Subir al tope suavemente
   window.scrollTo({ top: 0, behavior: 'smooth' });
   
-  // Actualizar barra de progreso
   const currentIndex = sectionIds.indexOf(targetId) + 1;
   const progressPercent = Math.floor((currentIndex / totalSections) * 100);
   
   document.getElementById('progressBar').style.width = progressPercent + '%';
   document.getElementById('progressLabel').textContent = progressPercent + '%';
 
-  // Iniciar quiz si llega a esa sección
   if(targetId === 'sec-quiz' && currentQuestion === 0) {
     renderQuestion();
   }
@@ -161,7 +156,7 @@ function showQuizResult() {
 }
 
 // ===========================
-// SECCIÓN 6: RETOS FINALES (CÓDIGO COMPLETO)
+// SECCIÓN 6: RETOS FINALES
 // ===========================
 let challengesDone = { 1: false, 2: false, 3: false };
 
@@ -172,7 +167,6 @@ function checkChallenge(num) {
   let resultText = "";
   let isValid = false;
 
-  // Expresión regular que exige: console.log("texto") o console.log('texto')
   const regexCode = /^console\.log\s*\(\s*['"](.*?)['"]\s*\)\s*;?$/;
 
   if (num === 1) {
@@ -185,7 +179,6 @@ function checkChallenge(num) {
     const val2 = document.getElementById('ch2-input2').value.trim();
     const match1 = val1.match(regexCode);
     const match2 = val2.match(regexCode);
-    
     if (match1 && match2 && match1[1].trim() !== "" && match2[1].trim() !== "") { 
       resultText = `${match1[1]}<br/>${match2[1]}`; 
       isValid = true; 
@@ -204,24 +197,17 @@ function checkChallenge(num) {
     challengeDiv.classList.add('success');
     challengesDone[num] = true;
     
-    // Si completó los 3, mostramos la pantalla final y GUARDAMOS EN SUPABASE
     if(challengesDone[1] && challengesDone[2] && challengesDone[3]) {
       setTimeout(() => {
         document.querySelector('.challenges-wrap').style.display = 'none';
         document.getElementById('completionScreen').style.display = 'block';
-        
-        // ---> LLAMADA A LA FUNCIÓN DE GUARDADO <---
         guardarProgresoClase1();
-        
       }, 1000);
     }
   } else {
-    // MENSAJES DE ERROR PERSONALIZADOS
     if (num === 3) {
-      // Advertencia estricta para el cazador de bugs
       output.innerHTML = `<span style="color:#ff4141">🚨 BUG DETECTADO: SyntaxError.<br/>Hay 3 errores en esa línea. Revisa la mayúscula, el signo después de "console" y las comillas.</span>`;
     } else {
-      // Advertencia estándar para los retos 1 y 2
       output.innerHTML = `<span style="color:#ff4141">Error de sintaxis. Recuerda escribir exactamente:<br/> console.log("tu mensaje");</span>`;
     }
     output.style.display = "block";
@@ -238,21 +224,50 @@ window.onload = () => {
 // ===========================
 async function guardarProgresoClase1() {
   try {
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (user) {
-      const { error } = await supabase
-        .from('usuarios')
-        .update({ clase1_completada: true })
-        .eq('id', user.id);
+    // 1. Verificar sesión activa
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-      if (error) {
-        console.error('Error al guardar progreso en Supabase:', error);
-      } else {
-        console.log('Progreso de la Clase 1 guardado en la Matrix exitosamente.');
-      }
+    console.log('--- DIAGNÓSTICO CLASE 1 ---');
+    console.log('Usuario:', user);
+    console.log('Auth error:', authError);
+
+    if (!user) {
+      console.warn('No hay usuario logueado. No se puede guardar el progreso.');
+      return;
     }
+
+    console.log('UID del usuario:', user.id);
+
+    // 2. Intentar el UPDATE
+    const { data, error } = await supabase
+      .from('usuarios')
+      .update({ clase1_completada: true })
+      .eq('id', user.id)
+      .select(); // .select() fuerza que Supabase devuelva la fila actualizada
+
+    console.log('Resultado del UPDATE:', data);
+    console.log('Error del UPDATE:', error);
+
+    if (error) {
+      console.error('❌ Error al guardar progreso:', error.message);
+      console.error('Código de error:', error.code);
+      console.error('Detalle:', error.details);
+    } else if (!data || data.length === 0) {
+      // UPDATE no falló pero tampoco actualizó nada → fila no existe
+      console.warn('⚠️ El UPDATE no afectó ninguna fila. Puede que el usuario no exista en la tabla "usuarios".');
+      console.warn('Intentando INSERT como fallback...');
+
+      const { data: insertData, error: insertError } = await supabase
+        .from('usuarios')
+        .insert({ id: user.id, clase1_completada: true });
+
+      console.log('Resultado del INSERT:', insertData);
+      console.log('Error del INSERT:', insertError);
+    } else {
+      console.log('✅ Progreso de Clase 1 guardado correctamente.');
+    }
+
   } catch (err) {
-    console.error('No se pudo guardar el progreso. Asegúrate de que Supabase esté inicializado:', err);
+    console.error('Error inesperado:', err);
   }
 }
