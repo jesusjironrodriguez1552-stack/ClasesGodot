@@ -1,9 +1,13 @@
 // ===========================
+// CLIENTE DE SUPABASE
+// ===========================
+const supabaseUrl = 'https://vnuuegjfkrirttcwguvg.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZudXVlZ2pma3JpcnR0Y3dndXZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNTUyNzQsImV4cCI6MjA5MzczMTI3NH0.9R-qiuZBnxB0HIAggVGN8OzavK-fBtGMQQ9fu8If9jo';
+const clienteSupabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+// ===========================
 // GUARDAR PROGRESO
 // ===========================
-// El cliente "supabase" ya está declarado en tu archivo de auth.
-// Este archivo solo agrega funciones reutilizables.
-//
 // Uso desde cualquier clase:
 // await guardarProgreso({ clase1_completada: true })
 // await guardarProgreso({ clase2_completada: true })
@@ -11,14 +15,14 @@
 // await guardarProgreso({ xp: 300, nivel: 2 })
 async function guardarProgreso(campos) {
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await clienteSupabase.auth.getUser();
 
     if (!user) {
       console.warn('No hay usuario logueado.');
       return false;
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await clienteSupabase
       .from('usuarios')
       .update(campos)
       .eq('id', user.id)
