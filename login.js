@@ -4,8 +4,110 @@
 const supabaseUrl = 'https://vnuuegjfkrirttcwguvg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZudXVlZ2pma3JpcnR0Y3dndXZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNTUyNzQsImV4cCI6MjA5MzczMTI3NH0.9R-qiuZBnxB0HIAggVGN8OzavK-fBtGMQQ9fu8If9jo';
 
-// Usamos window.supabase para evitar conflictos de nombres
 const clienteSupabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+// ===========================
+// MODAL PERSONALIZADO
+// ===========================
+function mostrarModal(mensaje, callback) {
+  // Crear overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'cm-modal-overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: cmFadeIn 0.2s ease;
+  `;
+
+  // Crear caja del modal
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    background: #0d0d0d;
+    border: 1px solid #00ff41;
+    border-radius: 4px;
+    padding: 32px 40px;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.15);
+    animation: cmSlideIn 0.25s ease;
+  `;
+
+  // Título decorativo
+  const titulo = document.createElement('div');
+  titulo.textContent = '// CODEMATRIX //';
+  titulo.style.cssText = `
+    color: #00ff41;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  `;
+
+  // Texto del mensaje
+  const texto = document.createElement('p');
+  texto.textContent = mensaje;
+  texto.style.cssText = `
+    color: #00ff41;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin: 0 0 28px 0;
+    line-height: 1.6;
+  `;
+
+  // Botón aceptar
+  const boton = document.createElement('button');
+  boton.textContent = 'ACEPTAR_';
+  boton.style.cssText = `
+    background: transparent;
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    padding: 10px 32px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    border-radius: 2px;
+  `;
+
+  boton.onmouseover = () => {
+    boton.style.background = '#00ff41';
+    boton.style.color = '#000';
+  };
+  boton.onmouseout = () => {
+    boton.style.background = 'transparent';
+    boton.style.color = '#00ff41';
+  };
+
+  boton.onclick = () => {
+    overlay.remove();
+    if (callback) callback();
+  };
+
+  // Inyectar keyframes si no existen
+  if (!document.getElementById('cm-modal-styles')) {
+    const style = document.createElement('style');
+    style.id = 'cm-modal-styles';
+    style.textContent = `
+      @keyframes cmFadeIn { from { opacity: 0 } to { opacity: 1 } }
+      @keyframes cmSlideIn { from { transform: translateY(-16px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+    `;
+    document.head.appendChild(style);
+  }
+
+  modal.appendChild(titulo);
+  modal.appendChild(texto);
+  modal.appendChild(boton);
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
 
 // ===========================
 // CAMBIAR ENTRE TABS
@@ -16,7 +118,6 @@ function switchTab(tab) {
   const tabLogin     = document.getElementById('tab-login');
   const tabRegister  = document.getElementById('tab-register');
 
-  // Limpiamos mensajes de error al cambiar de pestaña
   document.getElementById('login-error').textContent = '';
   document.getElementById('reg-error').textContent = '';
 
@@ -43,23 +144,19 @@ async function doLogin(event) {
   const pass  = document.getElementById('login-pass').value;
   const errorDiv = document.getElementById('login-error');
 
-  // Validación básica
   if (!email || !pass) {
     errorDiv.textContent = 'ERROR: Completa todos los campos.';
     return false;
   }
 
-  // Aviso visual de carga
   errorDiv.style.color = '#00ff41';
   errorDiv.textContent = 'AUTENTICANDO...';
 
-  // Llamada a Supabase
   const { data, error } = await clienteSupabase.auth.signInWithPassword({
     email: email,
     password: pass,
   });
 
-  // Restauramos color rojo para errores
   errorDiv.style.color = '#ff4141';
 
   if (error) {
@@ -71,13 +168,13 @@ async function doLogin(event) {
     return false;
   }
 
-  // Éxito
   errorDiv.textContent = '';
   console.log("Sesión iniciada:", data.user);
-  alert('¡ACCESO CONCEDIDO! Conectando al sistema...');
 
-  // Usamos replace() en lugar de href para que no puedan volver atrás
-  window.location.replace('panel.html');
+  // Modal personalizado — redirige al aceptar
+  mostrarModal('¡ACCESO CONCEDIDO!\nConectando al sistema...', () => {
+    window.location.replace('panel.html');
+  });
 
   return false;
 }
@@ -93,24 +190,19 @@ async function doRegister(event) {
   const pass  = document.getElementById('reg-pass').value;
   const errorDiv = document.getElementById('reg-error');
 
-  // Validación
   if (!alias || !email || !pass) {
     errorDiv.textContent = 'ERROR: Completa todos los campos.';
     return false;
   }
 
-  // Aviso visual
   errorDiv.style.color = '#00ff41';
   errorDiv.textContent = 'CREANDO CUENTA...';
 
-  // Registrar en Supabase enviando el alias en la metadata
   const { data, error } = await clienteSupabase.auth.signUp({
     email: email,
     password: pass,
     options: {
-      data: {
-        username: alias
-      }
+      data: { username: alias }
     }
   });
 
@@ -121,16 +213,14 @@ async function doRegister(event) {
     return false;
   }
 
-  // Éxito
   errorDiv.textContent = '';
-  alert('¡CUENTA CREADA CON ÉXITO! Ahora inicia sesión.');
-  
-  // Reseteamos formulario y volvemos al login
-  document.getElementById('form-register').reset();
-  switchTab('login');
-  
-  // Autocompletamos el correo para facilitarle el inicio de sesión
-  document.getElementById('login-user').value = email;
+
+  // Modal personalizado — luego vuelve al login
+  mostrarModal('¡CUENTA CREADA CON ÉXITO!\nAhora inicia sesión.', () => {
+    document.getElementById('form-register').reset();
+    switchTab('login');
+    document.getElementById('login-user').value = email;
+  });
 
   return false;
 }
@@ -138,8 +228,6 @@ async function doRegister(event) {
 // ===========================
 // EVITAR QUE REGRESEN AL LOGIN
 // ===========================
-// Esta función revisa si el usuario ya está conectado al abrir la página.
-// Si ya tiene sesión, lo manda directo al panel sin dejar historial.
 async function revisarSesionActiva() {
   const { data: { session } } = await clienteSupabase.auth.getSession();
   if (session) {
@@ -147,5 +235,4 @@ async function revisarSesionActiva() {
   }
 }
 
-// Ejecutamos la revisión apenas carga la página index.html
 revisarSesionActiva();
