@@ -1,5 +1,25 @@
 /* ===========================
-   ESTADOS INICIALES (Reemplaza los styles en línea)
+   BASE Y VARIABLES
+=========================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #050a05;
+  color: #00ff41;
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Efecto de escaneo (Scanline) */
+.scanline {
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 65, 0.03) 2px, rgba(0, 255, 65, 0.03) 4px);
+  pointer-events: none; z-index: 999;
+}
+
+/* ===========================
+   ESTADOS INICIALES (Ocultos por defecto)
 =========================== */
 #byteReaction, 
 #hintBox, 
@@ -9,9 +29,159 @@
   display: none;
 }
 
-/* Ajuste limpio para el botón de volver al panel */
-.btn-return {
-  display: inline-block;
-  text-decoration: none;
-  margin-top: 2rem;
+/* ===========================
+   BARRA SUPERIOR Y PROGRESO
+=========================== */
+.header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  background: rgba(0, 8, 0, 0.95);
+  border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+  z-index: 100;
+  backdrop-filter: blur(5px);
 }
+.header-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 2rem;
+}
+.logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.2rem; }
+.logo span { color: #fff; }
+.back-btn { color: #ff4141; text-decoration: none; font-family: 'Share Tech Mono', monospace; }
+.back-btn:hover { text-shadow: 0 0 10px #ff4141; }
+.clase-badge { background: #00ff41; color: #000; padding: 0.2rem 0.8rem; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: bold; border-radius: 3px; }
+
+.progress-bar-wrap { width: 100%; height: 4px; background: rgba(0, 255, 65, 0.1); position: relative; }
+.progress-bar { height: 100%; background: #00ff41; width: 0%; transition: width 0.5s ease; box-shadow: 0 0 10px #00ff41; }
+.progress-label { position: absolute; right: 10px; top: 5px; font-size: 0.7rem; font-family: 'Share Tech Mono', monospace; }
+
+/* ===========================
+   SISTEMA DE SECCIONES
+=========================== */
+.main-wrap { padding: 100px 20px 50px; max-width: 800px; margin: 0 auto; }
+.section { display: none; animation: fadeIn 0.5s forwards; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.section-tag { font-family: 'Share Tech Mono', monospace; color: rgba(0,255,65,0.5); margin-bottom: 1rem; font-size: 0.9rem; }
+.sec-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: #fff; line-height: 1.1; margin-bottom: 1rem; }
+.sec-title span { color: #00ff41; }
+.sec-sub { font-size: 1.2rem; margin-bottom: 2rem; color: #ccc; }
+
+/* Botones Siguiente y Volver */
+.btn-next {
+  display: block; width: 100%; background: #00ff41; color: #000; border: none;
+  padding: 1rem; font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: bold;
+  cursor: pointer; margin-top: 3rem; transition: all 0.2s; text-align: center;
+}
+.btn-next:hover { box-shadow: 0 0 20px rgba(0, 255, 65, 0.5); transform: scale(1.02); }
+.btn-return { display: inline-block; text-decoration: none; margin-top: 2rem; }
+
+/* ===========================
+   DISEÑOS ESPECÍFICOS (Cajas, Editor, Robot)
+=========================== */
+.idea-box { border-left: 4px solid #00ff41; background: rgba(0,255,65,0.05); padding: 1.5rem; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: center; }
+.idea-icon { font-size: 2rem; }
+.cards-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 3rem; }
+.card-info { background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,65,0.2); padding: 1.5rem; text-align: center; flex: 1; border-radius: 5px; }
+.card-arrow { color: rgba(0,255,65,0.5); font-size: 1.5rem; }
+
+/* El Robot BYTE */
+.robot-scene { display: flex; gap: 2rem; align-items: center; margin: 3rem 0; background: rgba(0,255,65,0.05); padding: 2rem; border: 1px dashed rgba(0,255,65,0.3); }
+.robot-container { position: relative; text-align: center; }
+.robot-head { width: 80px; height: 60px; background: #111; border: 2px solid #00ff41; border-radius: 10px; margin: 0 auto; position: relative; }
+.robot-eyes { display: flex; justify-content: center; gap: 15px; padding-top: 15px; }
+.robot-eye { width: 12px; height: 12px; background: #ff4141; border-radius: 50%; box-shadow: 0 0 10px #ff4141; transition: background 0.3s; }
+.robot-mouth { color: #00ff41; font-family: monospace; margin-top: 5px; font-size: 10px; }
+.robot-bubble { background: #fff; color: #000; padding: 10px; border-radius: 5px; margin-top: 15px; font-family: 'Share Tech Mono'; font-size: 0.8rem; position: relative; }
+.robot-bubble::before { content:''; position:absolute; top:-10px; left:50%; transform:translateX(-50%); border-width: 0 10px 10px 10px; border-style: solid; border-color: transparent transparent #fff transparent; }
+.mission-text { flex: 1; }
+.mission-tag { color: #ff00ea; font-family: monospace; margin-bottom: 10px; }
+.mission-highlight { background: rgba(255,0,234,0.1); border-left: 3px solid #ff00ea; padding: 10px; margin-top: 15px; font-family: monospace; }
+
+/* El Editor de Código */
+.editor-wrap { border: 1px solid rgba(0,255,65,0.3); border-radius: 5px; background: #0a0f0a; margin-bottom: 1rem; }
+.editor-topbar { background: #001a00; padding: 10px; display: flex; align-items: center; border-bottom: 1px solid rgba(0,255,65,0.2); }
+.editor-dots span { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+.dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
+.editor-filename { margin-left: 15px; font-family: monospace; color: #aaa; font-size: 0.8rem; flex:1; text-align: center;}
+.editor-lang { color: #00ff41; font-family: monospace; font-size: 0.8rem; }
+.editor-body { display: flex; font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; }
+.line-numbers { padding: 15px 10px; background: rgba(0,255,65,0.05); color: rgba(0,255,65,0.3); text-align: right; display: flex; flex-direction: column; }
+.code-area { padding: 15px; flex: 1; }
+.code-line { line-height: 1.5; margin-bottom: 5px; }
+.comment { color: #6a9955; }
+.kw { color: #c586c0; font-weight: bold; } 
+.paren { color: #ffd700; }
+.str-open, .str-close { color: #ce9178; }
+.inline-input { background: transparent; border: none; border-bottom: 1px dashed rgba(255,255,255,0.5); color: #ce9178; font-family: inherit; font-size: inherit; width: 150px; outline: none; }
+.inline-input:focus { border-bottom-color: #00ff41; width: 200px; transition: width 0.3s; }
+.editor-toolbar { padding: 10px; display: flex; gap: 10px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(0,255,65,0.1); }
+.run-btn { background: #00ff41; color: #000; border: none; padding: 8px 15px; font-family: monospace; cursor: pointer; font-weight: bold; }
+.hint-btn, .reset-btn { background: transparent; color: #ccc; border: 1px solid #555; padding: 8px 15px; cursor: pointer; font-family: monospace;}
+
+/* Terminal */
+.terminal-wrap { background: #000; border: 1px solid #333; margin-top: 20px; font-family: 'Share Tech Mono', monospace; }
+.terminal-bar { background: #111; padding: 5px 10px; display: flex; justify-content: space-between; font-size: 0.7rem; color: #666; }
+.terminal-body { padding: 15px; color: #fff; min-height: 60px; }
+.term-prompt { color: #00ff41; margin-right: 10px; }
+.term-wait { color: #555; font-style: italic; }
+
+/* Reacción de BYTE y Pistas */
+.byte-reaction { margin-top: 20px; background: rgba(0,255,65,0.1); padding: 15px; display: flex; align-items: center; gap: 15px; border-left: 4px solid #00ff41; animation: fadeIn 0.3s; }
+.byte-mini { font-size: 2rem; }
+.byte-msg { color: #fff; font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; }
+.hint-box { margin-top: 20px; border: 1px dashed #ffbd2e; padding: 15px; color: #ccc; background: rgba(255,189,46,0.05); font-family: monospace; }
+.hint-title { color: #ffbd2e; margin-bottom: 10px; }
+
+/* Explicación Interactiva */
+.code-display { text-align: center; font-size: 2rem; font-family: monospace; margin: 3rem 0; background: rgba(0,0,0,0.5); padding: 2rem; border-radius: 10px; }
+.cd-kw { color: #c586c0; cursor: pointer; transition: text-shadow 0.2s; }
+.cd-paren { color: #ffd700; cursor: pointer; transition: text-shadow 0.2s; }
+.cd-str { color: #ce9178; cursor: pointer; transition: text-shadow 0.2s; }
+.cd-kw:hover, .cd-paren:hover, .cd-str:hover { text-shadow: 0 0 10px currentColor; }
+.parts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
+.part-card { background: #111; border: 1px solid #333; padding: 1.5rem; cursor: pointer; transition: all 0.3s; }
+.part-card:hover, .part-card.active-part { border-color: #00ff41; background: rgba(0,255,65,0.05); transform: translateY(-5px); }
+.part-name { font-family: monospace; font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
+.part-tag { font-size: 0.7rem; background: #333; display: inline-block; padding: 2px 5px; margin-bottom: 15px; color: #aaa;}
+.part-example { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #333; font-family: monospace; color: #00ff41; font-size: 0.9rem; }
+.flow-diagram { display: flex; align-items: center; justify-content: center; gap: 1rem; text-align: center; margin-top: 3rem; background: #0a0f0a; padding: 2rem; border-radius: 10px;}
+.flow-icon { font-size: 2rem; margin-bottom: 10px; }
+.flow-label { font-family: sans-serif; font-size: 0.8rem; color: #aaa; text-transform: uppercase; }
+.flow-code { color: #00ff41; font-family: monospace; margin-top: 5px; }
+
+/* Quiz */
+.quiz-container { background: #111; padding: 2rem; border: 1px solid rgba(0,255,65,0.3); margin-top: 2rem; }
+.q-title { font-size: 1.2rem; color: #fff; margin-bottom: 1.5rem; font-family: monospace; }
+.q-opt { display: block; width: 100%; text-align: left; background: #000; color: #ccc; border: 1px solid #333; padding: 1rem; margin-bottom: 10px; cursor: pointer; font-family: monospace; transition: all 0.2s;}
+.q-opt:hover { border-color: #00ff41; color: #fff; }
+.q-opt.correct { background: rgba(0,255,65,0.2); border-color: #00ff41; color: #00ff41; }
+.q-opt.wrong { background: rgba(255,65,65,0.2); border-color: #ff4141; color: #ff4141; }
+.quiz-result { text-align: center; margin-top: 2rem; padding: 2rem; background: rgba(0,255,65,0.05); border: 1px solid #00ff41; }
+.qr-score { font-size: 2rem; color: #00ff41; font-family: 'Orbitron'; margin-bottom: 10px; }
+
+/* Desafíos Finales */
+.challenges-wrap { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
+.challenge { background: #0a0f0a; border: 1px solid #333; padding: 1.5rem; position: relative; }
+.challenge.success { border-color: #00ff41; background: rgba(0,255,65,0.02); }
+.ch-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 1px dashed #333; padding-bottom: 15px;}
+.ch-num { background: #333; color: #fff; padding: 5px 10px; font-family: monospace; font-weight: bold; }
+.ch-title { flex: 1; font-size: 1.2rem; color: #fff; }
+.ch-status { font-family: monospace; font-size: 0.8rem; color: #ffbd2e; }
+.challenge.success .ch-status { color: #00ff41; content: "COMPLETADO"; }
+.ch-desc { color: #aaa; margin-bottom: 15px; }
+.ch-editor { background: #000; padding: 15px; font-family: monospace; margin-bottom: 15px; }
+.ch-input { background: transparent; border: none; border-bottom: 1px dashed #555; color: #ce9178; font-family: inherit; font-size: inherit; outline: none; width: 200px;}
+.ch-input:focus { border-color: #00ff41; }
+.ch-run { background: #333; color: #fff; border: none; padding: 8px 15px; cursor: pointer; font-family: monospace; transition: background 0.2s;}
+.ch-run:hover { background: #00ff41; color: #000; }
+.ch-output { margin-top: 15px; padding: 10px; background: #000; color: #00ff41; font-family: monospace; display: none; }
+
+/* Pantalla de Victoria */
+.completion-screen { text-align: center; padding: 4rem 2rem; background: rgba(0,255,65,0.05); border: 2px solid #00ff41; margin-top: 3rem; }
+.comp-robot { font-size: 4rem; margin-bottom: 1rem; animation: bounce 2s infinite; }
+.comp-title { font-family: 'Orbitron'; font-size: 2.5rem; color: #00ff41; margin-bottom: 1rem; }
+.comp-stats { display: flex; justify-content: center; gap: 3rem; margin: 2rem 0; }
+.cs-num { font-size: 2rem; font-family: 'Orbitron'; color: #fff; }
+.cs-label { color: #aaa; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+.comp-xp { display: inline-block; background: #00ff41; color: #000; padding: 10px 20px; font-family: monospace; font-weight: bold; font-size: 1.2rem; margin-top: 1rem; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
