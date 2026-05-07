@@ -211,3 +211,189 @@ body {
   letter-spacing: 1px;
   margin-bottom: 1.2rem;
 }
+
+/* ===========================
+   ESTILOS DEL PANEL PRINCIPAL
+=========================== */
+.panel-body {
+  align-items: flex-start;
+  padding-top: 60px; /* Espacio para la barra superior */
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 8, 0, 0.95);
+  border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 100;
+  backdrop-filter: blur(5px);
+}
+
+.logo-small {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  color: #00ff41;
+  font-size: 1.2rem;
+}
+.logo-small span { color: white; }
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-name {
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.btn-logout {
+  background: transparent;
+  border: none;
+  color: #ff4141;
+  font-family: 'Share Tech Mono', monospace;
+  cursor: pointer;
+  transition: text-shadow 0.2s;
+}
+.btn-logout:hover { text-shadow: 0 0 10px #ff4141; }
+
+.panel-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.section-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.5rem;
+  color: #00ff41;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px dashed rgba(0, 255, 65, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+/* Espacios de Anuncios */
+.ad-space {
+  width: 100%;
+  height: 90px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: 'Share Tech Mono', monospace;
+  margin: 2rem 0;
+}
+
+/* Hero & Video */
+.hero-section { text-align: center; margin: 3rem 0; }
+.glitch-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 0px #00ff41, -2px -2px 0px #ff00ea;
+  margin-bottom: 1rem;
+}
+.hero-sub {
+  font-family: 'Share Tech Mono', monospace;
+  color: #00ff41;
+  font-size: 1.1rem;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+  height: 0;
+  border: 2px solid #00ff41;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+.video-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+}
+
+/* Grids (Objetivos y Tecnologías) */
+.obj-grid, .tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.obj-card, .tech-card {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  padding: 1.5rem;
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+}
+.tech-card h3 { font-family: 'Orbitron', monospace; margin-bottom: 0.5rem; }
+.html-card { border-top: 3px solid #e34c26; }
+.css-card { border-top: 3px solid #264de4; }
+.js-card { border-top: 3px solid #f0db4f; }
+
+/* Pasos */
+.steps-flex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff;
+}
+.step span {
+  background: #00ff41;
+  color: #000;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Proyectos */
+.project-list {
+  list-style: none;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #fff;
+}
+.project-list li { transition: color 0.2s; }
+.project-list li:hover { color: #00ff41; }
+
+/* Botón Principal */
+.cta-section { text-align: center; margin: 4rem 0; }
+.btn-massive {
+  background: #00ff41;
+  color: #000;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-massive:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 50px rgba(0, 255, 65, 0.8);
+}
