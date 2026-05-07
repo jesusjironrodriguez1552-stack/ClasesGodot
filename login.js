@@ -3,7 +3,7 @@
 // ===========================
 const supabaseUrl = 'https://vnuuegjfkrirttcwguvg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZudXVlZ2pma3JpcnR0Y3dndXZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNTUyNzQsImV4cCI6MjA5MzczMTI3NH0.9R-qiuZBnxB0HIAggVGN8OzavK-fBtGMQQ9fu8If9jo';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 // ===========================
 // INICIAR SESIÓN
@@ -11,7 +11,6 @@ const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 async function doLogin(event) {
   event.preventDefault();
 
-  // En la configuración actual, el campo "USUARIO" del HTML debe recibir el CORREO ELECTRÓNICO.
   const email = document.getElementById('login-user').value.trim();
   const pass  = document.getElementById('login-pass').value;
   const errorDiv = document.getElementById('login-error');
@@ -23,11 +22,11 @@ async function doLogin(event) {
   }
 
   // Mensaje de carga mientras se conecta a la base de datos
-  errorDiv.style.color = '#00ff41'; // Color verde temporal para el aviso
+  errorDiv.style.color = '#00ff41';
   errorDiv.textContent = 'AUTENTICANDO...';
 
   // Llamada a Supabase para validar credenciales
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
     email: email,
     password: pass,
   });
@@ -36,7 +35,6 @@ async function doLogin(event) {
   errorDiv.style.color = '#ff4141';
 
   if (error) {
-    // Si la contraseña es incorrecta o el usuario no existe
     if (error.message === "Invalid login credentials") {
       errorDiv.textContent = 'ERROR: Credenciales incorrectas.';
     } else {
@@ -47,14 +45,9 @@ async function doLogin(event) {
 
   // Login exitoso
   errorDiv.textContent = '';
-  
-  // Aquí puedes ver los datos del usuario en la consola si los necesitas
   console.log("Sesión iniciada con éxito:", data.user);
-  
   alert('¡ACCESO CONCEDIDO! Conectando al sistema...');
-  
-  // Descomenta y cambia la siguiente línea para redirigir a la página principal de tu proyecto de Godot
-  // window.location.href = 'panel_principal.html'; 
 
+  // window.location.href = 'panel_principal.html';
   return false;
 }
