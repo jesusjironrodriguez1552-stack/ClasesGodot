@@ -76,7 +76,7 @@ async function doLogin(event) {
   console.log("Sesión iniciada:", data.user);
   alert('¡ACCESO CONCEDIDO! Conectando al sistema...');
 
-  Descomenta la siguiente línea para redirigir a tu panel cuando el usuario entre
+  //Descomenta la siguiente línea para redirigir a tu panel cuando el usuario entre
   window.location.href = 'panel.html';
 
   return false;
