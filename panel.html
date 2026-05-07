@@ -6,9 +6,224 @@
   <title>CodeMatrix — Panel Principal</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===========================
+       SECCIÓN DE CLASES
+    =========================== */
+    .clases-section {
+      margin: 3rem 0;
+    }
+
+    .bloque {
+      margin-bottom: 2.5rem;
+    }
+
+    .bloque-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(0,255,65,0.2);
+    }
+
+    .bloque-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .bloque-dot.verde  { background: #00ff41; box-shadow: 0 0 8px #00ff41; }
+    .bloque-dot.amarillo { background: #ffbd2e; box-shadow: 0 0 8px #ffbd2e; }
+    .bloque-dot.naranja  { background: #ff8c00; box-shadow: 0 0 8px #ff8c00; }
+    .bloque-dot.rojo     { background: #ff4141; box-shadow: 0 0 8px #ff4141; }
+
+    .bloque-titulo {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: #aaa;
+      letter-spacing: 2px;
+    }
+
+    .clases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Tarjeta de clase */
+    .clase-card {
+      background: #0a0f0a;
+      border: 1px solid #222;
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      text-align: left;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .clase-card:hover:not(.bloqueada) {
+      border-color: #00ff41;
+      background: rgba(0,255,65,0.04);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,255,65,0.1);
+    }
+
+    .clase-card.bloqueada {
+      opacity: 0.4;
+      cursor: not-allowed;
+      filter: grayscale(0.5);
+    }
+
+    .clase-card.completada {
+      border-color: rgba(0,255,65,0.4);
+      background: rgba(0,255,65,0.03);
+    }
+
+    .clase-num {
+      font-size: 0.7rem;
+      color: rgba(0,255,65,0.4);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .clase-nombre {
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .clase-sub {
+      font-size: 0.75rem;
+      color: #555;
+    }
+
+    .clase-badge-status {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+    }
+
+    .clase-badge-status.completada-badge {
+      background: rgba(0,255,65,0.15);
+      color: #00ff41;
+      border: 1px solid rgba(0,255,65,0.3);
+    }
+
+    .clase-badge-status.bloqueada-badge {
+      background: rgba(255,255,255,0.03);
+      color: #444;
+      border: 1px solid #222;
+    }
+
+    .clase-badge-status.disponible-badge {
+      background: rgba(0,255,65,0.1);
+      color: #00ff41;
+      border: 1px solid rgba(0,255,65,0.2);
+    }
+
+    /* ===========================
+       LENGUAJES PRÓXIMAMENTE (COLAPSABLE)
+    =========================== */
+    .proximo-wrap {
+      margin-top: 1rem;
+    }
+
+    .proximo-toggle {
+      width: 100%;
+      background: transparent;
+      border: 1px dashed #222;
+      color: #444;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      padding: 12px 20px;
+      cursor: pointer;
+      text-align: left;
+      letter-spacing: 2px;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .proximo-toggle:hover {
+      border-color: #333;
+      color: #666;
+    }
+
+    .proximo-toggle .arrow {
+      transition: transform 0.3s;
+    }
+
+    .proximo-toggle.open .arrow {
+      transform: rotate(180deg);
+    }
+
+    .proximo-content {
+      display: none;
+      border: 1px dashed #1a1a1a;
+      border-top: none;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.01);
+    }
+
+    .proximo-content.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .proximo-lang {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 1rem 0;
+      border-bottom: 1px dashed #1a1a1a;
+    }
+
+    .proximo-lang:last-child {
+      border-bottom: none;
+    }
+
+    .proximo-icon {
+      font-size: 1.8rem;
+      opacity: 0.4;
+    }
+
+    .proximo-info h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .proximo-info p {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: #2a2a2a;
+    }
+
+    .proximo-tag {
+      margin-left: auto;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: #222;
+      border: 1px solid #1a1a1a;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body class="panel-body">
-
   <div class="scanline"></div>
 
   <header class="top-bar">
@@ -20,15 +235,15 @@
   </header>
 
   <main class="panel-container">
-    
+
     <div class="ad-space">ESPACIO PARA ANUNCIO (ARRIBA)</div>
 
     <section class="hero-section">
-      <h1 class="glitch-title">APRENDE A PROGRAMAR  DESDE CERO</h1>
+      <h1 class="glitch-title">APRENDE A PROGRAMAR DESDE CERO</h1>
       <p class="hero-sub">// Convierte ideas en proyectos funcionales. //</p>
     </section>
 
-   <section class="video-section">
+    <section class="video-section">
       <div class="video-wrapper">
         <iframe src="https://www.youtube.com/embed/Jmbj4UOQwDE" title="Presentación del Curso" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
@@ -45,55 +260,162 @@
 
     <div class="ad-space">ESPACIO PARA ANUNCIO (MEDIO)</div>
 
-    <section class="tech-section">
-      <h2 class="section-title">>_ TECNOLOGÍAS A DOMINAR</h2>
-      <div class="tech-grid">
-        <div class="tech-card html-card">
-          <h3>JAVASCRIPT</h3>
-          <p>El esqueleto de la web. Estructura y semántica.</p>
+    <!-- ===========================
+         SECCIÓN DE CLASES
+    =========================== -->
+    <section class="clases-section">
+      <h2 class="section-title">>_ RUTA DE APRENDIZAJE — JAVASCRIPT</h2>
+
+      <!-- BLOQUE 1 -->
+      <div class="bloque">
+        <div class="bloque-header">
+          <div class="bloque-dot verde"></div>
+          <span class="bloque-titulo">BLOQUE 01 — FUNDAMENTOS</span>
         </div>
-        <div class="tech-card css-card">
-          <h3>PYTHON</h3>
-          <p>Lenguaje poderoso y versatil.Automatiza,analiza datos y crea aplicaciones increibles.</p>
-        </div>
-        <div class="tech-card js-card">
-          <h3>C ++</h3>
-          <p>Domina la programacion de alto nivel aprende desde cero hasta estructuras avanzadas.</p>
+        <div class="clases-grid">
+          <div class="clase-card" id="card-clase1" onclick="window.location.href='clase1.html'">
+            <div class="clase-num">// CLASE 01</div>
+            <div class="clase-nombre">La Consola</div>
+            <div class="clase-sub">console.log — Tu primera instrucción</div>
+            <span class="clase-badge-status disponible-badge" id="badge-clase1">DISPONIBLE</span>
+          </div>
+          <div class="clase-card" id="card-clase2" onclick="irAClase('clase2.html', 2)">
+            <div class="clase-num">// CLASE 02</div>
+            <div class="clase-nombre">Memoria y Variables</div>
+            <div class="clase-sub">let — Textos y Números</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase2">BLOQUEADA</span>
+          </div>
         </div>
       </div>
-    </section>
 
-    <section class="steps-section">
-      <h2 class="section-title">>_ PROTOCOLO DE APRENDIZAJE</h2>
-      <div class="steps-flex">
-        <div class="step"><span>1</span>EXPLORAR</div>
-        <div class="step"><span>2</span>ENTENDER</div>
-        <div class="step"><span>3</span>CONSTRUIR</div>
-        <div class="step"><span>4</span>EXPERIMENTAR</div>
-        <div class="step"><span>5</span>MEJORAR</div>
+      <!-- BLOQUE 2 -->
+      <div class="bloque">
+        <div class="bloque-header">
+          <div class="bloque-dot amarillo"></div>
+          <span class="bloque-titulo">BLOQUE 02 — LÓGICA BÁSICA</span>
+        </div>
+        <div class="clases-grid">
+          <div class="clase-card bloqueada" id="card-clase3" onclick="irAClase('clase3.html', 3)">
+            <div class="clase-num">// CLASE 03</div>
+            <div class="clase-nombre">Matemáticas Básicas</div>
+            <div class="clase-sub">Sumas, restas — Calculadora de daño</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase3">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase4" onclick="irAClase('clase4.html', 4)">
+            <div class="clase-num">// CLASE 04</div>
+            <div class="clase-nombre">Operadores Lógicos</div>
+            <div class="clase-sub">&gt; &lt; == — Enseña a la PC a comparar</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase4">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase5" onclick="irAClase('clase5.html', 5)">
+            <div class="clase-num">// CLASE 05</div>
+            <div class="clase-nombre">Condicionales Parte 1</div>
+            <div class="clase-sub">if — Toma de decisiones simple</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase5">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase6" onclick="irAClase('clase6.html', 6)">
+            <div class="clase-num">// CLASE 06</div>
+            <div class="clase-nombre">Condicionales Parte 2</div>
+            <div class="clase-sub">else / else if — Bloquea el sistema</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase6">BLOQUEADA</span>
+          </div>
+        </div>
       </div>
-    </section>
 
-    <section class="projects-section">
-      <h2 class="section-title">>_ ARSENAL DE PROYECTOS</h2>
-      <ul class="project-list">
-        <li>[+] Sistema Predictivo Interactivo</li>
-        <li>[+] Motor de Cálculo Web</li>
-        <li>[+] Interfaz de Usuario Moderna</li>
-        <li>[+] Simulaciones Lógicas</li>
-        <li>[+] Sistema de Eventos Web</li>
-       <li>[+] Consola de Interacción</li>
-        <li>[+] Módulo de Variables Dinámicas</li>
-        <li>[+] Sistema de Respuestas Automáticas</li>
-        <li>[+] Panel de Control Web</li>
-        <li>[+] Simulación de Acceso Digital</li>
-      </ul>
-    </section>
+      <!-- BLOQUE 3 -->
+      <div class="bloque">
+        <div class="bloque-header">
+          <div class="bloque-dot naranja"></div>
+          <span class="bloque-titulo">BLOQUE 03 — ESTRUCTURACIÓN</span>
+        </div>
+        <div class="clases-grid">
+          <div class="clase-card bloqueada" id="card-clase7" onclick="irAClase('clase7.html', 7)">
+            <div class="clase-num">// CLASE 07</div>
+            <div class="clase-nombre">Arreglos / Arrays</div>
+            <div class="clase-sub">Listas — Inventario de personaje</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase7">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase8" onclick="irAClase('clase8.html', 8)">
+            <div class="clase-num">// CLASE 08</div>
+            <div class="clase-nombre">Ciclos / Bucles</div>
+            <div class="clase-sub">for — Repite sin repetirte</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase8">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase9" onclick="irAClase('clase9.html', 9)">
+            <div class="clase-num">// CLASE 09</div>
+            <div class="clase-nombre">Objetos</div>
+            <div class="clase-sub">Agrupa datos — Crea un Usuario</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase9">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase10" onclick="irAClase('clase10.html', 10)">
+            <div class="clase-num">// CLASE 10</div>
+            <div class="clase-nombre">Funciones Básicas</div>
+            <div class="clase-sub">Crea tus propios comandos</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase10">BLOQUEADA</span>
+          </div>
+        </div>
+      </div>
 
-    <section class="cta-section">
-      <button class="btn-massive" onclick="window.location.href='clase1.html'">
-        INICIAR CLASE_01 <br><span style="font-size: 0.8rem; font-weight: normal;">¿QUÉ ES UNA PÁGINA WEB?</span>
-      </button>
+      <!-- BLOQUE 4 -->
+      <div class="bloque">
+        <div class="bloque-header">
+          <div class="bloque-dot rojo"></div>
+          <span class="bloque-titulo">BLOQUE 04 — DOMINANDO LA WEB</span>
+        </div>
+        <div class="clases-grid">
+          <div class="clase-card bloqueada" id="card-clase11" onclick="irAClase('clase11.html', 11)">
+            <div class="clase-num">// CLASE 11</div>
+            <div class="clase-nombre">Conociendo el DOM</div>
+            <div class="clase-sub">JS conectado con el HTML</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase11">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase12" onclick="irAClase('clase12.html', 12)">
+            <div class="clase-num">// CLASE 12</div>
+            <div class="clase-nombre">Eventos de Usuario</div>
+            <div class="clase-sub">Botones que responden al clic</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase12">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase13" onclick="irAClase('clase13.html', 13)">
+            <div class="clase-num">// CLASE 13</div>
+            <div class="clase-nombre">Manipulación Visual</div>
+            <div class="clase-sub">JS cambia colores, oculta y muestra</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase13">BLOQUEADA</span>
+          </div>
+          <div class="clase-card bloqueada" id="card-clase14" onclick="irAClase('clase14.html', 14)">
+            <div class="clase-num">// CLASE 14</div>
+            <div class="clase-nombre">⚡ PROYECTO FINAL</div>
+            <div class="clase-sub">Une todo — App real desde cero</div>
+            <span class="clase-badge-status bloqueada-badge" id="badge-clase14">BLOQUEADA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRÓXIMAMENTE: PYTHON Y C++ -->
+      <div class="proximo-wrap">
+        <button class="proximo-toggle" id="toggleProximo" onclick="toggleProximamente()">
+          <span>// PRÓXIMAMENTE — MÁS LENGUAJES</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="proximo-content" id="proximoContent">
+          <div class="proximo-lang">
+            <div class="proximo-icon">🐍</div>
+            <div class="proximo-info">
+              <h3>PYTHON</h3>
+              <p>Automatización, análisis de datos y aplicaciones. Poderoso y versátil.</p>
+            </div>
+            <span class="proximo-tag">PRÓXIMAMENTE</span>
+          </div>
+          <div class="proximo-lang">
+            <div class="proximo-icon">⚙️</div>
+            <div class="proximo-info">
+              <h3>C++</h3>
+              <p>Programación de alto nivel. Desde estructuras básicas hasta avanzadas.</p>
+            </div>
+            <span class="proximo-tag">PRÓXIMAMENTE</span>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <div class="ad-space">ESPACIO PARA ANUNCIO (ABAJO)</div>
@@ -102,5 +424,71 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="panel.js"></script>
+  <script>
+    // Datos de todas las clases y sus dependencias
+    const clasesConfig = [
+      { num: 1,  requiere: null },
+      { num: 2,  requiere: 'clase1_completada' },
+      { num: 3,  requiere: 'clase2_completada' },
+      { num: 4,  requiere: 'clase3_completada' },
+      { num: 5,  requiere: 'clase4_completada' },
+      { num: 6,  requiere: 'clase5_completada' },
+      { num: 7,  requiere: 'clase6_completada' },
+      { num: 8,  requiere: 'clase7_completada' },
+      { num: 9,  requiere: 'clase8_completada' },
+      { num: 10, requiere: 'clase9_completada' },
+      { num: 11, requiere: 'clase10_completada' },
+      { num: 12, requiere: 'clase11_completada' },
+      { num: 13, requiere: 'clase12_completada' },
+      { num: 14, requiere: 'clase13_completada' },
+    ];
+
+    // Llamada desde panel.js — recibe el objeto de progreso completo
+    function aplicarProgreso(progreso) {
+      clasesConfig.forEach(({ num, requiere }) => {
+        const card  = document.getElementById(`card-clase${num}`);
+        const badge = document.getElementById(`badge-clase${num}`);
+        if (!card || !badge) return;
+
+        const clavePropia = `clase${num}_completada`;
+        const completada  = progreso[clavePropia] === true;
+        const desbloqueada = requiere === null || progreso[requiere] === true;
+
+        if (completada) {
+          card.classList.remove('bloqueada');
+          card.classList.add('completada');
+          badge.className = 'clase-badge-status completada-badge';
+          badge.textContent = '✓ COMPLETADA';
+        } else if (desbloqueada) {
+          card.classList.remove('bloqueada');
+          badge.className = 'clase-badge-status disponible-badge';
+          badge.textContent = 'DISPONIBLE';
+        } else {
+          card.classList.add('bloqueada');
+          badge.className = 'clase-badge-status bloqueada-badge';
+          badge.textContent = 'BLOQUEADA';
+        }
+      });
+    }
+
+    // Navegar a clase solo si está desbloqueada
+    function irAClase(url, num) {
+      const card = document.getElementById(`card-clase${num}`);
+      if (card && card.classList.contains('bloqueada')) {
+        const prevNum = num - 1;
+        alert(`🔒 Completa la Clase ${prevNum < 10 ? '0'+prevNum : prevNum} primero.`);
+        return;
+      }
+      window.location.href = url;
+    }
+
+    // Toggle de próximamente
+    function toggleProximamente() {
+      const btn     = document.getElementById('toggleProximo');
+      const content = document.getElementById('proximoContent');
+      btn.classList.toggle('open');
+      content.classList.toggle('visible');
+    }
+  </script>
 </body>
 </html>
