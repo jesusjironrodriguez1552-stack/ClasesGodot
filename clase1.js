@@ -204,11 +204,15 @@ function checkChallenge(num) {
     challengeDiv.classList.add('success');
     challengesDone[num] = true;
     
-    // Si completó los 3, mostramos la pantalla final
+    // Si completó los 3, mostramos la pantalla final y GUARDAMOS EN SUPABASE
     if(challengesDone[1] && challengesDone[2] && challengesDone[3]) {
       setTimeout(() => {
         document.querySelector('.challenges-wrap').style.display = 'none';
         document.getElementById('completionScreen').style.display = 'block';
+        
+        // ---> LLAMADA A LA FUNCIÓN DE GUARDADO <---
+        guardarProgresoClase1();
+        
       }, 1000);
     }
   } else {
@@ -228,3 +232,27 @@ function checkChallenge(num) {
 window.onload = () => {
   goTo('sec-intro');
 };
+
+// ===========================
+// CONEXIÓN A SUPABASE (GUARDADO DE PROGRESO)
+// ===========================
+async function guardarProgresoClase1() {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (user) {
+      const { error } = await supabase
+        .from('usuarios')
+        .update({ clase1_completada: true })
+        .eq('id', user.id);
+
+      if (error) {
+        console.error('Error al guardar progreso en Supabase:', error);
+      } else {
+        console.log('Progreso de la Clase 1 guardado en la Matrix exitosamente.');
+      }
+    }
+  } catch (err) {
+    console.error('No se pudo guardar el progreso. Asegúrate de que Supabase esté inicializado:', err);
+  }
+}
