@@ -38,6 +38,48 @@ async function verificarSesion() {
   if (displayUser) {
     displayUser.textContent = `Acceso: ${alias.toUpperCase()}`;
   }
+
+  // ---> NUEVO: CARGAMOS EL PROGRESO DEL USUARIO <---
+  cargarProgreso(user.id);
+}
+
+// ===========================
+// CARGAR PROGRESO DE SUPABASE
+// ===========================
+async function cargarProgreso(userId) {
+  // Consultamos tu tabla 'usuarios' buscando las columnas booleanas
+  const { data: usuarioData, error } = await clienteSupabase
+    .from('usuarios')
+    .select('clase1_completada, clase2_completada')
+    .eq('id', userId)
+    .single();
+
+  if (error) {
+    console.error("Error al cargar el progreso:", error.message);
+    return; // Si hay error, no hacemos nada y los botones se quedan normales
+  }
+
+  if (usuarioData) {
+    // Si pasó la Clase 1, transformamos el botón
+    if (usuarioData.clase1_completada) {
+      const btn1 = document.querySelector('button[onclick*="clase1.html"]');
+      if (btn1) {
+        btn1.style.borderColor = '#00ff41';
+        btn1.style.color = '#00ff41';
+        btn1.innerHTML = 'CLASE_01 [ COMPLETADA ] <br><span style="font-size: 0.8rem; font-weight: normal; color:#00ff41;">Misión Superada</span>';
+      }
+    }
+
+    // Si pasó la Clase 2, transformamos el botón
+    if (usuarioData.clase2_completada) {
+      const btn2 = document.querySelector('button[onclick*="clase2.html"]');
+      if (btn2) {
+        btn2.style.borderColor = '#00ff41';
+        btn2.style.color = '#00ff41';
+        btn2.innerHTML = 'CLASE_02 [ COMPLETADA ] <br><span style="font-size: 0.8rem; font-weight: normal; color:#00ff41;">Memoria Dominada</span>';
+      }
+    }
+  }
 }
 
 // ===========================
