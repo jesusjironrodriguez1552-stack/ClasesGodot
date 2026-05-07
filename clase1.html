@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clase 1 — Comunicación con la Computadora | CodeMatrix</title>
-  
   <link rel="stylesheet" href="clase1.css" />
-  
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -48,7 +46,7 @@
       <div class="card-info" data-delay="1">
         <div class="card-icon">💻</div>
         <h3>Lenguajes de programación</h3>
-        <p>Python, JavaScript, C++... la computadora entiende instrucciones precisas.</p>
+        <p>JavaScript, C++, Python... la computadora entiende instrucciones precisas.</p>
       </div>
       <div class="card-arrow">→</div>
       <div class="card-info" data-delay="2">
@@ -69,7 +67,7 @@
         <div class="aly-vs">≠</div>
         <div class="analogy-item">
           <span class="aly-label">COMPUTADORA</span>
-          <span class="aly-word">print("Agua")</span>
+          <span class="aly-word">console.log("Agua")</span>
           <span class="aly-desc">Lenguaje de programación</span>
         </div>
       </div>
@@ -109,10 +107,10 @@
         <div class="mission-tag">// TU MISIÓN</div>
         <p>BYTE es una computadora que acaba de encenderse por primera vez.<br/>
         Puede procesar instrucciones, pero nadie le ha enseñado a comunicarse.</p>
-        <p>En esta clase, le enseñarás su primera habilidad:<br/>
+        <p>En esta clase, usarás <strong>JavaScript</strong> para enseñarle su primera habilidad:<br/>
         <strong>mostrar un mensaje en pantalla.</strong></p>
         <div class="mission-highlight">
-          Una sola instrucción. Un resultado visible. Tu primer programa real.
+          Una sola instrucción. Un resultado visible. Tu primer programa web.
         </div>
       </div>
     </div>
@@ -132,8 +130,8 @@
           <span class="dot yellow"></span>
           <span class="dot green"></span>
         </div>
-        <span class="editor-filename">main.py</span>
-        <span class="editor-lang">Python 3</span>
+        <span class="editor-filename">main.js</span>
+        <span class="editor-lang">JavaScript</span>
       </div>
 
       <div class="editor-body">
@@ -144,10 +142,10 @@
           <span>4</span>
         </div>
         <div class="code-area">
-          <div class="code-line comment"># Mi primer programa en Python</div>
-          <div class="code-line comment"># Instrucción para mostrar un mensaje:</div>
+          <div class="code-line comment">// Mi primer programa en JavaScript</div>
+          <div class="code-line comment">// Instrucción para mostrar un mensaje:</div>
           <div class="code-line editable-line">
-            <span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input
+            <span class="kw">console.log</span><span class="paren">(</span><span class="str-open">"</span><input
               type="text"
               id="codeInput"
               class="inline-input"
@@ -171,11 +169,11 @@
 
     <div class="terminal-wrap" id="terminalWrap">
       <div class="terminal-bar">
-        <span class="terminal-title">TERMINAL — SALIDA DEL PROGRAMA</span>
+        <span class="terminal-title">CONSOLA DEL NAVEGADOR</span>
         <span class="terminal-status" id="termStatus">LISTO</span>
       </div>
       <div class="terminal-body" id="terminalBody">
-        <span class="term-prompt">$</span> <span class="term-wait">esperando ejecución...</span>
+        <span class="term-prompt">></span> <span class="term-wait">esperando ejecución...</span>
       </div>
     </div>
 
@@ -186,7 +184,7 @@
 
     <div class="hint-box" id="hintBox">
       <div class="hint-title">// PISTA</div>
-      <p>El comando <code>print()</code> muestra texto en pantalla.<br/>
+      <p>El comando <code>console.log()</code> muestra texto en la consola de la web.<br/>
       Dentro de las comillas escribe lo que quieres mostrar.<br/>
       Prueba escribir: <strong>Hola Mundo</strong></p>
     </div>
@@ -199,28 +197,28 @@
     <h2 class="sec-title">Entendiendo<br/><span>cada parte</span></h2>
 
     <div class="code-display">
-      <span class="cd-kw" data-part="print">print</span><span class="cd-paren">(</span><span class="cd-str" data-part="str">"Hola Mundo"</span><span class="cd-paren">)</span>
+      <span class="cd-kw" data-part="console">console.log</span><span class="cd-paren">(</span><span class="cd-str" data-part="str">"Hola Mundo"</span><span class="cd-paren">)</span>
     </div>
 
     <div class="parts-grid">
-      <div class="part-card" id="part-print" onclick="highlightPart('print')">
-        <div class="part-name">print</div>
+      <div class="part-card" id="part-console" onclick="highlightPart('console')">
+        <div class="part-name">console.log</div>
         <div class="part-tag">FUNCIÓN</div>
-        <p>Es una <strong>instrucción</strong> que le dice a Python:<br/>"muestra esto en pantalla".<br/>Como darle una orden a la computadora.</p>
-        <div class="part-example">print → "imprimir / mostrar"</div>
+        <p>Es una <strong>instrucción</strong> que le dice a JavaScript:<br/>"registra esto en la consola".<br/>Como darle una orden al navegador.</p>
+        <div class="part-example">log → "registrar / mostrar"</div>
       </div>
 
       <div class="part-card" id="part-paren" onclick="highlightPart('paren')">
         <div class="part-name">( )</div>
         <div class="part-tag">PARÉNTESIS</div>
-        <p>Envuelven lo que quieres mostrar.<br/>Son como una <strong>caja</strong> donde pones el contenido que print mostrará.</p>
-        <div class="part-example">print( aquí va el mensaje )</div>
+        <p>Envuelven lo que quieres mostrar.<br/>Son como una <strong>caja</strong> donde pones el contenido que se va a imprimir.</p>
+        <div class="part-example">console.log( el mensaje va aquí )</div>
       </div>
 
       <div class="part-card" id="part-str" onclick="highlightPart('str')">
         <div class="part-name">"Hola Mundo"</div>
         <div class="part-tag">TEXTO / STRING</div>
-        <p>Es el mensaje que quieres mostrar.<br/>Las <strong>comillas</strong> le dicen a Python:<br/>"esto es texto, no una instrucción".</p>
+        <p>Es el mensaje exacto que quieres mostrar.<br/>Las <strong>comillas</strong> le dicen a la PC:<br/>"esto es texto, no código".</p>
         <div class="part-example">"cualquier texto aquí"</div>
       </div>
     </div>
@@ -229,18 +227,18 @@
       <div class="flow-step">
         <div class="flow-icon">👨‍💻</div>
         <div class="flow-label">Tú escribes</div>
-        <div class="flow-code">print("Hola")</div>
+        <div class="flow-code">console.log("Hola")</div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-step">
-        <div class="flow-icon">🐍</div>
-        <div class="flow-label">Python lee</div>
-        <div class="flow-code">interpreta</div>
+        <div class="flow-icon">🌐</div>
+        <div class="flow-label">Navegador lee</div>
+        <div class="flow-code">interpreta JS</div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-step">
         <div class="flow-icon">💻</div>
-        <div class="flow-label">PC ejecuta</div>
+        <div class="flow-label">Consola ejecuta</div>
         <div class="flow-code">muestra: Hola</div>
       </div>
     </div>
@@ -252,8 +250,7 @@
     <div class="section-tag">// SECCIÓN 05 — LECTURA INTERACTIVA</div>
     <h2 class="sec-title">Comprueba lo que<br/><span>aprendiste</span></h2>
 
-    <div class="quiz-container" id="quizContainer">
-      </div>
+    <div class="quiz-container" id="quizContainer"></div>
 
     <div class="quiz-result" id="quizResult">
       <div class="qr-score" id="qrScore"></div>
@@ -275,9 +272,9 @@
           <span class="ch-title">Preséntate a la computadora</span>
           <span class="ch-status" id="ch1-status">PENDIENTE</span>
         </div>
-        <p class="ch-desc">Haz que Python muestre tu nombre.</p>
+        <p class="ch-desc">Haz que JavaScript muestre tu nombre en consola.</p>
         <div class="ch-editor">
-          <div class="ch-line"><span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch1-input" placeholder="Tu nombre..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
+          <div class="ch-line"><span class="kw">console.log</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch1-input" placeholder="Tu nombre..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
         </div>
         <button class="ch-run" onclick="checkChallenge(1)">▶ EJECUTAR</button>
         <div class="ch-output" id="ch1-output"></div>
@@ -289,10 +286,10 @@
           <span class="ch-title">Segundo mensaje</span>
           <span class="ch-status" id="ch2-status">PENDIENTE</span>
         </div>
-        <p class="ch-desc">Muestra dos mensajes seguidos. ¿Qué pasa si usas print dos veces?</p>
+        <p class="ch-desc">Muestra dos mensajes seguidos. ¿Qué pasa si usas la instrucción dos veces?</p>
         <div class="ch-editor">
-          <div class="ch-line"><span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch2-input1" placeholder="Primer mensaje..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
-          <div class="ch-line"><span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch2-input2" placeholder="Segundo mensaje..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
+          <div class="ch-line"><span class="kw">console.log</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch2-input1" placeholder="Primer mensaje..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
+          <div class="ch-line"><span class="kw">console.log</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch2-input2" placeholder="Segundo mensaje..." maxlength="30" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
         </div>
         <button class="ch-run" onclick="checkChallenge(2)">▶ EJECUTAR</button>
         <div class="ch-output" id="ch2-output"></div>
@@ -306,7 +303,7 @@
         </div>
         <p class="ch-desc">Escribe cualquier mensaje que quieras enviarle a BYTE.</p>
         <div class="ch-editor">
-          <div class="ch-line"><span class="kw">print</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch3-input" placeholder="Tu mensaje para BYTE..." maxlength="50" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
+          <div class="ch-line"><span class="kw">console.log</span><span class="paren">(</span><span class="str-open">"</span><input type="text" class="ch-input" id="ch3-input" placeholder="Tu mensaje para BYTE..." maxlength="50" autocomplete="off"/><span class="str-close">"</span><span class="paren">)</span></div>
         </div>
         <button class="ch-run" onclick="checkChallenge(3)">▶ EJECUTAR</button>
         <div class="ch-output" id="ch3-output"></div>
