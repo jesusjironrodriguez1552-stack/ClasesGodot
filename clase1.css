@@ -1,0 +1,17 @@
+/* ===========================
+   ESTADOS INICIALES (Reemplaza los styles en línea)
+=========================== */
+#byteReaction, 
+#hintBox, 
+#btnSiguienteEditor, 
+#quizResult, 
+#completionScreen {
+  display: none;
+}
+
+/* Ajuste limpio para el botón de volver al panel */
+.btn-return {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 2rem;
+}
