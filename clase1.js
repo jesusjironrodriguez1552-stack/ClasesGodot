@@ -173,7 +173,6 @@ function checkChallenge(num) {
   let isValid = false;
 
   // Expresión regular que exige: console.log("texto") o console.log('texto')
-  // Permite espacios en blanco extra y punto y coma opcional al final.
   const regexCode = /^console\.log\s*\(\s*['"](.*?)['"]\s*\)\s*;?$/;
 
   if (num === 1) {
@@ -213,8 +212,14 @@ function checkChallenge(num) {
       }, 1000);
     }
   } else {
-    // Mensaje de error más específico si se equivocan en la sintaxis
-    output.innerHTML = `<span style="color:#ff4141">Error de sintaxis. Recuerda escribir exactamente:<br/> console.log("tu mensaje");</span>`;
+    // MENSAJES DE ERROR PERSONALIZADOS
+    if (num === 3) {
+      // Advertencia estricta para el cazador de bugs
+      output.innerHTML = `<span style="color:#ff4141">🚨 BUG DETECTADO: SyntaxError.<br/>Hay 3 errores en esa línea. Revisa la mayúscula, el signo después de "console" y las comillas.</span>`;
+    } else {
+      // Advertencia estándar para los retos 1 y 2
+      output.innerHTML = `<span style="color:#ff4141">Error de sintaxis. Recuerda escribir exactamente:<br/> console.log("tu mensaje");</span>`;
+    }
     output.style.display = "block";
   }
 }
