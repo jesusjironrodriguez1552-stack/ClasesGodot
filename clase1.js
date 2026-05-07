@@ -198,10 +198,11 @@ function checkChallenge(num) {
     challengesDone[num] = true;
     
     if(challengesDone[1] && challengesDone[2] && challengesDone[3]) {
-      setTimeout(() => {
+      setTimeout(async () => {
         document.querySelector('.challenges-wrap').style.display = 'none';
         document.getElementById('completionScreen').style.display = 'block';
-        guardarProgresoClase1();
+        // Usa guardarProgreso() de supabase.js
+        await guardarProgreso({ clase1_completada: true });
       }, 1000);
     }
   } else {
@@ -218,56 +219,3 @@ function checkChallenge(num) {
 window.onload = () => {
   goTo('sec-intro');
 };
-
-// ===========================
-// CONEXIÓN A SUPABASE (GUARDADO DE PROGRESO)
-// ===========================
-async function guardarProgresoClase1() {
-  try {
-    // 1. Verificar sesión activa
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-    console.log('--- DIAGNÓSTICO CLASE 1 ---');
-    console.log('Usuario:', user);
-    console.log('Auth error:', authError);
-
-    if (!user) {
-      console.warn('No hay usuario logueado. No se puede guardar el progreso.');
-      return;
-    }
-
-    console.log('UID del usuario:', user.id);
-
-    // 2. Intentar el UPDATE
-    const { data, error } = await supabase
-      .from('usuarios')
-      .update({ clase1_completada: true })
-      .eq('id', user.id)
-      .select(); // .select() fuerza que Supabase devuelva la fila actualizada
-
-    console.log('Resultado del UPDATE:', data);
-    console.log('Error del UPDATE:', error);
-
-    if (error) {
-      console.error('❌ Error al guardar progreso:', error.message);
-      console.error('Código de error:', error.code);
-      console.error('Detalle:', error.details);
-    } else if (!data || data.length === 0) {
-      // UPDATE no falló pero tampoco actualizó nada → fila no existe
-      console.warn('⚠️ El UPDATE no afectó ninguna fila. Puede que el usuario no exista en la tabla "usuarios".');
-      console.warn('Intentando INSERT como fallback...');
-
-      const { data: insertData, error: insertError } = await supabase
-        .from('usuarios')
-        .insert({ id: user.id, clase1_completada: true });
-
-      console.log('Resultado del INSERT:', insertData);
-      console.log('Error del INSERT:', insertError);
-    } else {
-      console.log('✅ Progreso de Clase 1 guardado correctamente.');
-    }
-
-  } catch (err) {
-    console.error('Error inesperado:', err);
-  }
-}
