@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 2 — La Memoria del Robot | CodeMatrix</title>
+  <link rel="stylesheet" href="clase1.css" /> <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="panel.html" class="back-btn">← PANEL</a>
+    <div class="logo">CODE<span>MATRIX</span></div>
+    <div class="clase-badge">CLASE 02</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    <span class="progress-label" id="progressLabel">0%</span>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO ]</span>
+  </div>
+
+  <section class="section active" id="sec-intro">
+    <div class="section-tag">// SECCIÓN 01 — MEMORIA VOLÁTIL</div>
+    <h1 class="sec-title">Dándole memoria<br/><span>a la máquina</span></h1>
+    
+    <div class="video-container">
+      <div class="video-placeholder">
+        <span>▶ VIDEO: ¿QUÉ ES UNA VARIABLE? (CLASE 2)</span>
+      </div>
+    </div>
+
+    <p class="sec-sub">En la clase pasada, BYTE hablaba pero olvidaba todo al instante. Hoy vamos a crear "cajas" para guardar datos.</p>
+
+    <div class="idea-box">
+      <div class="idea-icon">📦</div>
+      <p>Una <strong>Variable</strong> es como una caja con una etiqueta.<br/>Guardas algo dentro y lo recuperas usando su nombre.</p>
+    </div>
+
+    <div class="cards-row">
+      <div class="card-info">
+        <div class="card-icon">🏷️</div>
+        <h3>let</h3>
+        <p>Es la palabra que usamos para decirle a la PC: "¡Ey! Crea una caja nueva".</p>
+      </div>
+      <div class="card-info">
+        <div class="card-icon">📝</div>
+        <h3>Strings</h3>
+        <p>Textos. Siempre van con <strong>"comillas"</strong>.</p>
+      </div>
+      <div class="card-info">
+        <div class="card-icon">🔢</div>
+        <h3>Numbers</h3>
+        <p>Números reales. Van <strong>sin comillas</strong> para poder sumar.</p>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="goTo('sec-editor')">IR AL LABORATORIO →</button>
+  </section>
+
+  <section class="section" id="sec-editor">
+    <div class="section-tag">// SECCIÓN 02 — CREANDO CAJAS</div>
+    <h2 class="sec-title">Tu primer<br/><span>almacenamiento</span></h2>
+    
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+        <span class="editor-filename">memoria.js</span>
+      </div>
+
+      <div class="editor-body">
+        <div class="code-area">
+          <div class="code-line comment">// 1. Crea la variable nombre</div>
+          <div class="code-line">
+            <span class="kw">let</span> nombre = "<input type="text" id="inputNombre" class="inline-input" placeholder="Tu nombre..." />";
+          </div>
+          <div class="code-line comment">// 2. Crea la variable edad</div>
+          <div class="code-line">
+            <span class="kw">let</span> edad = <input type="text" id="inputEdad" class="inline-input" style="width: 50px" placeholder="00" />;
+          </div>
+          <div class="code-line empty"></div>
+          <div class="code-line comment">// 3. BYTE lo recuerda:</div>
+          <div class="code-line">
+            <span class="kw">console.log</span>(nombre);
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarClase2()">▶ EJECUTAR</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termClase2">
+        <span class="term-prompt">></span> esperando datos...
+      </div>
+    </div>
+
+    <button class="btn-next" id="btnNextClase2" style="display:none" onclick="goTo('sec-cazador')">SIGUIENTE: CAZADOR DE BUGS →</button>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO ]</span>
+  </div>
+
+  <section class="section" id="sec-cazador">
+    <div class="section-tag">// SECCIÓN 03 — EL ERROR DEL NOVATO</div>
+    <h2 class="sec-title">Cazador de<br/><span>Bugs Nivel 2</span></h2>
+    <p class="sec-sub">Mira este código. Alguien puso comillas donde no debía y ahora la suma no funciona. ¡Arréglalo!</p>
+
+    <div class="challenge">
+      <div class="ch-header">
+        <span class="ch-title">Misión: Suma Correcta</span>
+        <span class="ch-status" id="bug-status">ERROR DETECTADO</span>
+      </div>
+      <p class="ch-desc">El objetivo es que el total sea 15. Quita lo que sobra.</p>
+      
+      <div class="ch-editor">
+        <div class="code-line"><span class="kw">let</span> precio = <input type="text" class="ch-input" id="bug-input" value='"10"' style="width: 80px" />;</div>
+        <div class="code-line"><span class="kw">let</span> total = precio + 5;</div>
+        <div class="code-line"><span class="kw">console.log</span>(total);</div>
+      </div>
+      
+      <button class="ch-run" onclick="checkBugClase2()">▶ COMPROBAR SUMA</button>
+      <div class="ch-output" id="bug-output"></div>
+    </div>
+
+    <div class="completion-screen" id="finalClase2" style="display:none">
+      <div class="comp-robot">💾</div>
+      <div class="comp-title">¡MEMORIA DESBLOQUEADA!</div>
+      <p>Ahora sabes guardar datos. Próxima clase: Operaciones Matemáticas.</p>
+      <a href="panel.html" class="btn-next">VOLVER AL PANEL</a>
+    </div>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO ]</span>
+  </div>
+
+</main>
+
+<script>
+  // Lógica simple para la Clase 2 (puedes mover esto a un clase2.js después)
+  function ejecutarClase2() {
+    const n = document.getElementById('inputNombre').value;
+    const e = document.getElementById('inputEdad').value;
+    const out = document.getElementById('termClase2');
+    
+    if(n && e) {
+      out.innerHTML = `<span class="term-prompt">></span> Registrando en memoria...<br/><span style="color:#00ff41">OK: Hola ${n}, veo que tienes ${e} años.</span>`;
+      document.getElementById('btnNextClase2').style.display = 'block';
+    } else {
+      out.innerHTML = `<span style="color:red">> Error: Faltan datos en las variables.</span>`;
+    }
+  }
+
+  function checkBugClase2() {
+    const val = document.getElementById('bug-input').value.trim();
+    const out = document.getElementById('bug-output');
+    
+    if(val === "10") { // Correcto: sin comillas
+      out.innerHTML = "¡Excelente! Al quitar las comillas, JavaScript entiende que es un número y hace la suma: 10 + 5 = 15.";
+      out.style.color = "#00ff41";
+      document.getElementById('bug-status').textContent = "SOLUCIONADO";
+      document.getElementById('finalClase2').style.display = 'block';
+    } else if (val === '"10"' || val === "'10'") {
+      out.innerHTML = "Resultado: 105. ¡Error! JavaScript está pegando los textos en vez de sumar. Quita las comillas.";
+      out.style.color = "#ff4141";
+    } else {
+      out.innerHTML = "Ese no es el número original. Pon el 10 sin comillas.";
+      out.style.color = "#ff4141";
+    }
+    out.style.display = "block";
+  }
+</script>
+
+</body>
+</html>
