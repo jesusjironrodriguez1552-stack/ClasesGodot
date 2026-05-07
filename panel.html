@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeMatrix — Panel Principal</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="panel-body">
+
+  <div class="scanline"></div>
+
+  <header class="top-bar">
+    <div class="logo-small">CODE<span>MATRIX</span></div>
+    <div class="user-menu">
+      <span id="display-user" class="user-name">Cargando_Usuario...</span>
+      <button class="btn-logout" onclick="cerrarSesion()">[ DESCONECTAR ]</button>
+    </div>
+  </header>
+
+  <main class="panel-container">
+    
+    <div class="ad-space">ESPACIO PARA ANUNCIO (ARRIBA)</div>
+
+    <section class="hero-section">
+      <h1 class="glitch-title">APRENDE A CREAR PÁGINAS WEB DESDE CERO</h1>
+      <p class="hero-sub">// Domina el código. Hackea tu futuro. Construye la web. //</p>
+    </section>
+
+    <section class="video-section">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/TU_ID_DE_VIDEO" title="Presentación del Curso" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section class="objectives-section">
+      <div class="obj-grid">
+        <div class="obj-card">Aprender Creando</div>
+        <div class="obj-card">Proyectos Reales</div>
+        <div class="obj-card">Lógica de Programación</div>
+        <div class="obj-card">Diseño Web Moderno</div>
+      </div>
+    </section>
+
+    <div class="ad-space">ESPACIO PARA ANUNCIO (MEDIO)</div>
+
+    <section class="tech-section">
+      <h2 class="section-title">>_ TECNOLOGÍAS A DOMINAR</h2>
+      <div class="tech-grid">
+        <div class="tech-card html-card">
+          <h3>HTML5</h3>
+          <p>El esqueleto de la web. Estructura y semántica.</p>
+        </div>
+        <div class="tech-card css-card">
+          <h3>CSS3</h3>
+          <p>El estilo visual. Colores, animaciones y diseño.</p>
+        </div>
+        <div class="tech-card js-card">
+          <h3>JAVASCRIPT</h3>
+          <p>El cerebro. Lógica, interactividad y poder.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps-section">
+      <h2 class="section-title">>_ PROTOCOLO DE APRENDIZAJE</h2>
+      <div class="steps-flex">
+        <div class="step"><span>1</span>Ver Clase</div>
+        <div class="step"><span>2</span>Leer Teoría</div>
+        <div class="step"><span>3</span>Ejercicio</div>
+        <div class="step"><span>4</span>Probar</div>
+        <div class="step"><span>5</span>Subir Tarea</div>
+      </div>
+    </section>
+
+    <section class="projects-section">
+      <h2 class="section-title">>_ ARSENAL DE PROYECTOS</h2>
+      <ul class="project-list">
+        <li>[+] Bola 8 Vidente (Respuestas Random)</li>
+        <li>[+] Calculadora Neón</li>
+        <li>[+] Interfaz Web Gamer</li>
+        <li>[+] Mini Juegos Lógicos</li>
+        <li>[+] Botones Interactivos y Efectos</li>
+      </ul>
+    </section>
+
+    <section class="cta-section">
+      <button class="btn-massive" onclick="window.location.href='clase1.html'">
+        INICIAR CLASE_01 <br><span style="font-size: 0.8rem; font-weight: normal;">¿QUÉ ES UNA PÁGINA WEB?</span>
+      </button>
+    </section>
+
+    <div class="ad-space">ESPACIO PARA ANUNCIO (ABAJO)</div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
