@@ -1,112 +1,60 @@
 // ===========================
-// CAMBIAR ENTRE TABS
+// CONFIGURACIÓN DE SUPABASE
 // ===========================
-function switchTab(tab) {
-  const formLogin    = document.getElementById('form-login');
-  const formRegister = document.getElementById('form-register');
-  const tabLogin     = document.getElementById('tab-login');
-  const tabRegister  = document.getElementById('tab-register');
-  const alertBox     = document.getElementById('alert-box');
-
-  alertBox.style.display = 'none';
-
-  if (tab === 'login') {
-    formLogin.style.display    = 'block';
-    formRegister.style.display = 'none';
-    tabLogin.classList.add('active');
-    tabRegister.classList.remove('active');
-  } else {
-    formLogin.style.display    = 'none';
-    formRegister.style.display = 'block';
-    tabLogin.classList.remove('active');
-    tabRegister.classList.add('active');
-  }
-}
+const supabaseUrl = 'https://vnuuegjfkrirttcwguvg.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZudXVlZ2pma3JpcnR0Y3dndXZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNTUyNzQsImV4cCI6MjA5MzczMTI3NH0.9R-qiuZBnxB0HIAggVGN8OzavK-fBtGMQQ9fu8If9jo';
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // ===========================
 // INICIAR SESIÓN
 // ===========================
-function doLogin(event) {
+async function doLogin(event) {
   event.preventDefault();
 
-  const user  = document.getElementById('login-user').value.trim();
+  // En la configuración actual, el campo "USUARIO" del HTML debe recibir el CORREO ELECTRÓNICO.
+  const email = document.getElementById('login-user').value.trim();
   const pass  = document.getElementById('login-pass').value;
-  const error = document.getElementById('login-error');
+  const errorDiv = document.getElementById('login-error');
 
-  // Validación básica
-  if (!user || !pass) {
-    error.textContent = 'ERROR: Completa todos los campos.';
+  // Validación básica de campos vacíos
+  if (!email || !pass) {
+    errorDiv.textContent = 'ERROR: Completa todos los campos.';
     return false;
   }
 
-  // Buscar usuario guardado en localStorage
-  const guardado = JSON.parse(localStorage.getItem('usuario_' + user));
+  // Mensaje de carga mientras se conecta a la base de datos
+  errorDiv.style.color = '#00ff41'; // Color verde temporal para el aviso
+  errorDiv.textContent = 'AUTENTICANDO...';
 
-  if (!guardado) {
-    error.textContent = 'ERROR: Usuario no encontrado.';
-    return false;
-  }
-
-  if (guardado.password !== pass) {
-    error.textContent = 'ERROR: Contraseña incorrecta.';
-    return false;
-  }
-
-  // Login exitoso → guardar sesión y redirigir
-  error.textContent = '';
-  localStorage.setItem('sesion_activa', user);
-
-  // Aquí redirigirías a la página principal
-  alert('Bienvenido, ' + user + '! (Aquí irá la redirección al panel)');
-  // window.location.href = 'index.html';
-
-  return false;
-}
-
-// ===========================
-// REGISTRARSE
-// ===========================
-function doRegister(event) {
-  event.preventDefault();
-
-  const user  = document.getElementById('reg-user').value.trim();
-  const email = document.getElementById('reg-email').value.trim();
-  const pass  = document.getElementById('reg-pass').value;
-  const error = document.getElementById('reg-error');
-
-  // Validaciones
-  if (!user || !email || !pass) {
-    error.textContent = 'ERROR: Completa todos los campos.';
-    return false;
-  }
-
-  if (pass.length < 8) {
-    error.textContent = 'ERROR: La contraseña debe tener al menos 8 caracteres.';
-    return false;
-  }
-
-  if (localStorage.getItem('usuario_' + user)) {
-    error.textContent = 'ERROR: Ese usuario ya existe.';
-    return false;
-  }
-
-  // Guardar usuario en localStorage
-  const nuevoUsuario = {
-    username: user,
-    email:    email,
+  // Llamada a Supabase para validar credenciales
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
     password: pass,
-    xp:       0,
-    clases:   [],
-    logros:   []
-  };
+  });
 
-  localStorage.setItem('usuario_' + user, JSON.stringify(nuevoUsuario));
+  // Restaurar el color rojo para los errores
+  errorDiv.style.color = '#ff4141';
 
-  // Mostrar alerta y cambiar a login
-  error.textContent = '';
-  document.getElementById('alert-box').style.display = 'block';
-  switchTab('login');
-  document.getElementById('login-user').value = user;
+  if (error) {
+    // Si la contraseña es incorrecta o el usuario no existe
+    if (error.message === "Invalid login credentials") {
+      errorDiv.textContent = 'ERROR: Credenciales incorrectas.';
+    } else {
+      errorDiv.textContent = 'ERROR DEL SISTEMA: ' + error.message;
+    }
+    return false;
+  }
+
+  // Login exitoso
+  errorDiv.textContent = '';
+  
+  // Aquí puedes ver los datos del usuario en la consola si los necesitas
+  console.log("Sesión iniciada con éxito:", data.user);
+  
+  alert('¡ACCESO CONCEDIDO! Conectando al sistema...');
+  
+  // Descomenta y cambia la siguiente línea para redirigir a la página principal de tu proyecto de Godot
+  // window.location.href = 'panel_principal.html'; 
 
   return false;
 }
