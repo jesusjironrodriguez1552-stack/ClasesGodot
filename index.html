@@ -15,17 +15,15 @@
 
     <div class="login-box">
 
-      <!-- LOGO -->
       <div class="login-logo">
         CODE<span>MATRIX</span>
         <p class="login-sub">// ACCESO AL SISTEMA //</p>
       </div>
 
-      <!-- FORMULARIO LOGIN -->
       <form id="form-login" onsubmit="return doLogin(event)">
         <div class="form-group">
-          <label class="form-label">USUARIO</label>
-          <input type="text" class="form-input" id="login-user" placeholder="tu_usuario" required />
+          <label class="form-label">CORREO ELECTRÓNICO</label>
+          <input type="email" class="form-input" id="login-user" placeholder="tu_correo@email.com" required />
         </div>
         <div class="form-group">
           <label class="form-label">CONTRASEÑA</label>
@@ -39,6 +37,8 @@
 
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
   <script src="login.js"></script>
 
 </body>
