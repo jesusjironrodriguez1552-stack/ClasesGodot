@@ -1,14 +1,18 @@
 // ===========================
 // NAVEGACIÓN Y PROGRESO
 // ===========================
-const totalSections = 3;
-const sectionIds = ['sec-intro', 'sec-editor', 'sec-cazador'];
+const totalSections = 4;
+const sectionIds = ['sec-intro', 'sec-lab', 'sec-bug', 'sec-game'];
 
 function goTo(targetId) {
+  // Ocultar todas las secciones
   document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+  // Mostrar la solicitada
   document.getElementById(targetId).classList.add('active');
+  // Subir al tope suavemente
   window.scrollTo({ top: 0, behavior: 'smooth' });
   
+  // Actualizar barra de progreso
   const currentIndex = sectionIds.indexOf(targetId) + 1;
   const progressPercent = Math.floor((currentIndex / totalSections) * 100);
   
@@ -17,82 +21,127 @@ function goTo(targetId) {
 }
 
 // ===========================
-// SECCIÓN 2: LABORATORIO DE VARIABLES
+// SECCIÓN 2: LABORATORIO GUIADO
 // ===========================
-function ejecutarClase2() {
-  const nombre = document.getElementById('inputNombre').value.trim();
-  const edad = document.getElementById('inputEdad').value.trim();
-  const terminal = document.getElementById('termClase2');
-  const btnNext = document.getElementById('btnNextClase2');
+function ejecutarLab() {
+  const nombre = document.getElementById('labNombre').value.trim();
+  const rango = document.getElementById('labRango').value.trim();
+  const terminal = document.getElementById('termLab');
+  const btnNext = document.getElementById('btnNextLab');
 
-  // Validación básica
-  if (nombre === "" || edad === "") {
-    terminal.innerHTML = `<span style="color:#ff4141">> ERROR: No puedes dejar las cajas de memoria vacías. BYTE necesita datos.</span>`;
+  if (nombre === "" || rango === "") {
+    terminal.innerHTML = `<span style="color:#ff4141">> ERROR: Las variables no pueden estar vacías. El sistema requiere datos.</span>`;
     return;
   }
 
-  // Verificar si la edad es un número
-  if (isNaN(edad)) {
-    terminal.innerHTML = `<span style="color:#ff4141">> ERROR DE TIPO: La edad debe ser un número sin comillas.</span>`;
-    return;
-  }
-
-  // Simulación de guardado en memoria
+  // Simulamos que la máquina procesa las variables
   terminal.innerHTML = `
-    <span class="term-prompt">></span> Accediendo a memoria RAM...<br/>
-    <span class="term-prompt">></span> Guardando variable [nombre] = "${nombre}"...<br/>
-    <span class="term-prompt">></span> Guardando variable [edad] = ${edad}...<br/>
-    <span style="color:#00ff41">> ÉXITO: BYTE ahora te conoce. "Hola ${nombre}, guardaré tus ${edad} años en mi base de datos."</span>
+    <span class="term-prompt">></span> Guardando [ let nombre = "${nombre}" ]... OK.<br/>
+    <span class="term-prompt">></span> Guardando [ let rango = "${rango}" ]... OK.<br/>
+    <span style="color:#00ff41">> Bienvenido, ${nombre}. Se han detectado permisos de ${rango}.</span>
   `;
 
+  // Mostramos el botón para avanzar
   btnNext.style.display = 'block';
 }
 
 // ===========================
-// SECCIÓN 3: CAZADOR DE BUGS (EL DESAFÍO)
+// SECCIÓN 3: CAZADOR DE BUGS
 // ===========================
-function checkBugClase2() {
-  const inputVal = document.getElementById('bug-input').value.trim();
-  const output = document.getElementById('bug-output');
-  const status = document.getElementById('bug-status');
-  const finalScreen = document.getElementById('finalClase2');
+function checkBug() {
+  const inputVal = document.getElementById('bugInput').value.trim();
+  const output = document.getElementById('bugOutput');
+  const status = document.getElementById('bugStatus');
+  const btnNext = document.getElementById('btnNextBug');
 
-  // El error original es "10" (con comillas). La solución es 10 (sin comillas).
+  // Evaluar la respuesta
   if (inputVal === "10") {
-    // ÉXITO
+    // CORRECTO: Quitó las comillas
     output.innerHTML = `
       <span style="color:#00ff41">¡SÍ! BUG ELIMINADO.</span><br/>
-      Al quitar las comillas, convertiste el texto en un <strong>Número</strong>.<br/>
-      Ahora la operación es: 10 + 5 = 15.
+      Al quitar las comillas, le dijiste a la computadora que es un <strong>Número</strong> real.<br/>
+      Ahora sí hace matemáticas: 10 + 5 = 15.
     `;
     status.textContent = "SOLUCIONADO";
     status.style.color = "#00ff41";
-    output.style.display = "block";
-    
-    // Mostrar pantalla final después de un pequeño delay
-    setTimeout(() => {
-      finalScreen.style.display = 'block';
-      finalScreen.scrollIntoView({ behavior: 'smooth' });
-    }, 1000);
+    document.getElementById('ch-bug').classList.add('success');
+    btnNext.style.display = "block";
 
   } else if (inputVal === '"10"' || inputVal === "'10'") {
-    // SIGUE EL ERROR
+    // ERROR: Dejó las comillas
     output.innerHTML = `
-      <span style="color:#ff4141">EL BUG PERSISTE:</span><br/>
-      Resultado: "10" + 5 = 105.<br/>
-      JavaScript está uniendo los textos en lugar de sumar. ¡Quita esas comillas!
+      <span style="color:#ff4141">RESULTADO EN CONSOLA: 105.</span><br/>
+      JavaScript creyó que el 10 era una palabra y le pegó el 5 al lado. ¡Tienes que quitarle las comillas!
     `;
-    output.style.display = "block";
   } else {
-    // SE EQUIVOCÓ DE NÚMERO O BORRÓ TODO
-    output.innerHTML = `<span style="color:#ff4141">¿Qué hiciste? El valor original era 10. Solo debías quitarle las comillas.</span>`;
-    output.style.display = "block";
+    // ERROR: Cambió el número por otra cosa
+    output.innerHTML = `<span style="color:#ff4141">Ese no es el código original. Solo debías quitarle las comillas al 10.</span>`;
   }
+  
+  output.style.display = "block";
 }
 
-// Inicializar
+// ===========================
+// SECCIÓN 4: MINI-JUEGO (HACKEO VIP)
+// ===========================
+function ejecutarJuego() {
+  const code = document.getElementById('gameEditor').value;
+  const terminal = document.getElementById('termGame');
+  const victoryScreen = document.getElementById('victoryClase2');
+
+  // Validaciones del código del alumno
+  const hasLet = code.includes('let');
+  const hasAlias = code.includes('alias');
+  const hasRango = code.includes('rango');
+  const hasConsoleLog = code.includes('console.log');
+  const hasQuotes = code.includes('"') || code.includes("'");
+
+  if (code.trim() === "") {
+    terminal.innerHTML = `<span style="color:#ff4141">> ERROR: El archivo está vacío. Escribe tu código.</span>`;
+    return;
+  }
+
+  if (!hasLet) {
+    terminal.innerHTML = `<span style="color:#ff4141">> ERROR DE SINTAXIS: Falta la palabra clave 'let' para crear variables.</span>`;
+    return;
+  }
+
+  if (!hasAlias || !hasRango) {
+    terminal.innerHTML = `<span style="color:#ff4141">> ALERTA DEL SISTEMA: Debes crear las variables exactas 'alias' y 'rango'.</span>`;
+    return;
+  }
+
+  if (!hasQuotes) {
+    terminal.innerHTML = `<span style="color:#ff4141">> BUG: Recuerda que los Textos (Strings) deben ir entre comillas "".</span>`;
+    return;
+  }
+
+  if (!hasConsoleLog) {
+    terminal.innerHTML = `<span style="color:#ff4141">> ERROR: Creaste las variables, pero falta imprimirlas. Usa console.log() para engañar al sistema.</span>`;
+    return;
+  }
+
+  // Si pasó todas las validaciones, ¡Victoria!
+  terminal.innerHTML = `
+    <span class="term-prompt">></span> Compilando código de infiltración...<br/>
+    <span class="term-prompt">></span> Variables [alias] y [rango] detectadas...<br/>
+    <span class="term-prompt">></span> Ejecutando impresión...<br/>
+    <span style="color:#00ff41">> [SISTEMA VULNERADO]: Identidad aceptada. Pase VIP generado con éxito.</span>
+  `;
+
+  // Mostrar la pantalla final con un poco de retraso
+  setTimeout(() => {
+    document.querySelector('.editor-wrap').style.display = 'none'; // Ocultamos el editor para limpiar la pantalla
+    victoryScreen.style.display = 'block';
+    victoryScreen.scrollIntoView({ behavior: 'smooth' });
+  }, 1500);
+}
+
+// ===========================
+// INICIALIZACIÓN
+// ===========================
 window.onload = () => {
-  // Asegurarnos de que el progreso empiece en la primera sección
-  document.getElementById('progressBar').style.width = '33%';
-  document.getElementById('progressLabel').textContent = '33%';
+  // Inicializamos el progreso en el 25% (Sección 1)
+  document.getElementById('progressBar').style.width = '25%';
+  document.getElementById('progressLabel').textContent = '25%';
 };
