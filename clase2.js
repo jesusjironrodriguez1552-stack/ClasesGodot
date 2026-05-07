@@ -129,11 +129,15 @@ function ejecutarJuego() {
     <span style="color:#00ff41">> [SISTEMA VULNERADO]: Identidad aceptada. Pase VIP generado con éxito.</span>
   `;
 
-  // Mostrar la pantalla final con un poco de retraso
+  // Mostrar la pantalla final con un poco de retraso y GUARDAR EN SUPABASE
   setTimeout(() => {
     document.querySelector('.editor-wrap').style.display = 'none'; // Ocultamos el editor para limpiar la pantalla
     victoryScreen.style.display = 'block';
     victoryScreen.scrollIntoView({ behavior: 'smooth' });
+    
+    // ---> LLAMADA A LA FUNCIÓN DE GUARDADO <---
+    guardarProgresoClase2();
+    
   }, 1500);
 }
 
@@ -145,3 +149,27 @@ window.onload = () => {
   document.getElementById('progressBar').style.width = '25%';
   document.getElementById('progressLabel').textContent = '25%';
 };
+
+// ===========================
+// CONEXIÓN A SUPABASE (GUARDADO DE PROGRESO)
+// ===========================
+async function guardarProgresoClase2() {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (user) {
+      const { error } = await supabase
+        .from('usuarios')
+        .update({ clase2_completada: true })
+        .eq('id', user.id);
+
+      if (error) {
+        console.error('Error al guardar progreso en Supabase:', error);
+      } else {
+        console.log('Progreso de la Clase 2 guardado en la Matrix exitosamente.');
+      }
+    }
+  } catch (err) {
+    console.error('No se pudo guardar el progreso. Asegúrate de que Supabase esté inicializado:', err);
+  }
+}
