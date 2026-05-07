@@ -17,7 +17,7 @@
     <div class="clase-badge">CLASE 02</div>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    <div class="progress-bar" id="progressBar"></div>
     <span class="progress-label" id="progressLabel">0%</span>
   </div>
 </header>
@@ -25,163 +25,140 @@
 <main class="main-wrap">
 
   <div class="ad-space">
-    <span>[ ESPACIO PARA ANUNCIO ]</span>
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
   </div>
 
   <section class="section active" id="sec-intro">
-    <div class="section-tag">// SECCIÓN 01 — MEMORIA VOLÁTIL</div>
-    <h1 class="sec-title">Dándole memoria<br/><span>a la máquina</span></h1>
+    <div class="section-tag">// SECCIÓN 01 — EL ARCHIVO DE MEMORIA</div>
+    <h1 class="sec-title">La Memoria<br/><span>del Robot</span></h1>
     
     <div class="video-container">
       <div class="video-placeholder">
-        <span>▶ VIDEO: ¿QUÉ ES UNA VARIABLE? (CLASE 2)</span>
+        <span>▶ VIDEO: APRENDIENDO A GUARDAR DATOS (CLASE 2)</span>
       </div>
     </div>
 
-    <p class="sec-sub">En la clase pasada, BYTE hablaba pero olvidaba todo al instante. Hoy vamos a crear "cajas" para guardar datos.</p>
+    <p class="sec-sub">Para que un programa sea útil, debe recordar información. Hoy aprenderás a crear "cajas" en la memoria de la computadora.</p>
 
     <div class="idea-box">
       <div class="idea-icon">📦</div>
-      <p>Una <strong>Variable</strong> es como una caja con una etiqueta.<br/>Guardas algo dentro y lo recuperas usando su nombre.</p>
+      <p>Usamos la palabra <strong>let</strong> para crear una variable.<br/>Es como ponerle una etiqueta a una caja para no perder lo que hay dentro.</p>
     </div>
 
-    <div class="cards-row">
-      <div class="card-info">
-        <div class="card-icon">🏷️</div>
-        <h3>let</h3>
-        <p>Es la palabra que usamos para decirle a la PC: "¡Ey! Crea una caja nueva".</p>
-      </div>
-      <div class="card-info">
-        <div class="card-icon">📝</div>
-        <h3>Strings</h3>
-        <p>Textos. Siempre van con <strong>"comillas"</strong>.</p>
-      </div>
-      <div class="card-info">
-        <div class="card-icon">🔢</div>
-        <h3>Numbers</h3>
-        <p>Números reales. Van <strong>sin comillas</strong> para poder sumar.</p>
-      </div>
-    </div>
-
-    <button class="btn-next" onclick="goTo('sec-editor')">IR AL LABORATORIO →</button>
+    <button class="btn-next" onclick="goTo('sec-lab')">EMPEZAR PRÁCTICA →</button>
   </section>
 
-  <section class="section" id="sec-editor">
-    <div class="section-tag">// SECCIÓN 02 — CREANDO CAJAS</div>
-    <h2 class="sec-title">Tu primer<br/><span>almacenamiento</span></h2>
-    
+  <section class="section" id="sec-lab">
+    <div class="section-tag">// SECCIÓN 02 — LABORATORIO</div>
+    <h2 class="sec-title">Tu primera<br/><span>Variable</span></h2>
+    <p class="sec-sub">Completa los datos para que BYTE sepa quién eres.</p>
+
     <div class="editor-wrap">
       <div class="editor-topbar">
         <div class="editor-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-        <span class="editor-filename">memoria.js</span>
+        <span class="editor-filename">registro.js</span>
       </div>
-
       <div class="editor-body">
         <div class="code-area">
-          <div class="code-line comment">// 1. Crea la variable nombre</div>
+          <div class="code-line comment">// Crea la variable de tu nombre</div>
           <div class="code-line">
-            <span class="kw">let</span> nombre = "<input type="text" id="inputNombre" class="inline-input" placeholder="Tu nombre..." />";
+            <span class="kw">let</span> nombre = "<input type="text" id="labNombre" class="inline-input" placeholder="Tu nombre..." />";
           </div>
-          <div class="code-line comment">// 2. Crea la variable edad</div>
+          <div class="code-line comment">// Crea la variable de tu rango</div>
           <div class="code-line">
-            <span class="kw">let</span> edad = <input type="text" id="inputEdad" class="inline-input" style="width: 50px" placeholder="00" />;
+            <span class="kw">let</span> rango = "<input type="text" id="labRango" class="inline-input" placeholder="Ej: Hacker" />";
           </div>
           <div class="code-line empty"></div>
-          <div class="code-line comment">// 3. BYTE lo recuerda:</div>
-          <div class="code-line">
-            <span class="kw">console.log</span>(nombre);
-          </div>
+          <div class="code-line"><span class="kw">console.log</span>("Bienvenido,", nombre);</div>
         </div>
       </div>
-
       <div class="editor-toolbar">
-        <button class="run-btn" onclick="ejecutarClase2()">▶ EJECUTAR</button>
+        <button class="run-btn" onclick="ejecutarLab()">▶ EJECUTAR</button>
       </div>
     </div>
 
     <div class="terminal-wrap">
-      <div class="terminal-body" id="termClase2">
+      <div class="terminal-body" id="termLab">
         <span class="term-prompt">></span> esperando datos...
       </div>
     </div>
 
-    <button class="btn-next" id="btnNextClase2" style="display:none" onclick="goTo('sec-cazador')">SIGUIENTE: CAZADOR DE BUGS →</button>
+    <button class="btn-next" id="btnNextLab" style="display:none" onclick="goTo('sec-bug')">SIGUIENTE: CAZADOR DE BUGS →</button>
   </section>
 
   <div class="ad-space">
-    <span>[ ESPACIO PARA ANUNCIO ]</span>
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
   </div>
 
-  <section class="section" id="sec-cazador">
-    <div class="section-tag">// SECCIÓN 03 — EL ERROR DEL NOVATO</div>
-    <h2 class="sec-title">Cazador de<br/><span>Bugs Nivel 2</span></h2>
-    <p class="sec-sub">Mira este código. Alguien puso comillas donde no debía y ahora la suma no funciona. ¡Arréglalo!</p>
+  <section class="section" id="sec-bug">
+    <div class="section-tag">// SECCIÓN 03 — CAZADOR DE BUGS</div>
+    <h2 class="sec-title">¿Texto o<br/><span>Número?</span></h2>
+    <p class="sec-sub">BYTE está confundido. Alguien puso comillas en un número y la suma sale mal. ¡Arréglalo!</p>
 
-    <div class="challenge">
+    <div class="challenge" id="ch-bug">
       <div class="ch-header">
-        <span class="ch-title">Misión: Suma Correcta</span>
-        <span class="ch-status" id="bug-status">ERROR DETECTADO</span>
+        <span class="ch-title">Misión: Corregir el Valor</span>
+        <span class="ch-status" id="bugStatus">ERROR EN MEMORIA</span>
       </div>
-      <p class="ch-desc">El objetivo es que el total sea 15. Quita lo que sobra.</p>
-      
       <div class="ch-editor">
-        <div class="code-line"><span class="kw">let</span> precio = <input type="text" class="ch-input" id="bug-input" value='"10"' style="width: 80px" />;</div>
-        <div class="code-line"><span class="kw">let</span> total = precio + 5;</div>
+        <div class="code-line comment">// El error está en la siguiente línea:</div>
+        <div class="code-line">
+          <span class="kw">let</span> puntos = <input type="text" class="ch-input" id="bugInput" value='"10"' style="width: 80px;" /> ;
+        </div>
+        <div class="code-line"><span class="kw">let</span> total = puntos + 5;</div>
         <div class="code-line"><span class="kw">console.log</span>(total);</div>
       </div>
-      
-      <button class="ch-run" onclick="checkBugClase2()">▶ COMPROBAR SUMA</button>
-      <div class="ch-output" id="bug-output"></div>
+      <button class="ch-run" onclick="checkBug()">▶ COMPROBAR</button>
+      <div class="ch-output" id="bugOutput"></div>
     </div>
 
-    <div class="completion-screen" id="finalClase2" style="display:none">
-      <div class="comp-robot">💾</div>
-      <div class="comp-title">¡MEMORIA DESBLOQUEADA!</div>
-      <p>Ahora sabes guardar datos. Próxima clase: Operaciones Matemáticas.</p>
+    <button class="btn-next" id="btnNextBug" style="display:none" onclick="goTo('sec-game')">¡ÚLTIMO RETO: EL HACKEO! →</button>
+  </section>
+
+  <section class="section" id="sec-game">
+    <div class="section-tag">// SECCIÓN 04 — MINI-JUEGO FINAL</div>
+    <h2 class="sec-title">Falsificando<br/><span>tu ID</span></h2>
+    <p class="sec-sub">El firewall te bloqueó. Escribe el código completo desde cero para crear tu Identificación VIP y entrar al sistema.</p>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+        <span class="editor-filename">bypass_firewall.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <textarea id="gameEditor" class="full-editor" placeholder="// 1. Crea la variable 'alias'
+// 2. Crea la variable 'rango'
+// 3. Usa console.log() para unir tu pase VIP..."></textarea>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarJuego()">▶ INFILTRARSE</button>
+        <button class="hint-btn" onclick="alert('Pista: let alias = \'TuNombre\';')">💡 PISTA</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termGame">
+        <span class="term-prompt">></span> esperando código del hacker...
+      </div>
+    </div>
+
+    <div class="completion-screen" id="victoryClase2" style="display:none">
+      <div class="comp-robot">📂</div>
+      <div class="comp-title">¡MEMORIA DOMINADA!</div>
+      <p>Has hackeado el sistema usando tus propias variables.</p>
+      <div class="comp-xp">+200 XP</div>
       <a href="panel.html" class="btn-next">VOLVER AL PANEL</a>
     </div>
   </section>
 
   <div class="ad-space">
-    <span>[ ESPACIO PARA ANUNCIO ]</span>
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
   </div>
 
 </main>
 
-<script>
-  // Lógica simple para la Clase 2 (puedes mover esto a un clase2.js después)
-  function ejecutarClase2() {
-    const n = document.getElementById('inputNombre').value;
-    const e = document.getElementById('inputEdad').value;
-    const out = document.getElementById('termClase2');
-    
-    if(n && e) {
-      out.innerHTML = `<span class="term-prompt">></span> Registrando en memoria...<br/><span style="color:#00ff41">OK: Hola ${n}, veo que tienes ${e} años.</span>`;
-      document.getElementById('btnNextClase2').style.display = 'block';
-    } else {
-      out.innerHTML = `<span style="color:red">> Error: Faltan datos en las variables.</span>`;
-    }
-  }
-
-  function checkBugClase2() {
-    const val = document.getElementById('bug-input').value.trim();
-    const out = document.getElementById('bug-output');
-    
-    if(val === "10") { // Correcto: sin comillas
-      out.innerHTML = "¡Excelente! Al quitar las comillas, JavaScript entiende que es un número y hace la suma: 10 + 5 = 15.";
-      out.style.color = "#00ff41";
-      document.getElementById('bug-status').textContent = "SOLUCIONADO";
-      document.getElementById('finalClase2').style.display = 'block';
-    } else if (val === '"10"' || val === "'10'") {
-      out.innerHTML = "Resultado: 105. ¡Error! JavaScript está pegando los textos en vez de sumar. Quita las comillas.";
-      out.style.color = "#ff4141";
-    } else {
-      out.innerHTML = "Ese no es el número original. Pon el 10 sin comillas.";
-      out.style.color = "#ff4141";
-    }
-    out.style.display = "block";
-  }
-</script>
-
+<script src="clase2.js"></script>
 </body>
 </html>
