@@ -1,0 +1,464 @@
+/* ===========================
+   BASE Y VARIABLES (CLASE 5)
+=========================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --verde:    #00ff41;
+  --rojo:     #ff4141;
+  --ambar:    #f5a623;
+  --azul:     #9cdcfe;
+  --morado:   #c586c0;
+  --gris:     #6a9955;
+  --bg:       #050507;
+  --bg2:      #0a0a0f;
+  --bg3:      #0f0f18;
+  --border:   rgba(255, 65, 65, 0.25);
+  --glow-r:   rgba(255, 65, 65, 0.15);
+  --glow-g:   rgba(0, 255, 65, 0.15);
+}
+
+body {
+  background: var(--bg);
+  color: var(--verde);
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scanline con tinte rojizo para distinguir de la clase anterior */
+.scanline {
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 2px,
+    rgba(255, 65, 65, 0.025) 2px, rgba(255, 65, 65, 0.025) 4px
+  );
+  pointer-events: none; z-index: 999;
+}
+
+/* ===========================
+   ESTADOS INICIALES
+=========================== */
+#btnNextLab,
+#btnNextBug,
+#victoryClase5 { display: none; }
+
+/* ===========================
+   BARRA SUPERIOR Y PROGRESO
+=========================== */
+.header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  background: rgba(2, 2, 8, 0.97);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  backdrop-filter: blur(6px);
+}
+.header-inner {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 1rem 2rem;
+}
+.logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.2rem; }
+.logo span { color: #fff; }
+.back-btn { color: var(--ambar); text-decoration: none; font-family: 'Share Tech Mono', monospace; transition: color 0.2s; }
+.back-btn:hover { color: var(--rojo); }
+
+/* Badge clase 5: rojo en lugar de verde */
+.clase-badge {
+  background: var(--rojo);
+  color: #fff;
+  padding: 0.2rem 0.8rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem; font-weight: bold;
+  border-radius: 3px;
+  box-shadow: 0 0 12px rgba(255, 65, 65, 0.4);
+}
+
+/* Barra de progreso en ámbar para este capítulo */
+.progress-bar-wrap {
+  width: 100%; height: 4px;
+  background: rgba(245, 166, 35, 0.1);
+  position: relative;
+}
+.progress-bar {
+  height: 100%; background: var(--ambar);
+  width: 0%; transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--ambar);
+}
+.progress-label {
+  position: absolute; right: 10px; top: 5px;
+  font-size: 0.7rem; font-family: 'Share Tech Mono', monospace;
+  color: var(--ambar);
+}
+
+/* ===========================
+   SECCIONES Y TEXTOS
+=========================== */
+.main-wrap { padding: 100px 20px 50px; max-width: 800px; margin: 0 auto; }
+.section { display: none; animation: fadeIn 0.4s forwards; }
+.section.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-tag {
+  font-family: 'Share Tech Mono', monospace;
+  color: rgba(255, 65, 65, 0.5);
+  margin-bottom: 1rem; font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+.sec-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem; color: #fff;
+  line-height: 1.1; margin-bottom: 1rem;
+}
+.sec-title span { color: var(--rojo); }
+.sec-sub { font-size: 1.2rem; margin-bottom: 2rem; color: #ccc; }
+
+/* Botón primario: ámbar */
+.btn-next {
+  display: block; width: 100%;
+  background: var(--ambar); color: #000;
+  border: none; padding: 1rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem; font-weight: bold;
+  cursor: pointer; margin-top: 3rem;
+  transition: all 0.2s;
+  text-align: center; text-decoration: none;
+  letter-spacing: 1px;
+}
+.btn-next:hover {
+  box-shadow: 0 0 24px rgba(245, 166, 35, 0.5);
+  transform: scale(1.02);
+}
+
+/* ===========================
+   IDEA BOX — VERSIÓN IF/ELSE
+=========================== */
+.idea-box {
+  border-left: 4px solid var(--rojo);
+  background: rgba(255, 65, 65, 0.04);
+  padding: 1.5rem; margin-bottom: 2rem;
+  display: flex; flex-direction: column; gap: 0.8rem;
+}
+.idea-box h3 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 1rem; }
+.idea-box p { color: #ccc; font-size: 1rem; line-height: 1.7; }
+.idea-box strong { color: #fff; }
+
+/* Advertencia con acento ámbar */
+.idea-warning {
+  border-left-color: var(--ambar);
+  background: rgba(245, 166, 35, 0.04);
+}
+.idea-warning h3 { color: var(--ambar); }
+
+/* ===========================
+   CAJA DE ESTRUCTURA if/else
+=========================== */
+.estructura-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 1.5rem; margin-bottom: 2rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.05rem; line-height: 2;
+}
+.estructura-linea { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.indent { padding-left: 2rem; }
+.condicion { color: var(--azul); }
+.llave { color: var(--ambar); font-weight: bold; }
+.paren { color: #fff; }
+
+.estructura-leyenda {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px dashed rgba(255, 65, 65, 0.2);
+  font-size: 0.85rem;
+}
+.leyenda-item { color: #aaa; }
+
+/* ===========================
+   CAJAS DE REGLAS (RETO FINAL)
+=========================== */
+.reglas-box {
+  margin: 1rem 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.regla {
+  padding: 10px 16px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.95rem;
+  border-left: 4px solid;
+}
+.regla-elite {
+  background: rgba(255, 65, 65, 0.1);
+  border-color: var(--rojo); color: var(--rojo);
+}
+.regla-avanzado {
+  background: rgba(245, 166, 35, 0.1);
+  border-color: var(--ambar); color: var(--ambar);
+}
+.regla-novato {
+  background: rgba(0, 255, 65, 0.07);
+  border-color: var(--verde); color: var(--verde);
+}
+
+/* ===========================
+   LISTA DE PASOS (RETO FINAL)
+=========================== */
+.tip-list { list-style: none; padding: 0; margin: 0.5rem 0; display: flex; flex-direction: column; gap: 10px; }
+.tip-list li { color: #ccc; font-size: 1rem; line-height: 1.7; }
+.tip-list li strong { color: #fff; }
+
+/* ===========================
+   SUBTÍTULO DE SECCIÓN
+=========================== */
+.subsection-title {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--rojo); font-size: 1.1rem;
+  margin-bottom: 15px; letter-spacing: 1px;
+}
+
+/* ===========================
+   TOKENS DE CÓDIGO (COLORES)
+=========================== */
+.kw    { color: var(--morado); font-weight: bold; }
+.val-bool { color: var(--azul); }
+.val-str  { color: #ce9178; }
+.comment  { color: var(--gris); }
+
+/* Bloque de código ancho */
+.code-preview-wide {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.88rem; background: #000;
+  padding: 14px; margin-top: 14px;
+  border-left: 2px solid var(--rojo);
+  line-height: 1.9; width: 100%;
+}
+
+/* ===========================
+   EDITOR DE CÓDIGO
+=========================== */
+.editor-wrap {
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  border-radius: 5px; background: var(--bg2);
+  margin-bottom: 1rem;
+  transition: border-color 0.3s;
+}
+.editor-wrap:focus-within {
+  border-color: rgba(245, 166, 35, 0.6);
+  box-shadow: 0 0 14px rgba(245, 166, 35, 0.08);
+}
+.editor-topbar {
+  background: rgba(10, 5, 0, 0.8); padding: 10px;
+  display: flex; align-items: center;
+  border-bottom: 1px solid rgba(245, 166, 35, 0.15);
+}
+.editor-dots span {
+  display: inline-block; width: 10px; height: 10px;
+  border-radius: 50%; margin-right: 5px;
+}
+.dot.red    { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green  { background: #27c93f; }
+.editor-filename {
+  margin-left: 15px; font-family: monospace;
+  color: #888; font-size: 0.8rem;
+  flex: 1; text-align: center;
+}
+.editor-body {
+  display: flex; font-family: 'Share Tech Mono', monospace;
+  font-size: 1.05rem;
+}
+.code-area { padding: 15px; flex: 1; width: 100%; }
+.code-line {
+  line-height: 1.6; margin-bottom: 5px;
+  display: flex; align-items: center;
+  flex-wrap: wrap; gap: 8px;
+}
+.code-line.empty { height: 1rem; }
+
+/* Input inline — laboratorio */
+.inline-input {
+  background: transparent; border: none;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
+  color: #ce9178; font-family: inherit;
+  font-size: inherit; width: 150px;
+  outline: none; transition: all 0.3s; padding: 0 5px;
+}
+.inline-input:focus {
+  border-bottom-color: var(--ambar); width: 190px;
+}
+
+/* Toolbar de editor */
+.editor-toolbar {
+  padding: 10px; display: flex; gap: 10px;
+  background: rgba(0,0,0,0.4);
+  border-top: 1px solid rgba(245, 166, 35, 0.1);
+}
+.run-btn {
+  background: var(--rojo); color: #fff;
+  border: none; padding: 8px 20px;
+  font-family: 'Share Tech Mono', monospace;
+  cursor: pointer; font-weight: bold;
+  font-size: 0.95rem; letter-spacing: 1px;
+  transition: all 0.2s;
+}
+.run-btn:hover {
+  background: #ff6161;
+  box-shadow: 0 0 14px rgba(255, 65, 65, 0.35);
+}
+.hint-btn {
+  background: transparent; color: #aaa;
+  border: 1px solid #444; padding: 8px 15px;
+  cursor: pointer; font-family: 'Share Tech Mono', monospace;
+  transition: border-color 0.2s;
+}
+.hint-btn:hover { border-color: var(--ambar); color: var(--ambar); }
+
+/* Editor libre (reto final) */
+.full-editor {
+  width: 100%; min-height: 220px;
+  background: #090910; border: 1px solid #2a2a3a;
+  padding: 15px; font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem; color: var(--verde);
+  border-radius: 4px; resize: vertical; outline: none;
+  transition: all 0.3s;
+}
+.full-editor::placeholder { color: #3a3a50; }
+.full-editor:focus {
+  border-color: rgba(245, 166, 35, 0.4);
+  box-shadow: 0 0 12px rgba(245, 166, 35, 0.1);
+}
+
+/* ===========================
+   TERMINAL
+=========================== */
+.terminal-wrap {
+  background: #000; border: 1px solid #1a1a2a;
+  margin-top: 20px;
+  font-family: 'Share Tech Mono', monospace;
+  border-top: 2px solid var(--rojo);
+}
+.terminal-body {
+  padding: 15px; color: #fff;
+  min-height: 60px; line-height: 1.7;
+}
+.term-prompt { color: var(--rojo); margin-right: 10px; }
+
+/* ===========================
+   CAZADOR DE BUGS
+=========================== */
+.challenge {
+  background: var(--bg3);
+  border: 1px solid #2a2a3a;
+  padding: 1.5rem; margin-bottom: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.challenge.success {
+  border-color: var(--verde);
+  box-shadow: 0 0 18px rgba(0, 255, 65, 0.08);
+}
+.ch-header {
+  display: flex; justify-content: space-between;
+  margin-bottom: 15px; border-bottom: 1px dashed #2a2a3a;
+  padding-bottom: 10px;
+}
+.ch-title { font-size: 1.2rem; color: #fff; font-family: 'Orbitron', sans-serif; }
+.ch-status { font-family: monospace; font-size: 0.8rem; color: var(--rojo); letter-spacing: 1px; }
+.ch-editor { font-family: 'Share Tech Mono', monospace; font-size: 1rem; }
+.ch-input {
+  background: transparent; border: none;
+  border-bottom: 1px dashed #444;
+  color: #ce9178; font-family: inherit;
+  font-size: inherit; outline: none; text-align: center;
+  transition: border-color 0.2s;
+}
+.ch-input:focus { border-color: var(--ambar); }
+.ch-run {
+  background: #1a1a2a; color: #aaa;
+  border: 1px solid #333; padding: 8px 18px;
+  cursor: pointer; font-family: 'Share Tech Mono', monospace;
+  margin-top: 12px; transition: all 0.2s;
+}
+.ch-run:hover { background: var(--ambar); color: #000; border-color: var(--ambar); }
+.ch-output {
+  margin-top: 15px; padding: 10px; background: #000;
+  color: var(--verde); font-family: 'Share Tech Mono', monospace;
+  display: none; border-left: 2px solid var(--ambar); line-height: 1.8;
+}
+
+/* ===========================
+   VIDEO Y ANUNCIOS
+=========================== */
+.video-container {
+  margin: 2rem 0; width: 100%;
+  border: 1px solid rgba(255, 65, 65, 0.2);
+  background: #000; position: relative;
+  padding-bottom: 56.25%; height: 0; overflow: hidden;
+}
+.video-container iframe, .video-placeholder {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.video-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 65, 65, 0.03);
+  color: var(--rojo);
+  font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
+  text-align: center; padding: 1rem;
+}
+.ad-space {
+  width: 100%; min-height: 90px;
+  background: rgba(255,255,255,0.015);
+  border: 1px dashed #2a2a2a;
+  display: flex; align-items: center; justify-content: center;
+  color: #444; font-family: monospace; font-size: 0.8rem;
+  margin: 2rem 0; text-transform: uppercase;
+}
+
+/* ===========================
+   PANTALLA DE VICTORIA — CLASE 5
+=========================== */
+.completion-screen {
+  text-align: center; padding: 4rem 2rem;
+  background: rgba(255, 65, 65, 0.04);
+  border: 2px solid var(--rojo);
+  margin-top: 3rem;
+  animation: slideUp 0.8s ease-out;
+  position: relative; overflow: hidden;
+}
+
+/* Línea diagonal decorativa en la victoria */
+.completion-screen::before {
+  content: '';
+  position: absolute; top: 0; left: -60px;
+  width: 2px; height: 200%;
+  background: rgba(255, 65, 65, 0.1);
+  transform: rotate(15deg);
+}
+
+.comp-robot { font-size: 4rem; margin-bottom: 1rem; animation: pulseRojo 2s infinite; }
+.comp-title {
+  font-family: 'Orbitron', sans-serif; font-size: 2.5rem;
+  color: var(--rojo); margin-bottom: 1rem; letter-spacing: 2px;
+}
+.comp-xp {
+  display: inline-block; background: var(--rojo);
+  color: #fff; padding: 10px 20px;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold; font-size: 1.2rem;
+  margin: 1rem 0 2rem;
+  box-shadow: 0 0 20px rgba(255, 65, 65, 0.4);
+}
+.completion-screen p { color: #ccc; line-height: 1.7; margin-bottom: 1rem; }
+.completion-screen .btn-next { margin-top: 1rem; }
+
+@keyframes pulseRojo {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(255, 65, 65, 0)); }
+  50%       { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(255, 65, 65, 0.6)); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
