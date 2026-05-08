@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 5 — El Guardián de Decisiones | CodeMatrix</title>
+  <link rel="stylesheet" href="clase5.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="panel.html" class="back-btn">← PANEL</a>
+    <div class="logo">CODE<span>MATRIX</span></div>
+    <div class="clase-badge">CLASE 05</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+    <span class="progress-label" id="progressLabel">0%</span>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+  <!-- ===================== SECCIÓN 01: INTRODUCCIÓN ===================== -->
+  <section class="section active" id="sec-intro">
+    <div class="section-tag">// SECCIÓN 01 — EL GUARDIÁN DE DECISIONES</div>
+    <h1 class="sec-title">Condicionales<br/><span>if</span></h1>
+
+    <div class="video-container">
+      <div class="video-placeholder">
+        <span>▶ VIDEO: TOMANDO DECISIONES CON IF (CLASE 5)</span>
+      </div>
+    </div>
+
+    <p class="sec-sub">Hasta ahora la computadora ejecutaba todo sin pensar. Hoy aprenderá a <strong>tomar decisiones</strong>: si algo es verdad, haz esto. Si no, haz otra cosa.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué es un condicional?</h3>
+      <p>Imagina un guardia en la puerta de un edificio. Antes de dejar pasar a alguien, hace una pregunta: <strong>"¿Tienes pase?"</strong>. Si la respuesta es sí, abre la puerta. Si es no, la mantiene cerrada.</p>
+      <p>El <span class="kw">if</span> en JavaScript funciona exactamente igual. Le haces una pregunta al código y él decide qué instrucciones ejecutar según la respuesta. Si la condición es <span class="val-bool">true</span> ejecuta el bloque. Si es <span class="val-bool">false</span> lo salta.</p>
+      <p>Esto es lo más importante que aprenderás en todo el curso porque <strong>casi todo el código del mundo real está lleno de decisiones</strong>: si el usuario está logueado muéstrale el perfil, si no redirigelo al login. Si hay saldo procesa el pago, si no muestra error.</p>
+    </div>
+
+    <h3 class="subsection-title">La Estructura del if:</h3>
+
+    <div class="estructura-box">
+      <div class="estructura-linea">
+        <span class="kw">if</span> <span class="paren">(</span> <span class="condicion">condición</span> <span class="paren">)</span> <span class="llave">{</span>
+      </div>
+      <div class="estructura-linea indent">
+        <span class="comment">// código que se ejecuta si la condición es TRUE</span>
+      </div>
+      <div class="estructura-linea">
+        <span class="llave">}</span> <span class="kw">else</span> <span class="llave">{</span>
+      </div>
+      <div class="estructura-linea indent">
+        <span class="comment">// código que se ejecuta si la condición es FALSE</span>
+      </div>
+      <div class="estructura-linea">
+        <span class="llave">}</span>
+      </div>
+      <div class="estructura-leyenda">
+        <span class="leyenda-item"><span class="kw">if / else</span> palabras clave</span>
+        <span class="leyenda-item"><span class="paren">( )</span> aquí va la pregunta</span>
+        <span class="leyenda-item"><span class="llave">{ }</span> aquí va la acción</span>
+      </div>
+    </div>
+
+    <div class="idea-box">
+      <h3>Ejemplo real paso a paso:</h3>
+      <p>Supón que quieres que el sistema revise si alguien tiene suficiente saldo para comprar algo que vale $100.</p>
+      <div class="code-preview-wide">
+        <span class="kw">let</span> saldo = 150;<br/>
+        <span class="kw">let</span> precio = 100;<br/>
+        <br/>
+        <span class="kw">if</span> (saldo &gt;= precio) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Compra aprobada ✅"</span>);<br/>
+        <span class="llave">}</span> <span class="kw">else</span> <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Saldo insuficiente ❌"</span>);<br/>
+        <span class="llave">}</span><br/>
+        <br/>
+        <span class="comment">// Como 150 >= 100 es TRUE, imprime: "Compra aprobada ✅"</span>
+      </div>
+      <p>La computadora evalúa <strong>150 &gt;= 100</strong>, obtiene <span class="val-bool">true</span> y entra al primer bloque. Si el saldo fuera 50, obtendría <span class="val-bool">false</span> y ejecutaría el <span class="kw">else</span>.</p>
+    </div>
+
+    <div class="idea-box idea-warning">
+      <h3>⚠️ Las llaves { } son obligatorias</h3>
+      <p>Todo el código que quieras ejecutar dentro del <span class="kw">if</span> debe ir entre llaves <span class="llave">{ }</span>. Si las olvidas, JavaScript solo ejecutará la primera línea y el resto lo ignorará aunque esté indentado. Es uno de los errores más comunes de los principiantes.</p>
+      <div class="code-preview-wide">
+        <span class="comment">// ❌ MAL — sin llaves, solo ejecuta la primera línea:</span><br/>
+        <span class="kw">if</span> (edad &gt;= 18)<br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Mayor de edad"</span>);<br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Acceso concedido"</span>); <span class="comment">// esto SIEMPRE se ejecuta</span><br/>
+        <br/>
+        <span class="comment">// ✅ BIEN — con llaves, ambas líneas dependen del if:</span><br/>
+        <span class="kw">if</span> (edad &gt;= 18) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Mayor de edad"</span>);<br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Acceso concedido"</span>);<br/>
+        <span class="llave">}</span>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="goTo('sec-lab')">EMPEZAR PRÁCTICA →</button>
+  </section>
+
+  <!-- ===================== SECCIÓN 02: LABORATORIO ===================== -->
+  <section class="section" id="sec-lab">
+    <div class="section-tag">// SECCIÓN 02 — LABORATORIO</div>
+    <h2 class="sec-title">Sistema de<br/><span>Alertas</span></h2>
+    <p class="sec-sub">Los servidores se sobrecalientan y explotan si nadie los vigila. Programa el sistema de monitoreo que lanza una alerta cuando la temperatura es peligrosa.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué vas a hacer aquí?</h3>
+      <p>Por primera vez el código va a tomar <strong>dos caminos distintos</strong> según el dato que ingreses. No importa cuántas veces lo ejecutes, siempre decidirá solo qué mensaje mostrar según la temperatura que le des.</p>
+      <p>Ingresa la temperatura del servidor. Si supera los <strong>80 grados</strong> el sistema lanzará alerta roja. Si está por debajo, confirmará que todo funciona normal. Prueba con diferentes números para ver cómo el código cambia de decisión.</p>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        </div>
+        <span class="editor-filename">servidor.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <div class="code-line comment">// Ingresa la temperatura actual del servidor</div>
+          <div class="code-line">
+            <span class="kw">let</span> temperatura = <input type="number" id="labTemp" class="inline-input" placeholder="Ej: 75" />;
+          </div>
+          <div class="code-line comment">// Límite máximo permitido</div>
+          <div class="code-line">
+            <span class="kw">let</span> limiteMaximo = 80;
+          </div>
+          <div class="code-line empty"></div>
+          <div class="code-line comment">// El if decide qué mensaje mostrar:</div>
+          <div class="code-line"><span class="kw">if</span> (temperatura &gt; limiteMaximo) <span class="llave">{</span></div>
+          <div class="code-line indent">
+            <span class="kw">console.log</span>(<span class="val-str">"🔴 ALERTA: Temperatura crítica. Apagando núcleo."</span>);
+          </div>
+          <div class="code-line"><span class="llave">}</span> <span class="kw">else</span> <span class="llave">{</span></div>
+          <div class="code-line indent">
+            <span class="kw">console.log</span>(<span class="val-str">"🟢 Sistema estable. Temperatura dentro del rango."</span>);
+          </div>
+          <div class="code-line"><span class="llave">}</span></div>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarLab()">▶ EJECUTAR</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termLab">
+        <span class="term-prompt">></span> esperando datos del sensor...
+      </div>
+    </div>
+
+    <button class="btn-next" id="btnNextLab" style="display:none" onclick="goTo('sec-bug')">SIGUIENTE: CAZADOR DE BUGS →</button>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+  <!-- ===================== SECCIÓN 03: CAZADOR DE BUGS ===================== -->
+  <section class="section" id="sec-bug">
+    <div class="section-tag">// SECCIÓN 03 — CAZADOR DE BUGS</div>
+    <h2 class="sec-title">La Puerta<br/><span>Rota</span></h2>
+    <p class="sec-sub">El sistema de seguridad del edificio está fallando. El programador olvidó algo en el if y ahora la puerta no responde correctamente. ¡Encuéntralo!</p>
+
+    <div class="idea-box">
+      <h3>¿Qué está mal?</h3>
+      <p>El código de abajo tiene un <span class="kw">if</span> incompleto. Al programador se le olvidó poner las <strong>llaves { }</strong> que envuelven el bloque de código. Sin ellas JavaScript no sabe dónde empieza y dónde termina la acción del if.</p>
+      <p>Tu misión: agregar la llave de apertura <span class="llave">{</span> en el lugar correcto, después de la condición. El código ya tiene la llave de cierre <span class="llave">}</span>, solo falta la de apertura.</p>
+      <p>Pista: la llave va justo después del paréntesis que cierra la condición <span class="paren">)</span>, antes del <span class="kw">console.log</span>.</p>
+    </div>
+
+    <div class="challenge" id="ch-bug">
+      <div class="ch-header">
+        <span class="ch-title">Misión: Reparar la Puerta</span>
+        <span class="ch-status" id="bugStatus">PUERTA BLOQUEADA</span>
+      </div>
+      <div class="ch-editor">
+        <div class="code-line comment">// ❌ A este if le falta algo. Corrígelo:</div>
+        <div class="code-line">
+          <span class="kw">let</span> tienePase = <span class="val-bool">true</span>;
+        </div>
+        <div class="code-line">
+          <span class="kw">if</span> (tienePase == <span class="val-bool">true</span>)
+          <input type="text" class="ch-input" id="bugInput" placeholder="¿qué falta?" style="width: 100px;" />
+        </div>
+        <div class="code-line indent">
+          <span class="kw">console.log</span>(<span class="val-str">"Acceso concedido. Bienvenido."</span>);
+        </div>
+        <div class="code-line"><span class="llave">}</span></div>
+      </div>
+      <button class="ch-run" onclick="checkBug()">▶ COMPROBAR</button>
+      <div class="ch-output" id="bugOutput"></div>
+    </div>
+
+    <button class="btn-next" id="btnNextBug" style="display:none" onclick="goTo('sec-game')">¡ÚLTIMO RETO: CLASIFICADOR DE HACKERS! →</button>
+  </section>
+
+  <!-- ===================== SECCIÓN 04: RETO FINAL ===================== -->
+  <section class="section" id="sec-game">
+    <div class="section-tag">// SECCIÓN 04 — RETO FINAL</div>
+    <h2 class="sec-title">Clasificador<br/><span>de Hackers</span></h2>
+    <p class="sec-sub">¡El Gran Reto! Crea desde cero un sistema que lea el puntaje de un hacker y le asigne su rango automáticamente.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué vas a construir?</h3>
+      <p>Las plataformas competitivas como Duolingo, Codecademy o los juegos online clasifican a sus usuarios según su rendimiento. Tú vas a programar ese sistema clasificador usando todo lo que aprendiste en las 5 clases.</p>
+      <ul class="tip-list">
+        <li>📦 <strong>Paso 1 (Clase 2):</strong> Crea la variable <span class="kw">nombreHacker</span> con tu nombre entre comillas.</li>
+        <li>📦 <strong>Paso 2 (Clase 2):</strong> Crea la variable <span class="kw">puntaje</span> con un número cualquiera.</li>
+        <li>⚖️ <strong>Paso 3 (Clase 4 + 5):</strong> Usa <span class="kw">if / else</span> para asignar el rango según estas reglas:
+          <div class="reglas-box">
+            <div class="regla regla-elite">puntaje &gt; 1000 → rango: <strong>"Élite"</strong></div>
+            <div class="regla regla-avanzado">puntaje &gt; 500 &nbsp;→ rango: <strong>"Avanzado"</strong></div>
+            <div class="regla regla-novato">cualquier otro → rango: <strong>"Novato"</strong></div>
+          </div>
+        </li>
+        <li>📢 <strong>Paso 4 (Clase 1):</strong> Usa <span class="kw">console.log()</span> para mostrar el nombre del hacker y su rango asignado.</li>
+      </ul>
+      <p>Para tener tres niveles necesitarás encadenar los condicionales así: <span class="kw">if</span> ... <span class="kw">else if</span> ... <span class="kw">else</span>. El <span class="kw">else if</span> es un if adicional que se evalúa solo cuando el primero fue falso.</p>
+      <div class="code-preview-wide">
+        <span class="comment">// Estructura con else if:</span><br/>
+        <span class="kw">if</span> (condición1) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="comment">// si condición1 es true</span><br/>
+        <span class="llave">}</span> <span class="kw">else if</span> (condición2) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="comment">// si condición1 fue false pero condición2 es true</span><br/>
+        <span class="llave">}</span> <span class="kw">else</span> <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="comment">// si ninguna fue true</span><br/>
+        <span class="llave">}</span>
+      </div>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        </div>
+        <span class="editor-filename">clasificador.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <textarea id="gameEditor" class="full-editor" placeholder="// PASO 1: Tu nombre de hacker (texto, con comillas)
+// let nombreHacker = &quot;Neo&quot;;
+
+// PASO 2: Tu puntaje (número, sin comillas)
+// let puntaje = 750;
+
+// PASO 3: El clasificador con if / else if / else
+// if (puntaje > 1000) {
+//   let rango = &quot;Élite&quot;;
+//   console.log(nombreHacker, &quot;— Rango:&quot;, rango);
+// } else if (puntaje > 500) {
+//   let rango = &quot;Avanzado&quot;;
+//   console.log(nombreHacker, &quot;— Rango:&quot;, rango);
+// } else {
+//   let rango = &quot;Novato&quot;;
+//   console.log(nombreHacker, &quot;— Rango:&quot;, rango);
+// }"></textarea>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarJuego()">▶ EJECUTAR</button>
+        <button class="hint-btn" onclick="mostrarPista()">💡 PISTA</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termGame">
+        <span class="term-prompt">></span> esperando clasificación...
+      </div>
+    </div>
+
+    <div class="completion-screen" id="victoryClase5" style="display:none">
+      <div class="comp-robot">🎖️</div>
+      <div class="comp-title">¡RANGO ASIGNADO!</div>
+      <p>Programaste tu primer sistema de decisiones real. El código ya piensa por sí solo.</p>
+      <div class="comp-xp">+500 XP</div>
+      <a href="panel.html" class="btn-next">VOLVER AL PANEL</a>
+    </div>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="clase5.js"></script>
+
+</body>
+</html>
