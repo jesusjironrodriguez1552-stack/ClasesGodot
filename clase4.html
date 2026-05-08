@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 4 — La Balanza Digital | CodeMatrix</title>
+  <link rel="stylesheet" href="clase4.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="panel.html" class="back-btn">← PANEL</a>
+    <div class="logo">CODE<span>MATRIX</span></div>
+    <div class="clase-badge">CLASE 04</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+    <span class="progress-label" id="progressLabel">0%</span>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+  <!-- ===================== SECCIÓN 01: INTRODUCCIÓN ===================== -->
+  <section class="section active" id="sec-intro">
+    <div class="section-tag">// SECCIÓN 01 — LA BALANZA DIGITAL</div>
+    <h1 class="sec-title">Operadores<br/><span>Lógicos</span></h1>
+
+    <div class="video-container">
+      <div class="video-placeholder">
+        <span>▶ VIDEO: VERDADERO O FALSO (CLASE 4)</span>
+      </div>
+    </div>
+
+    <p class="sec-sub">La computadora solo entiende de blancos y negros. Hoy le enseñarás a comparar datos para saber si algo es <strong>Verdadero</strong> (<span class="kw">true</span>) o <strong>Falso</strong> (<span class="kw">false</span>).</p>
+
+    <div class="idea-box">
+      <h3>¿Para qué sirve comparar en el código?</h3>
+      <p>Imagina que estás en la puerta de un club y tienes que decidir quién entra y quién no. Para tomar esa decisión necesitas <strong>comparar</strong>: ¿tiene más de 18 años? ¿Su nombre está en la lista? ¿Pagó la entrada?</p>
+      <p>Las apps hacen esto millones de veces por segundo. Instagram compara si tu contraseña es correcta. Netflix compara si tienes suscripción activa. Un juego compara si tu puntaje supera el récord. <strong>Todo eso usa operadores de comparación.</strong></p>
+    </div>
+
+    <h3 class="subsection-title">Los 3 Operadores de Comparación:</h3>
+
+    <div class="cards-row">
+
+      <div class="card-info card-mayor">
+        <h4>&gt; &nbsp; Mayor que</h4>
+        <p>Pregunta si el número de la izquierda es más grande que el de la derecha. Como preguntar "¿tengo más dinero que el precio?"</p>
+        <div class="code-preview">
+          <span class="kw">let</span> resultado = 10 &gt; 5;<br/>
+          <span class="comment">// → true (10 sí es mayor)</span>
+        </div>
+      </div>
+
+      <div class="card-info card-menor">
+        <h4>&lt; &nbsp; Menor que</h4>
+        <p>Lo contrario. Pregunta si el número de la izquierda es más chico. Como preguntar "¿mi edad es menor a la mínima?"</p>
+        <div class="code-preview">
+          <span class="kw">let</span> resultado = 3 &lt; 8;<br/>
+          <span class="comment">// → true (3 sí es menor)</span>
+        </div>
+      </div>
+
+      <div class="card-info card-igual">
+        <h4>== &nbsp; Igual a</h4>
+        <p>Pregunta si dos valores son exactamente iguales. Ojo: se escriben <strong>dos iguales</strong>, no uno. Un solo <strong>=</strong> guarda datos (Clase 2), dos <strong>==</strong> comparan.</p>
+        <div class="code-preview">
+          <span class="kw">let</span> resultado = 7 == 7;<br/>
+          <span class="comment">// → true (son iguales)</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="idea-box idea-bool">
+      <h3>💡 El Nuevo Tipo de Dato: Booleano</h3>
+      <p>En las clases anteriores aprendiste dos tipos de datos: <strong>Textos</strong> (con comillas) y <strong>Números</strong> (sin comillas). Hoy aparece el tercero.</p>
+      <p>Los <strong>Booleanos</strong> solo tienen dos valores posibles: <span class="kw">true</span> o <span class="kw">false</span>. Sin comillas, sin números. Solo esas dos palabras. Piénsalos como el interruptor de la luz: está encendido o está apagado, no hay término medio.</p>
+      <p>Cuando haces una comparación, la computadora siempre te devuelve un Booleano. Es su forma de decirte "sí" o "no".</p>
+      <div class="code-preview-wide">
+        <span class="comment">// La PC evalúa y responde con true o false:</span><br/>
+        <span class="kw">let</span> luzEncendida = <span class="val-bool">true</span>;  &nbsp;<span class="comment">// Encendido</span><br/>
+        <span class="kw">let</span> luzApagada &nbsp;= <span class="val-bool">false</span>; &nbsp;<span class="comment">// Apagado</span><br/>
+        <span class="kw">let</span> comparacion = 10 &gt; 3; &nbsp;&nbsp;<span class="comment">// → true</span>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="goTo('sec-lab')">EMPEZAR PRÁCTICA →</button>
+  </section>
+
+  <!-- ===================== SECCIÓN 02: LABORATORIO ===================== -->
+  <section class="section" id="sec-lab">
+    <div class="section-tag">// SECCIÓN 02 — LABORATORIO</div>
+    <h2 class="sec-title">Control de<br/><span>Acceso</span></h2>
+    <p class="sec-sub">Todo sistema necesita saber si un usuario cumple los requisitos. Vas a crear una comparación para decidir si alguien puede entrar o no.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué tienes que hacer?</h3>
+      <p>El sistema ya tiene definida la edad mínima para entrar (<strong>18</strong>). Tú decides la edad del usuario que está intentando acceder. Luego tienes que usar el operador correcto para que la computadora decida si puede entrar.</p>
+      <p>La respuesta no será un número esta vez. La PC te devolverá directamente <span class="kw">true</span> (puede entrar) o <span class="kw">false</span> (acceso denegado). Prueba con diferentes edades y observa cómo cambia el resultado.</p>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        </div>
+        <span class="editor-filename">acceso.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <div class="code-line comment">// Edad del usuario que quiere entrar al sistema</div>
+          <div class="code-line">
+            <span class="kw">let</span> edadUsuario = <input type="number" id="labEdad" class="inline-input" placeholder="Ej: 16" />;
+          </div>
+          <div class="code-line comment">// Edad mínima requerida (no la cambies)</div>
+          <div class="code-line">
+            <span class="kw">let</span> edadMinima = 18;
+          </div>
+          <div class="code-line empty"></div>
+          <div class="code-line comment">// Elige el operador correcto: ¿el usuario es MAYOR O IGUAL (>=) a la edad mínima?</div>
+          <div class="code-line">
+            <span class="kw">let</span> puedeEntrar = edadUsuario
+            <select id="labOperador" class="inline-select">
+              <option value="">-- operador --</option>
+              <option value=">">  &gt;  (mayor que)</option>
+              <option value=">="> &gt;= (mayor o igual)</option>
+              <option value="<">  &lt;  (menor que)</option>
+              <option value="=="> == (igual a)</option>
+            </select>
+            edadMinima;
+          </div>
+          <div class="code-line empty"></div>
+          <div class="code-line">
+            <span class="kw">console.log</span>("¿Puede entrar al sistema?", puedeEntrar);
+          </div>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarLab()">▶ EJECUTAR</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termLab">
+        <span class="term-prompt">></span> esperando datos...
+      </div>
+    </div>
+
+    <button class="btn-next" id="btnNextLab" style="display:none" onclick="goTo('sec-bug')">SIGUIENTE: CAZADOR DE BUGS →</button>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+  <!-- ===================== SECCIÓN 03: CAZADOR DE BUGS ===================== -->
+  <section class="section" id="sec-bug">
+    <div class="section-tag">// SECCIÓN 03 — CAZADOR DE BUGS</div>
+    <h2 class="sec-title">El Gemelo<br/><span>Malvado</span></h2>
+    <p class="sec-sub">Un programador novato rompió el sistema de contraseñas. ¡Encuentra la diferencia entre Asignar y Comparar!</p>
+
+    <div class="idea-box">
+      <h3>El error más común del mundo</h3>
+      <p>Este bug lo han cometido hasta los programadores con 10 años de experiencia. El problema está en que el signo <strong>=</strong> tiene dos usos completamente distintos en código:</p>
+      <ul class="tip-list">
+        <li>Un solo <span class="kw">=</span> significa <strong>"guarda este valor en la caja"</strong>. Lo usaste en Clase 2 para crear variables.</li>
+        <li>Dos iguales <span class="kw">==</span> significa <strong>"compara si estos dos valores son idénticos"</strong>. Es lo que aprendiste hoy.</li>
+      </ul>
+      <p>El código de abajo usa un solo <span class="kw">=</span> donde debería usar <span class="kw">==</span>. En vez de comparar la clave ingresada con la secreta, está <strong>sobreescribiendo</strong> la variable. El sistema siempre dejará entrar a cualquiera, ¡es un fallo de seguridad!</p>
+      <p>Tu misión: agrega el segundo igual que falta para que el sistema compare correctamente.</p>
+    </div>
+
+    <div class="challenge" id="ch-bug">
+      <div class="ch-header">
+        <span class="ch-title">Misión: Reparar el Sistema de Claves</span>
+        <span class="ch-status" id="bugStatus">FALLO DE SEGURIDAD</span>
+      </div>
+      <div class="ch-editor">
+        <div class="code-line comment">// Las claves del sistema (no las toques)</div>
+        <div class="code-line">
+          <span class="kw">let</span> claveIngresada = <span class="val-str">"Matrix2024"</span>;
+        </div>
+        <div class="code-line">
+          <span class="kw">let</span> claveSecreta = <span class="val-str">"Matrix2024"</span>;
+        </div>
+        <div class="code-line empty"></div>
+        <div class="code-line comment">// ❌ Esta línea está mal. Corrígela:</div>
+        <div class="code-line">
+          <span class="kw">let</span> esCorrecto = (claveIngresada <input type="text" class="ch-input" id="bugInput" value="=" style="width:50px; text-align:center;" /> claveSecreta);
+        </div>
+        <div class="code-line">
+          <span class="kw">console.log</span>("¿Clave válida?", esCorrecto);
+        </div>
+      </div>
+      <button class="ch-run" onclick="checkBug()">▶ COMPROBAR</button>
+      <div class="ch-output" id="bugOutput"></div>
+    </div>
+
+    <button class="btn-next" id="btnNextBug" style="display:none" onclick="goTo('sec-game')">¡ÚLTIMO RETO: EL MARCADOR! →</button>
+  </section>
+
+  <!-- ===================== SECCIÓN 04: RETO FINAL ===================== -->
+  <section class="section" id="sec-game">
+    <div class="section-tag">// SECCIÓN 04 — RETO FINAL</div>
+    <h2 class="sec-title">El Marcador<br/><span>del Servidor</span></h2>
+    <p class="sec-sub">¡El Gran Reto! Usa todo lo que sabes: variables, matemáticas y comparaciones para descubrir si eres el nuevo campeón.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué vas a construir?</h3>
+      <p>Este ejercicio combina las 4 clases que llevas. Vas a programar el sistema de puntuación de un videojuego desde cero. Lee cada paso con calma, uno por uno.</p>
+      <ul class="tip-list">
+        <li>📦 <strong>Paso 1 (Clase 2):</strong> Crea la variable <span class="kw">recordActual</span> con el valor <strong>5000</strong>. Es el puntaje más alto que alguien logró antes.</li>
+        <li>📦 <strong>Paso 2 (Clase 2):</strong> Crea la variable <span class="kw">kills</span> con un número (los enemigos que eliminaste) y <span class="kw">multiplicador</span> con otro número del 1 al 5.</li>
+        <li>✖️ <strong>Paso 3 (Clase 3):</strong> Calcula tu <span class="kw">puntajeFinal</span> multiplicando kills por multiplicador.</li>
+        <li>⚖️ <strong>Paso 4 (Clase 4):</strong> Crea la variable <span class="kw">nuevoRecord</span> que compare si tu <span class="kw">puntajeFinal</span> es mayor que el <span class="kw">recordActual</span>.</li>
+        <li>📢 <strong>Paso 5 (Clase 1):</strong> Usa <span class="kw">console.log()</span> para imprimir tu puntaje final y si superaste el récord.</li>
+      </ul>
+      <p>Si el resultado de <span class="kw">nuevoRecord</span> es <span class="kw">true</span>, lo lograste. Si es <span class="kw">false</span>, sube los números e intenta de nuevo. Cuando salga <span class="kw">true</span> y el sistema lo detecte, saltará la pantalla de victoria.</p>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        </div>
+        <span class="editor-filename">marcador.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <textarea id="gameEditor" class="full-editor" placeholder="// PASO 1: El récord actual del servidor
+// let recordActual = 5000;
+
+// PASO 2: Tus estadísticas de combate (inventa los números)
+// let kills = ???;
+// let multiplicador = ???;   // número del 1 al 5
+
+// PASO 3: Calcula tu puntaje final (kills * multiplicador)
+// let puntajeFinal = ???;
+
+// PASO 4: ¿Superaste el récord? (usa el operador >)
+// let nuevoRecord = ???;
+
+// PASO 5: Muestra los resultados
+// console.log(&quot;Tu puntaje:&quot;, puntajeFinal);
+// console.log(&quot;¿Nuevo récord?:&quot;, nuevoRecord);"></textarea>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarJuego()">▶ EJECUTAR</button>
+        <button class="hint-btn" onclick="mostrarPista()">💡 PISTA</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termGame">
+        <span class="term-prompt">></span> esperando código del jugador...
+      </div>
+    </div>
+
+    <div class="completion-screen" id="victoryClase4" style="display:none">
+      <div class="comp-robot">🏆</div>
+      <div class="comp-title">¡NUEVO RÉCORD!</div>
+      <p>Dominaste Variables, Matemáticas y Comparaciones en un solo programa.</p>
+      <div class="comp-xp">+400 XP</div>
+      <a href="panel.html" class="btn-next">VOLVER AL PANEL</a>
+    </div>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="clase4.js"></script>
+
+</body>
+</html>
