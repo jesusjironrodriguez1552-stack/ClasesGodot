@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 3 — El Motor Lógico | CodeMatrix</title>
+  <link rel="stylesheet" href="clase3.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="panel.html" class="back-btn">← PANEL</a>
+    <div class="logo">CODE<span>MATRIX</span></div>
+    <div class="clase-badge">CLASE 03</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+    <span class="progress-label" id="progressLabel">0%</span>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+  <!-- ===================== SECCIÓN 01: INTRODUCCIÓN ===================== -->
+  <section class="section active" id="sec-intro">
+    <div class="section-tag">// SECCIÓN 01 — EL MOTOR LÓGICO</div>
+    <h1 class="sec-title">El <span>Motor</span><br/>Lógico</h1>
+
+    <div class="video-container">
+      <div class="video-placeholder">
+        <span>▶ VIDEO: MATEMÁTICAS EN EL CÓDIGO (CLASE 3)</span>
+      </div>
+    </div>
+
+    <p class="sec-sub">La computadora no solo guarda información, también es una <strong>calculadora gigante</strong>. Hoy aprenderás a procesar datos.</p>
+
+    <div class="idea-box">
+      <h3>¿Para qué sirven las matemáticas en el código?</h3>
+      <p>Piensa en cualquier app que uses: YouTube cuenta cuántos likes tiene un video, una tienda online calcula el total de tu carrito, un juego resta tu vida cuando te golpean. <strong>Todo eso es matemática dentro del código.</strong></p>
+      <p>En JavaScript, las matemáticas funcionan casi igual que en el cuaderno. Le dices a la computadora qué números usar y qué operación hacer, y ella calcula el resultado al instante.</p>
+    </div>
+
+    <h3 class="subsection-title">Los 4 Operadores Básicos:</h3>
+
+    <div class="cards-row">
+
+      <div class="card-info card-suma">
+        <h4>+&nbsp;&nbsp;Suma</h4>
+        <p>Agrega dos valores. Funciona igual que en la escuela. Si tienes $50 y te dan $30 más, el código te dice que tienes $80.</p>
+        <div class="code-preview">
+          <span class="kw">let</span> total = 50 + 30; <span class="comment">// → 80</span>
+        </div>
+      </div>
+
+      <div class="card-info card-resta">
+        <h4>-&nbsp;&nbsp;Resta</h4>
+        <p>Quita un valor al otro. Muy útil para calcular descuentos, vida restante en un juego o saldo después de un pago.</p>
+        <div class="code-preview">
+          <span class="kw">let</span> vida = 100 - 25; <span class="comment">// → 75</span>
+        </div>
+      </div>
+
+      <div class="card-info card-multi">
+        <h4>*&nbsp;&nbsp;Multiplicación</h4>
+        <p>En código se usa el asterisco <strong>*</strong> en lugar de la "×". Si compras 3 productos de $15, el código calcula $45 por ti.</p>
+        <div class="code-preview">
+          <span class="kw">let</span> daño = 15 * 3; <span class="comment">// → 45</span>
+        </div>
+      </div>
+
+      <div class="card-info card-div">
+        <h4>/&nbsp;&nbsp;División</h4>
+        <p>En código se usa la diagonal <strong>/</strong>. Divide un número entre otro. Ideal para sacar promedios o repartir partes iguales.</p>
+        <div class="code-preview">
+          <span class="kw">let</span> mitad = 200 / 2; <span class="comment">// → 100</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="idea-box idea-warning">
+      <h3>⚠️ Regla de Oro: Los Paréntesis Mandan</h3>
+      <p>¿Recuerdas que en matemáticas lo que va dentro del paréntesis se resuelve primero? En código es <strong>exactamente igual</strong>. La computadora siempre hace primero la multiplicación y la división antes que la suma y la resta.</p>
+      <p>Si no agrupas bien con paréntesis <strong>( )</strong>, obtendrás un resultado incorrecto y el código no te avisará que está mal. Verás un número raro y no sabrás por qué. ¡Más adelante en esta clase lo verás en acción!</p>
+      <div class="code-preview-wide">
+        <span class="comment">// ❌ Sin paréntesis — resultado INCORRECTO:</span><br/>
+        <span class="kw">let</span> mal = 100 + 200 + 300 / 3; <span class="comment">// → 400 (¡ERROR!)</span><br/><br/>
+        <span class="comment">// ✅ Con paréntesis — resultado CORRECTO:</span><br/>
+        <span class="kw">let</span> bien = (100 + 200 + 300) / 3; <span class="comment">// → 200</span>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="goTo('sec-lab')">EMPEZAR PRÁCTICA →</button>
+  </section>
+
+  <!-- ===================== SECCIÓN 02: LABORATORIO ===================== -->
+  <section class="section" id="sec-lab">
+    <div class="section-tag">// SECCIÓN 02 — LABORATORIO</div>
+    <h2 class="sec-title">Carrito de<br/><span>Compras</span></h2>
+    <p class="sec-sub">Toda tienda online usa matemáticas por dentro. Ayuda al sistema a calcular el total a pagar sumando el precio del producto y el costo de envío.</p>
+
+    <div class="idea-box">
+      <h3>¿Cómo funciona este ejercicio?</h3>
+      <p>Vas a completar dos espacios en blanco con números: el precio del producto y el costo del envío. El código ya tiene escrita la parte que suma los dos y muestra el total. <strong>Solo tienes que poner los números.</strong></p>
+      <p>Recuerda: como son cantidades matemáticas, van <strong>sin comillas</strong>. Si les pones comillas, la computadora pensará que son texto y en vez de sumar los números, los pegará como palabras (¡eso sería un bug!).</p>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span class="editor-filename">tienda.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <div class="code-line comment">// Escribe el precio del producto (solo el número, sin $)</div>
+          <div class="code-line">
+            <span class="kw">let</span> precio = <input type="number" id="labPrecio" class="inline-input" placeholder="Ej: 1200" />;
+          </div>
+          <div class="code-line comment">// Escribe el costo del envío</div>
+          <div class="code-line">
+            <span class="kw">let</span> envio = <input type="number" id="labEnvio" class="inline-input" placeholder="Ej: 150" />;
+          </div>
+          <div class="code-line comment">// Esta línea suma los dos valores automáticamente</div>
+          <div class="code-line">
+            <span class="kw">let</span> total = precio + envio;
+          </div>
+          <div class="code-line empty"></div>
+          <div class="code-line">
+            <span class="kw">console.log</span>("El total a cobrar es: $", total);
+          </div>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarLab()">▶ EJECUTAR</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termLab">
+        <span class="term-prompt">></span> esperando datos...
+      </div>
+    </div>
+
+    <button class="btn-next" id="btnNextLab" style="display:none" onclick="goTo('sec-bug')">SIGUIENTE: CAZADOR DE BUGS →</button>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+  <!-- ===================== SECCIÓN 03: CAZADOR DE BUGS ===================== -->
+  <section class="section" id="sec-bug">
+    <div class="section-tag">// SECCIÓN 03 — CAZADOR DE BUGS</div>
+    <h2 class="sec-title">Cazador de Bugs:<br/><span>El Algoritmo</span></h2>
+    <p class="sec-sub">La red social está calculando mal el promedio de likes porque olvidaron agrupar los números. ¡Arregla la prioridad matemática!</p>
+
+    <div class="idea-box">
+      <h3>¿Qué está pasando aquí?</h3>
+      <p>Un programador novato quiso calcular el promedio de likes de 3 publicaciones: 100, 200 y 300. El promedio correcto es sumar los tres y dividir entre 3, lo que da <strong>200</strong>.</p>
+      <p>Pero cometió el error clásico: <strong>olvidó los paréntesis</strong>. La computadora, siguiendo sus propias reglas, hace primero la división (<span class="kw">300 / 3 = 100</span>) y luego suma todo (<span class="kw">100 + 200 + 100 = 400</span>). ¡Resultado completamente incorrecto!</p>
+      <p>Tu misión: modificar la línea de código para agregar los paréntesis <strong>( )</strong> en el lugar correcto, de modo que la suma ocurra primero y el resultado sea 200.</p>
+      <p><strong>Pista:</strong> La división entre 3 debe ocurrir al final, cuando ya sumaste los tres números juntos.</p>
+    </div>
+
+    <div class="challenge" id="ch-bug">
+      <div class="ch-header">
+        <span class="ch-title">Misión: Corregir el Promedio</span>
+        <span class="ch-status" id="bugStatus">ERROR EN MEMORIA</span>
+      </div>
+      <div class="ch-editor">
+        <div class="code-line comment">// ❌ Esta línea está mal. Corrígela agregando paréntesis:</div>
+        <div class="code-line">
+          <span class="kw">let</span> promedio = <input type="text" class="ch-input" id="bugInput" value="100 + 200 + 300 / 3" style="width: 260px;" />;
+        </div>
+        <div class="code-line">
+          <span class="kw">console.log</span>(promedio);
+        </div>
+      </div>
+      <button class="ch-run" onclick="checkBug()">▶ COMPROBAR</button>
+      <div class="ch-output" id="bugOutput"></div>
+    </div>
+
+    <button class="btn-next" id="btnNextBug" style="display:none" onclick="goTo('sec-game')">¡ÚLTIMO RETO: CREADOR DE PERSONAJES! →</button>
+  </section>
+
+  <!-- ===================== SECCIÓN 04: RETO FINAL ===================== -->
+  <section class="section" id="sec-game">
+    <div class="section-tag">// SECCIÓN 04 — RETO FINAL</div>
+    <h2 class="sec-title">Creador de<br/><span>Personajes</span></h2>
+    <p class="sec-sub">¡El Gran Reto! Programa las estadísticas de tu personaje mezclando Textos, Números y Matemáticas desde cero.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué tienes que hacer?</h3>
+      <p>Este es el ejercicio más completo hasta ahora. Vas a usar <strong>todo lo que aprendiste en las clases 2 y 3</strong> al mismo tiempo. Lee con calma los comentarios dentro del editor, cada uno te dice exactamente qué escribir en esa línea.</p>
+      <ul class="tip-list">
+        <li>🔤 Variables de <strong>texto</strong> (con comillas " ") para el nombre y la clase del personaje.</li>
+        <li>🔢 Variables de <strong>número</strong> (sin comillas) para la vida y el ataque base.</li>
+        <li>✖️ Una operación de <strong>multiplicación</strong> para calcular el daño total.</li>
+        <li>📢 Varios <strong>console.log()</strong> para mostrar la ficha completa en pantalla.</li>
+      </ul>
+      <p>Si en algún momento no sabes cómo seguir, presiona el botón <strong>💡 PISTA</strong> y te mostrará un ejemplo de cómo debería verse una parte del código.</p>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span class="editor-filename">personaje.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <textarea id="gameEditor" class="full-editor" placeholder="// PASO 1: Crea la variable 'nombre' con el nombre de tu personaje (texto, usa comillas)
+// Ej: let nombre = &quot;Shadow&quot;;
+
+// PASO 2: Crea la variable 'clase' con el tipo de guerrero que es (texto, usa comillas)
+// Ej: let clase = &quot;Mago Oscuro&quot;;
+
+// PASO 3: Crea la variable 'vida' con un número del 1 al 100 (número, sin comillas)
+// Ej: let vida = 80;
+
+// PASO 4: Crea la variable 'ataqueBase' con un número del 1 al 20 (número, sin comillas)
+// Ej: let ataqueBase = 15;
+
+// PASO 5: Crea la variable 'nivel' con un número del 1 al 5 (número, sin comillas)
+// Ej: let nivel = 3;
+
+// PASO 6: Calcula el daño total multiplicando ataqueBase por nivel
+// Ej: let danioTotal = ataqueBase * nivel;
+
+// PASO 7: Muestra la ficha completa con console.log
+// console.log(&quot;=== FICHA DE PERSONAJE ===&quot;);
+// console.log(&quot;Nombre:&quot;, nombre);
+// console.log(&quot;Clase:&quot;, clase);
+// console.log(&quot;Vida:&quot;, vida);
+// console.log(&quot;Daño Total:&quot;, danioTotal);"></textarea>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarJuego()">▶ EJECUTAR</button>
+        <button class="hint-btn" onclick="mostrarPista()">💡 PISTA</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termGame">
+        <span class="term-prompt">></span> esperando código del programador...
+      </div>
+    </div>
+
+    <div class="completion-screen" id="victoryClase3" style="display:none">
+      <div class="comp-robot">⚔️</div>
+      <div class="comp-title">¡PERSONAJE CREADO!</div>
+      <p>Mezclaste textos, números y matemáticas como un programador de verdad.</p>
+      <div class="comp-xp">+300 XP</div>
+      <a href="panel.html" class="btn-next">VOLVER AL PANEL</a>
+    </div>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="clase3.js"></script>
+
+</body>
+</html>
