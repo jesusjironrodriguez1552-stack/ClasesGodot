@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 6 — Bloqueando el Sistema | CodeMatrix</title>
+  <link rel="stylesheet" href="clase6.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<!-- ===================== MODAL DE PISTA (reemplaza el alert) ===================== -->
+<div class="modal-overlay" id="modalPista" onclick="cerrarPista()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-title">💡 PISTA</span>
+      <button class="modal-close" onclick="cerrarPista()">✕</button>
+    </div>
+    <div class="modal-body" id="modalContenido"></div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="panel.html" class="back-btn">← PANEL</a>
+    <div class="logo">CODE<span>MATRIX</span></div>
+    <div class="clase-badge">CLASE 06</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+    <span class="progress-label" id="progressLabel">0%</span>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+  <!-- ===================== SECCIÓN 01: INTRODUCCIÓN ===================== -->
+  <section class="section active" id="sec-intro">
+    <div class="section-tag">// SECCIÓN 01 — BLOQUEANDO EL SISTEMA</div>
+    <h1 class="sec-title">else if:<br/><span>Múltiples Rutas</span></h1>
+
+    <div class="video-container">
+      <div class="video-placeholder">
+        <span>▶ VIDEO: CONDICIONALES PARTE 2 — ELSE IF (CLASE 6)</span>
+      </div>
+    </div>
+
+    <p class="sec-sub">El <span class="kw">if / else</span> solo tiene dos caminos: sí o no. Hoy aprenderás a crear <strong>múltiples rutas</strong> con <span class="kw">else if</span>. El código ya no decide entre dos opciones, sino entre las que necesites.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué es el else if?</h3>
+      <p>Imagina un semáforo. No solo tiene dos estados (verde/rojo), tiene tres: verde, amarillo y rojo. Con solo un <span class="kw">if / else</span> no puedes modelar eso. El <span class="kw">else if</span> te permite agregar tantos casos intermedios como necesites.</p>
+      <p>La computadora los evalúa en orden, de arriba hacia abajo. En cuanto encuentra uno que sea <span class="val-bool">true</span>, ejecuta ese bloque y salta todos los demás. Si ninguno es verdadero, cae al <span class="kw">else</span> final.</p>
+    </div>
+
+    <h3 class="subsection-title">La Estructura Completa:</h3>
+
+    <div class="estructura-box">
+      <div class="estructura-linea">
+        <span class="kw">if</span> <span class="paren">(</span><span class="condicion">condición 1</span><span class="paren">)</span> <span class="llave">{</span>
+      </div>
+      <div class="estructura-linea indent">
+        <span class="comment">// se ejecuta si condición 1 es TRUE</span>
+      </div>
+      <div class="estructura-linea">
+        <span class="llave">}</span> <span class="kw">else if</span> <span class="paren">(</span><span class="condicion">condición 2</span><span class="paren">)</span> <span class="llave">{</span>
+      </div>
+      <div class="estructura-linea indent">
+        <span class="comment">// solo se evalúa si condición 1 fue FALSE</span>
+      </div>
+      <div class="estructura-linea">
+        <span class="llave">}</span> <span class="kw">else if</span> <span class="paren">(</span><span class="condicion">condición 3</span><span class="paren">)</span> <span class="llave">{</span>
+      </div>
+      <div class="estructura-linea indent">
+        <span class="comment">// solo se evalúa si las anteriores fueron FALSE</span>
+      </div>
+      <div class="estructura-linea">
+        <span class="llave">}</span> <span class="kw">else</span> <span class="llave">{</span>
+      </div>
+      <div class="estructura-linea indent">
+        <span class="comment">// se ejecuta si NINGUNA condición fue TRUE</span>
+      </div>
+      <div class="estructura-linea">
+        <span class="llave">}</span>
+      </div>
+    </div>
+
+    <div class="idea-box">
+      <h3>Ejemplo real — Sistema de notas:</h3>
+      <p>La computadora evalúa cada condición de arriba hacia abajo. Como <strong>75 >= 90</strong> es <span class="val-bool">false</span>, salta al siguiente. Como <strong>75 >= 70</strong> es <span class="val-bool">true</span>, ejecuta ese bloque y se detiene.</p>
+      <div class="code-preview-wide">
+        <span class="kw">let</span> nota = 75;<br/>
+        <br/>
+        <span class="kw">if</span> (nota &gt;= 90) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"🏆 Sobresaliente"</span>);<br/>
+        <span class="llave">}</span> <span class="kw">else if</span> (nota &gt;= 70) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"✅ Aprobado"</span>); <span class="comment">// ← esto se ejecuta</span><br/>
+        <span class="llave">}</span> <span class="kw">else if</span> (nota &gt;= 50) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"⚠️ En riesgo"</span>);<br/>
+        <span class="llave">}</span> <span class="kw">else</span> <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"❌ Reprobado"</span>);<br/>
+        <span class="llave">}</span>
+      </div>
+    </div>
+
+    <div class="idea-box idea-warning">
+      <h3>⚠️ El orden importa muchísimo</h3>
+      <p>Los <span class="kw">else if</span> se evalúan en el orden en que los escribes. Si pones primero una condición más amplia, las siguientes nunca se ejecutarán. Siempre escribe los casos más específicos primero y los más generales al final.</p>
+      <div class="code-preview-wide">
+        <span class="comment">// ❌ MAL — el primer if atrapa todo, el else if nunca corre:</span><br/>
+        <span class="kw">if</span> (nota &gt;= 50) <span class="llave">{</span> <span class="comment">// atrapa 50, 70, 90...</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"En riesgo"</span>);<br/>
+        <span class="llave">}</span> <span class="kw">else if</span> (nota &gt;= 70) <span class="llave">{</span> <span class="comment">// nunca llega aquí</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Aprobado"</span>);<br/>
+        <span class="llave">}</span><br/>
+        <br/>
+        <span class="comment">// ✅ BIEN — del más específico al más general:</span><br/>
+        <span class="kw">if</span> (nota &gt;= 90) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Sobresaliente"</span>);<br/>
+        <span class="llave">}</span> <span class="kw">else if</span> (nota &gt;= 70) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"Aprobado"</span>);<br/>
+        <span class="llave">}</span> <span class="kw">else if</span> (nota &gt;= 50) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="kw">console.log</span>(<span class="val-str">"En riesgo"</span>);<br/>
+        <span class="llave">}</span>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="goTo('sec-lab')">EMPEZAR PRÁCTICA →</button>
+  </section>
+
+  <!-- ===================== SECCIÓN 02: LABORATORIO ===================== -->
+  <section class="section" id="sec-lab">
+    <div class="section-tag">// SECCIÓN 02 — LABORATORIO</div>
+    <h2 class="sec-title">Semáforo<br/><span>Inteligente</span></h2>
+    <p class="sec-sub">El sistema de tráfico necesita un programa que clasifique la velocidad de los vehículos y muestre el estado correcto del semáforo.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué vas a hacer?</h3>
+      <p>Ingresa la velocidad de un vehículo en km/h. El sistema tiene tres zonas y responde diferente según cuál se active:</p>
+      <div class="reglas-box">
+        <div class="regla regla-verde">velocidad &lt;= 60 → <strong>"🟢 Velocidad normal. Sin infracciones."</strong></div>
+        <div class="regla regla-ambar">velocidad &lt;= 100 → <strong>"🟡 Velocidad elevada. Reduce la marcha."</strong></div>
+        <div class="regla regla-rojo">cualquier otro → <strong>"🔴 EXCESO DE VELOCIDAD. Multa automática."</strong></div>
+      </div>
+      <p>Prueba con diferentes números para ver cómo el código toma rutas distintas según el dato.</p>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        </div>
+        <span class="editor-filename">semaforo.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <div class="code-line comment">// Ingresa la velocidad del vehículo en km/h</div>
+          <div class="code-line">
+            <span class="kw">let</span> velocidad = <input type="number" id="labVel" class="inline-input" placeholder="Ej: 75" />;
+          </div>
+          <div class="code-line empty"></div>
+          <div class="code-line"><span class="kw">if</span> (velocidad &lt;= 60) <span class="llave">{</span></div>
+          <div class="code-line indent">
+            <span class="kw">console.log</span>(<span class="val-str">"🟢 Velocidad normal. Sin infracciones."</span>);
+          </div>
+          <div class="code-line"><span class="llave">}</span> <span class="kw">else if</span> (velocidad &lt;= 100) <span class="llave">{</span></div>
+          <div class="code-line indent">
+            <span class="kw">console.log</span>(<span class="val-str">"🟡 Velocidad elevada. Reduce la marcha."</span>);
+          </div>
+          <div class="code-line"><span class="llave">}</span> <span class="kw">else</span> <span class="llave">{</span></div>
+          <div class="code-line indent">
+            <span class="kw">console.log</span>(<span class="val-str">"🔴 EXCESO DE VELOCIDAD. Multa automática."</span>);
+          </div>
+          <div class="code-line"><span class="llave">}</span></div>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarLab()">▶ EJECUTAR</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termLab">
+        <span class="term-prompt">></span> esperando lectura del sensor...
+      </div>
+    </div>
+
+    <button class="btn-next" id="btnNextLab" style="display:none" onclick="goTo('sec-bug')">SIGUIENTE: CAZADOR DE BUGS →</button>
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+  <!-- ===================== SECCIÓN 03: CAZADOR DE BUGS ===================== -->
+  <section class="section" id="sec-bug">
+    <div class="section-tag">// SECCIÓN 03 — CAZADOR DE BUGS</div>
+    <h2 class="sec-title">El Sistema<br/><span>Roto</span></h2>
+    <p class="sec-sub">El sistema de acceso por niveles del edificio está fallando. Los condicionales tienen tres errores distintos y ningún empleado llega al piso correcto.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué está mal?</h3>
+      <p>El código clasifica empleados según su nivel de acceso:</p>
+      <div class="reglas-box">
+        <div class="regla regla-rojo">nivelAcceso == 1 → <strong>"Piso 1: Recepción"</strong></div>
+        <div class="regla regla-ambar">nivelAcceso == 2 → <strong>"Piso 2: Oficinas"</strong></div>
+        <div class="regla regla-verde">cualquier otro → <strong>"Piso 3: Dirección"</strong></div>
+      </div>
+      <p>Hay <strong>tres bugs distintos</strong>. Encuéntralos y corrígelos todos:</p>
+      <ul class="tip-list">
+        <li>🐛 <strong>Bug 1:</strong> Una condición usa <span class="kw">=</span> en lugar de <span class="kw">==</span> para comparar.</li>
+        <li>🐛 <strong>Bug 2:</strong> A un bloque le falta la llave de apertura <span class="llave">{</span>.</li>
+        <li>🐛 <strong>Bug 3:</strong> El último caso usa <span class="kw">else if (nivelAcceso == 3)</span> cuando debería ser solo <span class="kw">else</span> para cubrir cualquier otro valor.</li>
+      </ul>
+    </div>
+
+    <div class="challenge" id="ch-bug">
+      <div class="ch-header">
+        <span class="ch-title">Misión: Reparar el Sistema de Acceso</span>
+        <span class="ch-status" id="bugStatus">3 BUGS ACTIVOS</span>
+      </div>
+      <div class="ch-editor">
+        <div class="code-line comment">// Corrige las líneas marcadas con ❌</div>
+        <div class="code-line">
+          <span class="kw">let</span> nivelAcceso = 2;
+        </div>
+        <div class="code-line empty"></div>
+        <div class="code-line comment">// ❌ Bug 1: operador incorrecto en la comparación</div>
+        <div class="code-line">
+          <span class="kw">if</span> (nivelAcceso
+          <input type="text" class="ch-input" id="bugInput1" placeholder="operador" style="width:90px;" />
+          1) <span class="llave">{</span>
+        </div>
+        <div class="code-line indent">
+          <span class="kw">console.log</span>(<span class="val-str">"Piso 1: Recepción"</span>);
+        </div>
+        <div class="code-line empty"></div>
+        <div class="code-line comment">// ❌ Bug 2: falta algo después del paréntesis de cierre</div>
+        <div class="code-line">
+          <span class="llave">}</span> <span class="kw">else if</span> (nivelAcceso == 2)
+          <input type="text" class="ch-input" id="bugInput2" placeholder="falta..." style="width:80px;" />
+        </div>
+        <div class="code-line indent">
+          <span class="kw">console.log</span>(<span class="val-str">"Piso 2: Oficinas"</span>);
+        </div>
+        <div class="code-line"><span class="llave">}</span></div>
+        <div class="code-line empty"></div>
+        <div class="code-line comment">// ❌ Bug 3: palabra clave incorrecta, debe cubrir cualquier otro caso</div>
+        <div class="code-line">
+          <input type="text" class="ch-input" id="bugInput3" placeholder="palabra clave" style="width:130px;" />
+          <span class="llave">{</span>
+        </div>
+        <div class="code-line indent">
+          <span class="kw">console.log</span>(<span class="val-str">"Piso 3: Dirección"</span>);
+        </div>
+        <div class="code-line"><span class="llave">}</span></div>
+      </div>
+      <button class="ch-run" onclick="checkBug()">▶ COMPROBAR</button>
+      <div class="ch-output" id="bugOutput"></div>
+    </div>
+
+    <button class="btn-next" id="btnNextBug" style="display:none" onclick="goTo('sec-game')">¡ÚLTIMO RETO: PROYECTO FINAL! →</button>
+  </section>
+
+  <!-- ===================== SECCIÓN 04: PROYECTO FINAL ===================== -->
+  <section class="section" id="sec-game">
+    <div class="section-tag">// SECCIÓN 04 — PROYECTO FINAL</div>
+    <h2 class="sec-title">Sistema de<br/><span>Login</span></h2>
+    <p class="sec-sub">El gran proyecto integrador. Programa desde cero un sistema de autenticación que valide usuario y contraseña con respuestas diferentes para cada caso posible.</p>
+
+    <div class="idea-box">
+      <h3>¿Qué vas a construir?</h3>
+      <p>Las apps reales no solo dicen "acceso denegado". Dicen exactamente qué está mal. Tú vas a programar esa lógica completa usando todo lo aprendido en las 6 clases.</p>
+      <ul class="tip-list">
+        <li>📦 <strong>Paso 1 (Clase 2):</strong> Crea <span class="kw">usuarioCorrecto</span> y <span class="kw">clavecorrecta</span> con los valores válidos (texto, con comillas).</li>
+        <li>📦 <strong>Paso 2 (Clase 2):</strong> Crea <span class="kw">usuarioIngresado</span> y <span class="kw">claveIngresada</span> con lo que "escribe" el usuario.</li>
+        <li>⚖️ <strong>Paso 3 (Clase 4):</strong> Crea <span class="kw">usuarioOk</span> y <span class="kw">claveOk</span> usando <span class="kw">==</span> para comparar.</li>
+        <li>🔀 <strong>Paso 4 (Clase 5 + 6):</strong> Usa <span class="kw">if / else if / else</span> para los 4 casos:
+          <div class="reglas-box" style="margin-top:10px;">
+            <div class="regla regla-verde">usuarioOk <span class="kw">&amp;&amp;</span> claveOk → <strong>"✅ Acceso concedido."</strong></div>
+            <div class="regla regla-ambar">usuarioOk pero NO claveOk → <strong>"❌ Contraseña incorrecta."</strong></div>
+            <div class="regla regla-ambar">NO usuarioOk pero claveOk → <strong>"❌ Usuario no encontrado."</strong></div>
+            <div class="regla regla-rojo">ninguno → <strong>"🔴 Usuario y contraseña incorrectos."</strong></div>
+          </div>
+        </li>
+        <li>📢 <strong>Paso 5 (Clase 1):</strong> Usa <span class="kw">console.log()</span> para mostrar el resultado de cada caso.</li>
+      </ul>
+      <p>Para combinar dos condiciones usa <span class="kw">&amp;&amp;</span> (Y lógico). Ambas deben ser <span class="val-bool">true</span> al mismo tiempo:</p>
+      <div class="code-preview-wide">
+        <span class="kw">if</span> (usuarioOk &amp;&amp; claveOk) <span class="llave">{</span><br/>
+        &nbsp;&nbsp;<span class="comment">// solo entra aquí si LAS DOS son true</span><br/>
+        <span class="llave">}</span>
+      </div>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="editor-topbar">
+        <div class="editor-dots">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        </div>
+        <span class="editor-filename">login.js</span>
+      </div>
+      <div class="editor-body">
+        <div class="code-area">
+          <textarea id="gameEditor" class="full-editor" placeholder="// Escribe tu código aquí..."></textarea>
+        </div>
+      </div>
+      <div class="editor-toolbar">
+        <button class="run-btn" onclick="ejecutarJuego()">▶ EJECUTAR</button>
+        <button class="hint-btn" onclick="mostrarPista()">💡 PISTA</button>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-body" id="termGame">
+        <span class="term-prompt">></span> esperando autenticación...
+      </div>
+    </div>
+
+    <!-- ZONA DE ENVÍO -->
+    <div class="submit-zone" id="submitZone" style="display:none">
+      <div class="submit-header">
+        <span class="submit-icon">📤</span>
+        <h3>¡Código ejecutado correctamente!</h3>
+        <p>Envía tu proyecto para revisión. Un instructor lo evaluará y te dará el visto bueno para continuar a la siguiente clase.</p>
+      </div>
+      <div class="editor-wrap submit-editor-wrap">
+        <div class="editor-topbar">
+          <div class="editor-dots">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          </div>
+          <span class="editor-filename">proyecto_final.js — para revisión</span>
+        </div>
+        <div class="editor-body">
+          <div class="code-area">
+            <textarea id="submitEditor" class="full-editor" placeholder="Pega aquí tu código final antes de enviarlo..."></textarea>
+          </div>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="enviarProyecto()">📤 ENVIAR PARA REVISIÓN</button>
+      <div class="submit-status" id="submitStatus" style="display:none"></div>
+    </div>
+
+    <div class="completion-screen" id="victoryClase6" style="display:none">
+      <div class="comp-robot">🔐</div>
+      <div class="comp-title">¡PROYECTO ENVIADO!</div>
+      <p>Tu sistema de login está en revisión. El instructor lo evaluará pronto.</p>
+      <div class="comp-xp">+600 XP al aprobar</div>
+      <a href="panel.html" class="btn-next">VOLVER AL PANEL</a>
+    </div>
+
+  </section>
+
+  <div class="ad-space">
+    <span>[ ESPACIO PARA ANUNCIO - GOOGLE ADSENSE ]</span>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="clase6.js"></script>
+
+</body>
+</html>
