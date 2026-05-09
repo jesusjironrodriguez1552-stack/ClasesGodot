@@ -1,11 +1,4 @@
 // ===========================
-// CONFIGURACIÓN DE SUPABASE
-// ===========================
-const supabaseUrl = 'https://vnuuegjfkrirttcwguvg.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZudXVlZ2pma3JpcnR0Y3dndXZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNTUyNzQsImV4cCI6MjA5MzczMTI3NH0.9R-qiuZBnxB0HIAggVGN8OzavK-fBtGMQQ9fu8If9jo';
-const clienteSupabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-// ===========================
 // ESTADO GLOBAL
 // ===========================
 let alumnoActivo = null;
@@ -178,13 +171,13 @@ async function aprobar() {
   const { error } = await clienteSupabase
     .from('usuarios')
     .update({
-      clase6_aprobada:          true,
-      clase6_rechazada:         false,
-      clase6_completada:        true,
-      clase6_estado:            'aprobado',
-      mensaje_instructor:       mensaje,
-      xp:                       xpActual + 100,
-      rango:                    calcularRango({ ...alumnoActivo, clase6_completada: true })
+      clase6_aprobada:   true,
+      clase6_rechazada:  false,
+      clase6_completada: true,
+      clase6_estado:     'aprobado',
+      mensaje_instructor: mensaje,
+      xp:                xpActual + 100,
+      rango:             calcularRango({ ...alumnoActivo, clase6_completada: true })
     })
     .eq('id', alumnoActivo.id);
 
