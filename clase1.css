@@ -622,7 +622,7 @@ body {
 }
 
 .ad-lateral {
-  width: 300px;
+  width: 200px;
   flex-shrink: 0;
   position: sticky;
   top: 100px;
