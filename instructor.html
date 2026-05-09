@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeMatrix — Panel Instructor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="instructor.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="panel-body">
+  <div class="scanline"></div>
+
+  <header class="top-bar">
+    <div class="logo-small">CODE<span>MATRIX</span></div>
+    <div class="instructor-badge">// MODO INSTRUCTOR //</div>
+    <div class="user-menu">
+      <span id="display-user" class="user-name">Cargando_Usuario...</span>
+      <button class="btn-logout" onclick="cerrarSesion()">[ DESCONECTAR ]</button>
+    </div>
+  </header>
+
+  <main class="panel-container">
+
+    <!-- ===========================
+         RESUMEN GENERAL
+    =========================== -->
+    <section class="resumen-section">
+      <h2 class="section-title">>_ PANEL DE CONTROL — INSTRUCTOR</h2>
+      <div class="resumen-grid">
+        <div class="resumen-card">
+          <div class="resumen-num" id="total-alumnos">0</div>
+          <div class="resumen-label">ALUMNOS REGISTRADOS</div>
+        </div>
+        <div class="resumen-card resumen-pendiente">
+          <div class="resumen-num" id="total-pendientes">0</div>
+          <div class="resumen-label">PROYECTOS PENDIENTES</div>
+        </div>
+        <div class="resumen-card resumen-aprobado">
+          <div class="resumen-num" id="total-aprobados">0</div>
+          <div class="resumen-label">PROYECTOS APROBADOS</div>
+        </div>
+        <div class="resumen-card resumen-rechazado">
+          <div class="resumen-num" id="total-rechazados">0</div>
+          <div class="resumen-label">PROYECTOS RECHAZADOS</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         FILTROS
+    =========================== -->
+    <section class="filtros-section">
+      <button class="filtro-btn active" onclick="filtrar('pendientes')">⏳ PENDIENTES</button>
+      <button class="filtro-btn" onclick="filtrar('aprobados')">✅ APROBADOS</button>
+      <button class="filtro-btn" onclick="filtrar('rechazados')">❌ RECHAZADOS</button>
+      <button class="filtro-btn" onclick="filtrar('todos')">📋 TODOS</button>
+    </section>
+
+    <!-- ===========================
+         LISTA DE ALUMNOS
+    =========================== -->
+    <section class="alumnos-section">
+      <div class="alumnos-lista" id="alumnos-lista">
+        <!-- Se genera dinámicamente con JS -->
+        <div class="cargando">// Cargando proyectos...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===========================
+       MODAL — VER PROYECTO
+  =========================== -->
+  <div class="modal-overlay" id="modal-proyecto" style="display:none">
+    <div class="modal-box">
+
+      <div class="modal-header">
+        <span class="modal-title" id="modal-alumno-nombre">// ALUMNO</span>
+        <button class="modal-close" onclick="cerrarModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- Info del alumno -->
+        <div class="modal-info-row">
+          <span class="modal-info-label">EMAIL:</span>
+          <span class="modal-info-valor" id="modal-alumno-email">—</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">CLASE:</span>
+          <span class="modal-info-valor">CLASE 06 — Sistema de Login</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">ESTADO:</span>
+          <span class="modal-info-valor" id="modal-estado">EN REVISIÓN</span>
+        </div>
+
+        <!-- Código enviado -->
+        <div class="modal-codigo-label">// CÓDIGO ENVIADO POR EL ALUMNO:</div>
+        <div class="modal-codigo" id="modal-codigo">
+          <!-- código del alumno aquí -->
+        </div>
+
+        <!-- Mensaje del instructor -->
+        <div class="modal-codigo-label">// MENSAJE PARA EL ALUMNO:</div>
+        <textarea
+          class="modal-mensaje"
+          id="modal-mensaje"
+          placeholder="Escribe tu feedback aquí..."
+          rows="4"
+        ></textarea>
+
+        <!-- Acciones -->
+        <div class="modal-acciones">
+          <button class="btn-aprobar" onclick="aprobar()">✅ APROBAR</button>
+          <button class="btn-rechazar" onclick="rechazar()">❌ RECHAZAR</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="instructor.js"></script>
+
+</body>
+</html>
