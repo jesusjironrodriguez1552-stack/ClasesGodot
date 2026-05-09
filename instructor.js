@@ -263,6 +263,28 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') cerrarModal();
 });
 
+
+// ===========================
+// REALTIME — ACTUALIZAR MODAL SI ESTÁ ABIERTO
+// ===========================
+clienteSupabase
+  .channel('instructor-mensajes')
+  .on('postgres_changes', {
+    event: 'UPDATE',
+    schema: 'public',
+    table: 'usuarios'
+  }, (payload) => {
+    // Actualizar lista general
+    const index = todosLosAlumnos.findIndex(a => a.id === payload.new.id);
+    if (index !== -1) todosLosAlumnos[index] = payload.new;
+
+    // Si el modal está abierto con ese alumno, actualizar mensaje del alumno
+    if (alumnoActivo && alumnoActivo.id === payload.new.id) {
+      alumnoActivo = payload.new;
+      document.getElementById('modal-mensaje-alumno').textContent = payload.new.mensaje_alumno || '// Sin mensaje del alumno';
+    }
+  })
+  .subscribe();
 // ===========================
 // INICIAR
 // ===========================
