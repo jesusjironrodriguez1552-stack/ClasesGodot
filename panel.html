@@ -637,18 +637,11 @@
       content.classList.toggle('visible');
     }
 
-    async function detectarAdblock() {
-  const test = document.createElement('div');
-  test.className = 'ad ads adsbox doubleclick ad-placement';
-  test.style.cssText = 'width:1px;height:1px;position:absolute;left:-9999px;';
-  document.body.appendChild(test);
-
-  await new Promise(r => setTimeout(r, 200));
-
-  const bloqueado = test.offsetHeight === 0 || test.offsetParent === null;
-  document.body.removeChild(test);
-
-  if (bloqueado) {
+   async function detectarAdblock() {
+  try {
+    const res = await fetch('/ads.js', { cache: 'no-store' });
+    if (!res.ok) throw new Error();
+  } catch(e) {
     document.getElementById('overlay-adblock').style.display = 'flex';
   }
 }
