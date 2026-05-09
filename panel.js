@@ -34,6 +34,8 @@ async function cargarProgreso(userId) {
   }
   // Pasa todos los datos al panel para que aplique el estado de cada clase
   aplicarProgreso(data);
+  // Cargar mensajes del chat
+  cargarChat(data);
 }
 // ===========================
 // CERRAR SESIÓN
@@ -52,7 +54,6 @@ clienteSupabase.auth.onAuthStateChange((event) => {
     window.location.replace('index.html');
   }
 });
-
 // ===========================
 // BLOQUEAR BOTÓN ATRÁS
 // ===========================
@@ -60,5 +61,41 @@ history.pushState(null, null, location.href);
 window.addEventListener('popstate', () => {
   history.pushState(null, null, location.href);
 });
+// ===========================
+// CHAT CON INSTRUCTOR
+// ===========================
+function cargarChat(data) {
+  const mensajeAlumno     = document.getElementById('chat-mensaje-alumno');
+  const mensajeInstructor = document.getElementById('chat-mensaje-instructor');
+
+  if (mensajeAlumno && data.mensaje_alumno) {
+    mensajeAlumno.textContent = data.mensaje_alumno;
+  }
+  if (mensajeInstructor && data.mensaje_instructor) {
+    mensajeInstructor.textContent = data.mensaje_instructor;
+  }
+}
+
+async function enviarMensaje() {
+  const input = document.getElementById('chat-input');
+  const texto = input.value.trim();
+  if (!texto) return;
+
+  const { data: { user } } = await clienteSupabase.auth.getUser();
+  if (!user) return;
+
+  const { error } = await clienteSupabase
+    .from('usuarios')
+    .update({ mensaje_alumno: texto })
+    .eq('id', user.id);
+
+  if (error) {
+    console.error('Error al enviar mensaje:', error.message);
+    return;
+  }
+
+  document.getElementById('chat-mensaje-alumno').textContent = texto;
+  input.value = '';
+}
 
 verificarSesion();
