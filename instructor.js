@@ -261,9 +261,14 @@ clienteSupabase
     if (index !== -1) todosLosAlumnos[index] = payload.new;
 
     // Si el modal está abierto con ese alumno, actualizar mensaje del alumno
-    if (alumnoActivo && alumnoActivo.id === payload.new.id) {
+   if (alumnoActivo && alumnoActivo.id === payload.new.id) {
       alumnoActivo = payload.new;
       document.getElementById('modal-mensaje-alumno').textContent = payload.new.mensaje_alumno || '// Sin mensaje del alumno';
+    }
+    // ← AQUÍ
+    if (alumnoChat && alumnoChat.id === payload.new.id) {
+      alumnoChat = payload.new;
+      renderizarChat();
     }
   })
   .subscribe();
