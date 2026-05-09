@@ -141,7 +141,8 @@ function abrirModal(alumnoId) {
   document.getElementById('modal-alumno-nombre').textContent = `// ${alias.toUpperCase()}`;
   document.getElementById('modal-alumno-email').textContent  = alumnoActivo.email || '—';
   document.getElementById('modal-codigo').textContent        = alumnoActivo.clase6_codigo || '// Sin código enviado';
-  document.getElementById('modal-mensaje').value             = alumnoActivo.mensaje_instructor || '';
+ document.getElementById('modal-mensaje-alumno').textContent = alumnoActivo.mensaje_alumno || '// Sin mensaje del alumno';
+document.getElementById('modal-mensaje').value = alumnoActivo.mensaje_instructor || '';
 
   let estado = 'EN REVISIÓN';
   if (alumnoActivo.clase6_aprobada)  estado = '✅ APROBADO';
