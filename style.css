@@ -397,3 +397,17 @@ body {
   transform: scale(1.05);
   box-shadow: 0 0 50px rgba(0, 255, 65, 0.8);
 }
+
+/* ===========================
+   EN REVISIÓN
+=========================== */
+.clase-card.en-revision {
+  border-color: rgba(245,166,35,0.4);
+  background: rgba(245,166,35,0.03);
+}
+
+.clase-badge-status.revision-badge {
+  background: rgba(245,166,35,0.15);
+  color: #f5a623;
+  border: 1px solid rgba(245,166,35,0.3);
+}
