@@ -637,11 +637,13 @@
       content.classList.toggle('visible');
     }
 
-  async function detectarAdblock() {
+ async function detectarAdblock() {
   try {
     const res = await fetch('/verificar.js', { cache: 'no-store' });
+    console.log('status:', res.status, 'ok:', res.ok);
     if (!res.ok) throw new Error();
   } catch(e) {
+    console.log('catch:', e);
     document.getElementById('overlay-adblock').style.display = 'flex';
   }
 }
