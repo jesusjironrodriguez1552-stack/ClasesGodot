@@ -6,6 +6,235 @@
   <title>CodeMatrix — Panel Principal</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===========================
+       SECCIÓN DE CLASES
+    =========================== */
+    .clases-section {
+      margin: 3rem 0;
+    }
+
+    .bloque {
+      margin-bottom: 2.5rem;
+    }
+
+    .bloque-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(0,255,65,0.2);
+    }
+
+    .bloque-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .bloque-dot.verde  { background: #00ff41; box-shadow: 0 0 8px #00ff41; }
+    .bloque-dot.amarillo { background: #ffbd2e; box-shadow: 0 0 8px #ffbd2e; }
+    .bloque-dot.naranja  { background: #ff8c00; box-shadow: 0 0 8px #ff8c00; }
+    .bloque-dot.rojo     { background: #ff4141; box-shadow: 0 0 8px #ff4141; }
+
+    .bloque-titulo {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: #aaa;
+      letter-spacing: 2px;
+    }
+
+    .clases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Tarjeta de clase */
+    .clase-card {
+      background: #0a0f0a;
+      border: 1px solid #222;
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      text-align: left;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .clase-card:hover:not(.bloqueada) {
+      border-color: #00ff41;
+      background: rgba(0,255,65,0.04);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,255,65,0.1);
+    }
+
+    .clase-card.bloqueada {
+      opacity: 0.4;
+      cursor: not-allowed;
+      filter: grayscale(0.5);
+    }
+
+    .clase-card.completada {
+      border-color: rgba(0,255,65,0.4);
+      background: rgba(0,255,65,0.03);
+    }
+
+    /* NUEVO: tarjeta en revisión */
+    .clase-card.en-revision {
+      border-color: rgba(245,166,35,0.4);
+      background: rgba(245,166,35,0.03);
+    }
+
+    .clase-num {
+      font-size: 0.7rem;
+      color: rgba(0,255,65,0.4);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .clase-nombre {
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .clase-sub {
+      font-size: 0.75rem;
+      color: #555;
+    }
+
+    .clase-badge-status {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+    }
+
+    .clase-badge-status.completada-badge {
+      background: rgba(0,255,65,0.15);
+      color: #00ff41;
+      border: 1px solid rgba(0,255,65,0.3);
+    }
+
+    .clase-badge-status.bloqueada-badge {
+      background: rgba(255,255,255,0.03);
+      color: #444;
+      border: 1px solid #222;
+    }
+
+    .clase-badge-status.disponible-badge {
+      background: rgba(0,255,65,0.1);
+      color: #00ff41;
+      border: 1px solid rgba(0,255,65,0.2);
+    }
+
+    /* NUEVO: badge EN REVISIÓN */
+    .clase-badge-status.revision-badge {
+      background: rgba(245,166,35,0.15);
+      color: #f5a623;
+      border: 1px solid rgba(245,166,35,0.3);
+    }
+
+    /* ===========================
+       LENGUAJES PRÓXIMAMENTE (COLAPSABLE)
+    =========================== */
+    .proximo-wrap {
+      margin-top: 1rem;
+    }
+
+    .proximo-toggle {
+      width: 100%;
+      background: transparent;
+      border: 1px dashed #222;
+      color: #444;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      padding: 12px 20px;
+      cursor: pointer;
+      text-align: left;
+      letter-spacing: 2px;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .proximo-toggle:hover {
+      border-color: #333;
+      color: #666;
+    }
+
+    .proximo-toggle .arrow {
+      transition: transform 0.3s;
+    }
+
+    .proximo-toggle.open .arrow {
+      transform: rotate(180deg);
+    }
+
+    .proximo-content {
+      display: none;
+      border: 1px dashed #1a1a1a;
+      border-top: none;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.01);
+    }
+
+    .proximo-content.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .proximo-lang {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 1rem 0;
+      border-bottom: 1px dashed #1a1a1a;
+    }
+
+    .proximo-lang:last-child {
+      border-bottom: none;
+    }
+
+    .proximo-icon {
+      font-size: 1.8rem;
+      opacity: 0.4;
+    }
+
+    .proximo-info h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .proximo-info p {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: #2a2a2a;
+    }
+
+    .proximo-tag {
+      margin-left: auto;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: #222;
+      border: 1px solid #1a1a1a;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body class="panel-body">
   <div class="scanline"></div>
