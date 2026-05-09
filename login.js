@@ -10,7 +10,6 @@ const clienteSupabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 // MODAL PERSONALIZADO
 // ===========================
 function mostrarModal(mensaje, callback) {
-  // Crear overlay
   const overlay = document.createElement('div');
   overlay.id = 'cm-modal-overlay';
   overlay.style.cssText = `
@@ -24,7 +23,6 @@ function mostrarModal(mensaje, callback) {
     animation: cmFadeIn 0.2s ease;
   `;
 
-  // Crear caja del modal
   const modal = document.createElement('div');
   modal.style.cssText = `
     background: #0d0d0d;
@@ -39,7 +37,6 @@ function mostrarModal(mensaje, callback) {
     animation: cmSlideIn 0.25s ease;
   `;
 
-  // Título decorativo
   const titulo = document.createElement('div');
   titulo.textContent = '// CODEMATRIX //';
   titulo.style.cssText = `
@@ -50,7 +47,6 @@ function mostrarModal(mensaje, callback) {
     opacity: 0.6;
   `;
 
-  // Texto del mensaje
   const texto = document.createElement('p');
   texto.textContent = mensaje;
   texto.style.cssText = `
@@ -61,7 +57,6 @@ function mostrarModal(mensaje, callback) {
     line-height: 1.6;
   `;
 
-  // Botón aceptar
   const boton = document.createElement('button');
   boton.textContent = 'ACEPTAR_';
   boton.style.cssText = `
@@ -91,7 +86,6 @@ function mostrarModal(mensaje, callback) {
     if (callback) callback();
   };
 
-  // Inyectar keyframes si no existen
   if (!document.getElementById('cm-modal-styles')) {
     const style = document.createElement('style');
     style.id = 'cm-modal-styles';
@@ -140,8 +134,8 @@ function switchTab(tab) {
 async function doLogin(event) {
   event.preventDefault();
 
-  const email = document.getElementById('login-user').value.trim();
-  const pass  = document.getElementById('login-pass').value;
+  const email    = document.getElementById('login-user').value.trim();
+  const pass     = document.getElementById('login-pass').value;
   const errorDiv = document.getElementById('login-error');
 
   if (!email || !pass) {
@@ -169,11 +163,18 @@ async function doLogin(event) {
   }
 
   errorDiv.textContent = '';
-  console.log("Sesión iniciada:", data.user);
 
-  // Modal personalizado — redirige al aceptar
+  // Consultar rol del usuario
+  const { data: perfil } = await clienteSupabase
+    .from('usuarios')
+    .select('rol')
+    .eq('id', data.user.id)
+    .single();
+
+  const destino = perfil?.rol === 'instructor' ? 'instructor.html' : 'panel.html';
+
   mostrarModal('¡ACCESO CONCEDIDO!\nConectando al sistema...', () => {
-    window.location.replace('panel.html');
+    window.location.replace(destino);
   });
 
   return false;
@@ -185,9 +186,9 @@ async function doLogin(event) {
 async function doRegister(event) {
   event.preventDefault();
 
-  const alias = document.getElementById('reg-user').value.trim();
-  const email = document.getElementById('reg-email').value.trim();
-  const pass  = document.getElementById('reg-pass').value;
+  const alias    = document.getElementById('reg-user').value.trim();
+  const email    = document.getElementById('reg-email').value.trim();
+  const pass     = document.getElementById('reg-pass').value;
   const errorDiv = document.getElementById('reg-error');
 
   if (!alias || !email || !pass) {
@@ -215,7 +216,6 @@ async function doRegister(event) {
 
   errorDiv.textContent = '';
 
-  // Modal personalizado — luego vuelve al login
   mostrarModal('¡CUENTA CREADA CON ÉXITO!\nAhora inicia sesión.', () => {
     document.getElementById('form-register').reset();
     switchTab('login');
@@ -231,7 +231,14 @@ async function doRegister(event) {
 async function revisarSesionActiva() {
   const { data: { session } } = await clienteSupabase.auth.getSession();
   if (session) {
-    window.location.replace('panel.html');
+    const { data: perfil } = await clienteSupabase
+      .from('usuarios')
+      .select('rol')
+      .eq('id', session.user.id)
+      .single();
+
+    const destino = perfil?.rol === 'instructor' ? 'instructor.html' : 'panel.html';
+    window.location.replace(destino);
   }
 }
 
