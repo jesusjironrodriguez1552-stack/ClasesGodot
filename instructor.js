@@ -49,6 +49,7 @@ async function cargarAlumnos() {
   todosLosAlumnos = data;
   actualizarResumen();
   renderizarLista(filtroActivo);
+   poblarSelector();
 }
 
 // ===========================
@@ -229,26 +230,7 @@ function calcularRango(alumno) {
   return 'Sin rango';
 }
 
-// ===========================
-// ENVIAR MENSAJE
-// ===========================
-async function enviarMensaje() {
-  if (!alumnoActivo) return;
 
-  const mensaje = document.getElementById('modal-mensaje').value.trim();
-
-  const { error } = await clienteSupabase
-    .from('usuarios')
-    .update({ mensaje_instructor: mensaje })
-    .eq('id', alumnoActivo.id);
-
-  if (error) {
-    alert('Error al enviar mensaje: ' + error.message);
-    return;
-  }
-
-  alert('Mensaje enviado.');
-}
 
 // ===========================
 // CERRAR SESIÓN
@@ -285,6 +267,67 @@ clienteSupabase
     }
   })
   .subscribe();
+
+// ===========================
+// CHAT CON ALUMNOS
+// ===========================
+let alumnoChat = null;
+
+function seleccionarAlumnoChat() {
+  const id = document.getElementById('chat-selector').value;
+  alumnoChat = todosLosAlumnos.find(a => a.id === id) || null;
+  renderizarChat();
+}
+
+function renderizarChat() {
+  const contenedor = document.getElementById('chat-instructor-mensajes');
+  if (!alumnoChat) {
+    contenedor.innerHTML = `<div class="chat-vacio-instructor">// Selecciona un alumno para ver su conversación.</div>`;
+    return;
+  }
+
+  let html = '';
+  if (alumnoChat.mensaje_alumno) {
+    html += `<div class="chat-msg-alumno"><div class="chat-msg-label">// ${alumnoChat.username || alumnoChat.email}</div>${alumnoChat.mensaje_alumno}</div>`;
+  }
+  if (alumnoChat.mensaje_instructor) {
+    html += `<div class="chat-msg-instructor"><div class="chat-msg-label">// TÚ</div>${alumnoChat.mensaje_instructor}</div>`;
+  }
+  if (!html) {
+    html = `<div class="chat-vacio-instructor">// Sin mensajes aún.</div>`;
+  }
+  contenedor.innerHTML = html;
+}
+
+function poblarSelector() {
+  const select = document.getElementById('chat-selector');
+  select.innerHTML = `<option value="">// Selecciona un alumno...</option>`;
+  todosLosAlumnos.forEach(a => {
+    const alias = a.username || a.email || a.id;
+    select.innerHTML += `<option value="${a.id}">${alias}</option>`;
+  });
+}
+
+async function enviarMensajeChat() {
+  if (!alumnoChat) return;
+  const input = document.getElementById('chat-instructor-input');
+  const texto = input.value.trim();
+  if (!texto) return;
+
+  const { error } = await clienteSupabase
+    .from('usuarios')
+    .update({ mensaje_instructor: texto })
+    .eq('id', alumnoChat.id);
+
+  if (error) {
+    alert('Error: ' + error.message);
+    return;
+  }
+
+  alumnoChat.mensaje_instructor = texto;
+  input.value = '';
+  renderizarChat();
+}
 // ===========================
 // INICIAR
 // ===========================
