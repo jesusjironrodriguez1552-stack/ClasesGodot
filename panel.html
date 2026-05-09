@@ -636,6 +636,24 @@
       btn.classList.toggle('open');
       content.classList.toggle('visible');
     }
+
+    async function detectarAdblock() {
+  const test = document.createElement('div');
+  test.className = 'ad ads adsbox doubleclick ad-placement';
+  test.style.cssText = 'width:1px;height:1px;position:absolute;left:-9999px;';
+  document.body.appendChild(test);
+
+  await new Promise(r => setTimeout(r, 200));
+
+  const bloqueado = test.offsetHeight === 0 || test.offsetParent === null;
+  document.body.removeChild(test);
+
+  if (bloqueado) {
+    document.getElementById('overlay-adblock').style.display = 'flex';
+  }
+}
+
+detectarAdblock();
   </script>
 </body>
 </html>
