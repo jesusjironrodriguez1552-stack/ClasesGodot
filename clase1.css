@@ -609,3 +609,29 @@ body {
   margin: 2rem 0;
   text-transform: uppercase;
 }
+
+/* ===========================
+   LAYOUT CON ANUNCIO LATERAL
+=========================== */
+.page-wrap {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 20px 50px;
+}
+
+.ad-lateral {
+  width: 160px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.main-wrap {
+  flex: 1;
+  padding: 0;
+  max-width: 800px;
+  margin: 0;
+}
