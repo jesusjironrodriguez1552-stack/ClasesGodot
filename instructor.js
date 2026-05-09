@@ -230,6 +230,27 @@ function calcularRango(alumno) {
 }
 
 // ===========================
+// ENVIAR MENSAJE
+// ===========================
+async function enviarMensaje() {
+  if (!alumnoActivo) return;
+
+  const mensaje = document.getElementById('modal-mensaje').value.trim();
+
+  const { error } = await clienteSupabase
+    .from('usuarios')
+    .update({ mensaje_instructor: mensaje })
+    .eq('id', alumnoActivo.id);
+
+  if (error) {
+    alert('Error al enviar mensaje: ' + error.message);
+    return;
+  }
+
+  alert('Mensaje enviado.');
+}
+
+// ===========================
 // CERRAR SESIÓN
 // ===========================
 async function cerrarSesion() {
