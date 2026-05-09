@@ -242,4 +242,12 @@ async function revisarSesionActiva() {
   }
 }
 
+// ===========================
+// BLOQUEAR BOTÓN ATRÁS
+// ===========================
+history.pushState(null, null, location.href);
+window.addEventListener('popstate', () => {
+  history.pushState(null, null, location.href);
+});
+
 revisarSesionActiva();
