@@ -362,3 +362,104 @@
 .btn-enviar-mensaje:hover {
   background: rgba(245,166,35,0.2);
 }
+
+/* ===========================
+   CHAT CON ALUMNOS
+=========================== */
+.chat-instructor-section {
+  margin: 3rem 0;
+}
+
+.chat-instructor-box {
+  background: #0a0f0a;
+  border: 1px solid #222;
+  padding: 1.5rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.chat-selector {
+  width: 100%;
+  background: #0d0d0d;
+  border: 1px solid #333;
+  color: #00ff41;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  padding: 0.7rem 1rem;
+  outline: none;
+  margin-bottom: 1rem;
+}
+
+.chat-instructor-mensajes {
+  min-height: 120px;
+  margin-bottom: 1rem;
+}
+
+.chat-vacio-instructor {
+  color: #333;
+  font-size: 0.8rem;
+  padding: 1rem 0;
+}
+
+.chat-msg-alumno {
+  background: rgba(0,255,65,0.05);
+  border: 1px solid rgba(0,255,65,0.2);
+  color: #00ff41;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.chat-msg-instructor {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #222;
+  color: #aaa;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.chat-msg-label {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  margin-bottom: 4px;
+}
+
+.chat-instructor-input-wrap {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.chat-instructor-input-wrap input {
+  flex: 1;
+  background: #0d0d0d;
+  border: 1px solid #333;
+  color: #00ff41;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  padding: 0.7rem 1rem;
+  outline: none;
+}
+
+.chat-instructor-input-wrap input::placeholder {
+  color: #333;
+}
+
+.chat-instructor-input-wrap button {
+  background: transparent;
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  padding: 0.7rem 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.chat-instructor-input-wrap button:hover {
+  background: #00ff41;
+  color: #000;
+}
