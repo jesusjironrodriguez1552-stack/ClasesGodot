@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 7 — Arrays | CodeMatrix</title>
+  <link rel="stylesheet" href="clase1.css" />
+  <link rel="stylesheet" href="clase7.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="panel.html" class="back-btn">← PANEL</a>
+    <div class="logo">CODE<span>MATRIX</span></div>
+    <div class="clase-badge">CLASE 07</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+    <span class="progress-label" id="progressLabel">0%</span>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <div class="ad-lateral">
+    <script async="async" data-cfasync="false" src="https://pl29395826.profitablecpmratenetwork.com/bb7c7fbe98867611ad82c50d6d5f2b8a/invoke.js"></script>
+    <div id="container-bb7c7fbe98867611ad82c50d6d5f2b8a"></div>
+  </div>
+
+  <main class="main-wrap">
+
+    <!-- ===========================
+         SECCIÓN 01 — INTRO
+    =========================== -->
+    <section class="section active" id="sec-intro">
+      <div class="section-tag">// SECCIÓN 01 — INTRODUCCIÓN</div>
+      <h1 class="sec-title">Tu primera<br/><span>lista de datos</span></h1>
+
+      <div class="video-container">
+        <div class="video-placeholder">
+          <span>▶ ESPACIO PARA EL VIDEO DE LA CLASE</span>
+        </div>
+      </div>
+
+      <p class="sec-sub">Hasta ahora guardabas un solo valor por variable. Hoy guardas muchos en una sola.</p>
+
+      <div class="idea-box">
+        <div class="idea-icon">🏪</div>
+        <p>"Una tienda no tiene un solo producto.<br/>Necesita una <strong>lista organizada</strong> de todo su stock."</p>
+      </div>
+
+      <div class="cards-row">
+        <div class="card-info">
+          <div class="card-icon">📦</div>
+          <h3>Variable normal</h3>
+          <p>Guarda un solo valor.<br/>producto1 = "leche"<br/>producto2 = "pan"<br/>producto3 = "huevo"...</p>
+        </div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-icon">🗂️</div>
+          <h3>Array</h3>
+          <p>Guarda muchos valores en una sola variable.<br/>productos = ["leche", "pan", "huevo"]</p>
+        </div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-icon">⚡</div>
+          <h3>Resultado</h3>
+          <p>Menos código, más organización. Accedes a cada item por su posición.</p>
+        </div>
+      </div>
+
+      <div class="analogy-block">
+        <div class="analogy-title">// ANALOGÍA — EL ESTANTE DE LA TIENDA</div>
+        <div class="shelf-visual">
+          <div class="shelf-item">
+            <div class="shelf-index">0</div>
+            <div class="shelf-product">🥛 leche</div>
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-index">1</div>
+            <div class="shelf-product">🍞 pan</div>
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-index">2</div>
+            <div class="shelf-product">🥚 huevo</div>
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-index">3</div>
+            <div class="shelf-product">💧 agua</div>
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-index">4</div>
+            <div class="shelf-product">🍚 arroz</div>
+          </div>
+        </div>
+        <p class="shelf-note">// Cada producto tiene un número de posición llamado <span class="highlight">índice</span>. Siempre empieza en 0.</p>
+      </div>
+
+      <button class="btn-next" onclick="goTo('sec-historia')">SIGUIENTE: LA HISTORIA →</button>
+    </section>
+
+    <!-- ===========================
+         SECCIÓN 02 — HISTORIA
+    =========================== -->
+    <section class="section" id="sec-historia">
+      <div class="section-tag">// SECCIÓN 02 — MISIÓN</div>
+      <h2 class="sec-title">La tienda de BYTE<br/><span>está en caos</span></h2>
+
+      <div class="robot-scene">
+        <div class="robot-container">
+          <div class="robot" id="robot">
+            <div class="robot-head">
+              <div class="robot-eyes">
+                <div class="robot-eye" id="eye1"></div>
+                <div class="robot-eye" id="eye2"></div>
+              </div>
+              <div class="robot-mouth" id="robotMouth">···</div>
+            </div>
+            <div class="robot-body">
+              <div class="robot-panel">
+                <div class="panel-light" id="pLight1"></div>
+                <div class="panel-light" id="pLight2"></div>
+                <div class="panel-light" id="pLight3"></div>
+              </div>
+            </div>
+          </div>
+          <div class="robot-bubble">
+            <span>Tengo 50 productos pero<br/>creé 50 variables distintas...<br/>¡Esto es un desastre!</span>
+          </div>
+        </div>
+
+        <div class="mission-text">
+          <div class="mission-tag">// TU MISIÓN</div>
+          <p>BYTE está intentando registrar el stock de su tienda pero creó una variable por cada producto. El código se volvió imposible de manejar.</p>
+          <p style="margin-top:1rem">Tu misión es enseñarle a usar <strong>arrays</strong> para guardar todos los productos en una sola lista organizada.</p>
+          <div class="mission-highlight">
+            Una lista. Todos los productos. Un solo array.
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-next" onclick="goTo('sec-editor')">SIGUIENTE: EL EDITOR →</button>
+    </section>
+
+    <!-- ===========================
+         SECCIÓN 03 — EDITOR
+    =========================== -->
+    <section class="section" id="sec-editor">
+      <div class="section-tag">// SECCIÓN 03 — PRIMER ARRAY</div>
+      <h2 class="sec-title">Accediendo al<br/><span>stock de la tienda</span></h2>
+      <p class="sec-sub">El array ya está creado. Tú debes acceder a los productos correctos.</p>
+
+      <div class="editor-wrap">
+        <div class="editor-topbar">
+          <div class="editor-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="editor-filename">tienda.js</span>
+          <span class="editor-lang">JavaScript</span>
+        </div>
+
+        <div class="editor-body">
+          <div class="line-numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+          </div>
+          <div class="code-area">
+            <div class="code-line comment">// El stock de la tienda</div>
+            <div class="code-line"><span class="kw">let</span> productos = [<span class="str-open">"leche"</span>, <span class="str-open">"pan"</span>, <span class="str-open">"huevo"</span>, <span class="str-open">"agua"</span>];</div>
+            <div class="code-line comment">// Muestra el producto en la posición 1:</div>
+            <div class="code-line editable-line">
+              <span class="kw">console.log</span><span class="paren">(</span>productos[<input
+                type="text"
+                id="codeInput"
+                class="inline-input"
+                placeholder="?"
+                maxlength="1"
+                autocomplete="off"
+                style="width:40px"
+              />]<span class="paren">)</span>
+            </div>
+            <div class="code-line empty"></div>
+          </div>
+        </div>
+
+        <div class="editor-toolbar">
+          <button class="run-btn" onclick="ejecutarCodigo()">▶ EJECUTAR</button>
+          <button class="hint-btn" onclick="mostrarHint()">💡 PISTA</button>
+          <button class="reset-btn" onclick="resetEditor()">↺ LIMPIAR</button>
+        </div>
+      </div>
+
+      <div class="terminal-wrap" id="terminalWrap">
+        <div class="terminal-bar">
+          <span>CONSOLA</span>
+          <span id="termStatus">LISTO</span>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <span class="term-prompt">></span> <span class="term-wait">esperando ejecución...</span>
+        </div>
+      </div>
+
+      <div class="byte-reaction" id="byteReaction">
+        <div class="byte-mini">🤖</div>
+        <div class="byte-msg" id="byteMsg"></div>
+      </div>
+
+      <div class="hint-box" id="hintBox">
+        <div class="hint-title">// PISTA</div>
+        <p>Los índices empiezan en 0. Si el array es ["leche", "pan", "huevo", "agua"],<br/>
+        el índice 1 es <strong>"pan"</strong>. Escribe el número dentro de los corchetes.</p>
+      </div>
+
+      <button class="btn-next" id="btnSiguienteEditor" onclick="goTo('sec-explicacion')">SIGUIENTE: EXPLICACIÓN →</button>
+    </section>
+
+    <div class="ad-space">
+      <script>
+        atOptions = {
+          'key' : 'e7d80bf2b292e04aa06a826ad57eda64',
+          'format' : 'iframe',
+          'height' : 90,
+          'width' : 728,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/e7d80bf2b292e04aa06a826ad57eda64/invoke.js"></script>
+    </div>
+
+    <!-- ===========================
+         SECCIÓN 04 — EXPLICACIÓN
+    =========================== -->
+    <section class="section" id="sec-explicacion">
+      <div class="section-tag">// SECCIÓN 04 — ¿QUÉ ACABAS DE HACER?</div>
+      <h2 class="sec-title">Entendiendo<br/><span>cada parte</span></h2>
+
+      <div class="code-display">
+        <span class="cd-kw" data-part="let">let</span> <span class="cd-var" data-part="nombre">productos</span> <span class="cd-eq">=</span> <span class="cd-bracket" data-part="bracket">[</span><span class="cd-str" data-part="items">"leche", "pan", "huevo"</span><span class="cd-bracket">]</span>
+      </div>
+
+      <div class="parts-grid">
+        <div class="part-card" id="part-let" onclick="highlightPart('let')">
+          <div class="part-name">let</div>
+          <div class="part-tag">DECLARACIÓN</div>
+          <p>Le dice a JavaScript que vas a crear una variable. Como reservar un espacio en memoria.</p>
+          <div class="part-example">let nombreVariable = ...</div>
+        </div>
+
+        <div class="part-card" id="part-nombre" onclick="highlightPart('nombre')">
+          <div class="part-name">productos</div>
+          <div class="part-tag">NOMBRE</div>
+          <p>El nombre que le das a tu lista. Puedes llamarla como quieras. Debe ser descriptivo.</p>
+          <div class="part-example">let stock = [...]</div>
+        </div>
+
+        <div class="part-card" id="part-bracket" onclick="highlightPart('bracket')">
+          <div class="part-name">[ ]</div>
+          <div class="part-tag">CORCHETES</div>
+          <p>Los corchetes indican que es un array. Todo lo que va adentro es parte de la lista.</p>
+          <div class="part-example">let lista = [1, 2, 3]</div>
+        </div>
+
+        <div class="part-card" id="part-items" onclick="highlightPart('items')">
+          <div class="part-name">"leche"</div>
+          <div class="part-tag">ELEMENTO</div>
+          <p>Cada valor dentro del array separado por comas. Pueden ser textos, números o más.</p>
+          <div class="part-example">["a", "b", "c"]</div>
+        </div>
+
+        <div class="part-card" id="part-index" onclick="highlightPart('index')">
+          <div class="part-name">[0]</div>
+          <div class="part-tag">ÍNDICE</div>
+          <p>El número entre corchetes para acceder a un elemento. Siempre empieza en 0.</p>
+          <div class="part-example">productos[0] → "leche"</div>
+        </div>
+
+        <div class="part-card" id="part-length" onclick="highlightPart('length')">
+          <div class="part-name">.length</div>
+          <div class="part-tag">PROPIEDAD</div>
+          <p>Te dice cuántos elementos tiene el array. Útil para saber el tamaño del stock.</p>
+          <div class="part-example">productos.length → 3</div>
+        </div>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="flow-icon">👨‍💻</div>
+          <div class="flow-label">Tú escribes</div>
+          <div class="flow-code">productos[1]</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">🌐</div>
+          <div class="flow-label">JS busca</div>
+          <div class="flow-code">índice 1</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">💻</div>
+          <div class="flow-label">Devuelve</div>
+          <div class="flow-code">"pan"</div>
+        </div>
+      </div>
+
+      <button class="btn-next" onclick="goTo('sec-quiz')">SIGUIENTE: QUIZ →</button>
+    </section>
+
+    <!-- ===========================
+         SECCIÓN 05 — QUIZ
+    =========================== -->
+    <section class="section" id="sec-quiz">
+      <div class="section-tag">// SECCIÓN 05 — COMPRUEBA LO QUE APRENDISTE</div>
+      <h2 class="sec-title">¿Cuánto<br/><span>aprendiste?</span></h2>
+
+      <div class="quiz-container" id="quizContainer"></div>
+
+      <div class="quiz-result" id="quizResult">
+        <div class="qr-score" id="qrScore"></div>
+        <div class="qr-msg" id="qrMsg"></div>
+        <button class="btn-next" onclick="goTo('sec-ejercicio')">SIGUIENTE: EJERCICIOS →</button>
+      </div>
+    </section>
+
+    <!-- ===========================
+         SECCIÓN 06 — EJERCICIOS
+    =========================== -->
+    <section class="section" id="sec-ejercicio">
+      <div class="section-tag">// SECCIÓN 06 — EJERCICIOS FINALES</div>
+      <h2 class="sec-title">Ahora hazlo<br/><span>tú solo</span></h2>
+      <p class="sec-sub">Tres retos. Cada uno más complejo que el anterior.</p>
+
+      <div class="challenges-wrap">
+
+        <!-- RETO 01 -->
+        <div class="challenge" id="ch1">
+          <div class="ch-header">
+            <span class="ch-num">01</span>
+            <span class="ch-title">Leer el stock</span>
+            <span class="ch-status" id="ch1-status">PENDIENTE</span>
+          </div>
+          <p class="ch-desc">Tienes este array: <code>["leche", "pan", "huevo", "agua", "arroz"]</code><br/>
+          Muestra el producto en el índice 2 y cuántos productos hay en total.</p>
+          <div class="ch-editor">
+            <input type="text" class="ch-input full-code" id="ch1-input1" placeholder='Línea 1: mostrar producto índice 2...' autocomplete="off" style="margin-bottom:10px"/>
+            <input type="text" class="ch-input full-code" id="ch1-input2" placeholder='Línea 2: mostrar cuántos productos hay...' autocomplete="off"/>
+          </div>
+          <button class="ch-run" onclick="checkChallenge(1)">▶ EJECUTAR</button>
+          <div class="ch-output" id="ch1-output"></div>
+        </div>
+
+        <div class="ad-space">
+          <script>
+            atOptions = {
+              'key' : 'e7d80bf2b292e04aa06a826ad57eda64',
+              'format' : 'iframe',
+              'height' : 90,
+              'width' : 728,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/e7d80bf2b292e04aa06a826ad57eda64/invoke.js"></script>
+        </div>
+
+        <!-- RETO 02 -->
+        <div class="challenge" id="ch2">
+          <div class="ch-header">
+            <span class="ch-num">02</span>
+            <span class="ch-title">Modificar el stock</span>
+            <span class="ch-status" id="ch2-status">PENDIENTE</span>
+          </div>
+          <p class="ch-desc">Tienes este array: <code>["café", "azúcar", "sal", "aceite"]</code><br/>
+          Cambia el producto en índice 1 por "miel", agrega "vinagre" al final con <code>.push()</code> y muestra el array completo.</p>
+          <div class="ch-editor">
+            <input type="text" class="ch-input full-code" id="ch2-input1" placeholder='Línea 1: crear el array...' autocomplete="off" style="margin-bottom:10px"/>
+            <input type="text" class="ch-input full-code" id="ch2-input2" placeholder='Línea 2: cambiar índice 1...' autocomplete="off" style="margin-bottom:10px"/>
+            <input type="text" class="ch-input full-code" id="ch2-input3" placeholder='Línea 3: agregar con .push()...' autocomplete="off" style="margin-bottom:10px"/>
+            <input type="text" class="ch-input full-code" id="ch2-input4" placeholder='Línea 4: mostrar el array...' autocomplete="off"/>
+          </div>
+          <button class="ch-run" onclick="checkChallenge(2)">▶ EJECUTAR</button>
+          <div class="ch-output" id="ch2-output"></div>
+        </div>
+
+        <!-- RETO 03 -->
+        <div class="challenge" id="ch3">
+          <div class="ch-header">
+            <span class="ch-num">03</span>
+            <span class="ch-title">Sistema de stock desde cero</span>
+            <span class="ch-status" id="ch3-status">PENDIENTE</span>
+          </div>
+          <p class="ch-desc">Crea tu propio sistema de stock para una tienda. Cada línea debe tener un comentario explicando para qué sirve.</p>
+          <div class="ch-hint-example">
+            <div class="hint-title">// ESTRUCTURA ESPERADA</div>
+            <pre>
+// Creo el array con los productos de mi tienda
+let productos = ["producto1", "producto2", "producto3"];
+
+// Muestro el primer producto (índice 0)
+console.log(productos[0]);
+
+// Muestro cuántos productos tengo
+console.log(productos.length);
+            </pre>
+          </div>
+          <div class="ch-editor">
+            <textarea class="ch-input full-code" id="ch3-input" placeholder='Escribe tu código aquí, con comentarios en cada línea...' rows="8" autocomplete="off"></textarea>
+          </div>
+          <button class="ch-run" onclick="checkChallenge(3)">▶ EJECUTAR</button>
+          <div class="ch-output" id="ch3-output"></div>
+        </div>
+
+      </div>
+
+      <!-- PANTALLA DE VICTORIA -->
+      <div class="completion-screen" id="completionScreen">
+        <div class="comp-robot">🤖</div>
+        <div class="comp-title">¡CLASE 7 COMPLETADA!</div>
+        <div class="comp-sub">Ya sabes cómo organizar datos en listas. El stock de BYTE está en orden.</div>
+        <div class="comp-stats">
+          <div class="comp-stat">
+            <div class="cs-num">3</div>
+            <div class="cs-label">Ejercicios</div>
+          </div>
+          <div class="comp-stat">
+            <div class="cs-num">4</div>
+            <div class="cs-label">Conceptos</div>
+          </div>
+          <div class="comp-stat">
+            <div class="cs-num">∞</div>
+            <div class="cs-label">Posibilidades</div>
+          </div>
+        </div>
+        <div class="comp-xp">+150 XP GANADOS</div>
+        <div style="display:flex; gap:10px; justify-content:center;">
+          <a href="panel.html" class="btn-next btn-return" style="background:transparent; color:#00ff41; border:1px solid #00ff41;">PANEL</a>
+          <a href="clase8.html" class="btn-next btn-return">SIGUIENTE CLASE (Bucles) →</a>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="ad-space">
+      <script>
+        atOptions = {
+          'key' : 'e7d80bf2b292e04aa06a826ad57eda64',
+          'format' : 'iframe',
+          'height' : 90,
+          'width' : 728,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/e7d80bf2b292e04aa06a826ad57eda64/invoke.js"></script>
+    </div>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="clase7.js"></script>
+</body>
+</html>
