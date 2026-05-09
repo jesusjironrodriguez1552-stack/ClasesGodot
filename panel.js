@@ -112,4 +112,26 @@ document.getElementById('chat-vacio').style.display = 'none';
   input.value = '';
 }
 
+// ===========================
+// ESCUCHAR MENSAJES EN TIEMPO REAL
+// ===========================
+async function activarRealtime() {
+  const { data: { user } } = await clienteSupabase.auth.getUser();
+  if (!user) return;
+
+  clienteSupabase
+    .channel('mensajes')
+    .on('postgres_changes', {
+      event: 'UPDATE',
+      schema: 'public',
+      table: 'usuarios',
+      filter: `id=eq.${user.id}`
+    }, (payload) => {
+      cargarChat(payload.new);
+    })
+    .subscribe();
+}
+
+activarRealtime();
+
 verificarSesion();
