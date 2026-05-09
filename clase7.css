@@ -1,0 +1,112 @@
+/* ===========================
+   ESTANTE VISUAL
+=========================== */
+.shelf-visual {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+
+.shelf-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.shelf-index {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: #f5a623;
+  background: rgba(245,166,35,0.1);
+  border: 1px solid rgba(245,166,35,0.3);
+  padding: 2px 8px;
+  letter-spacing: 2px;
+}
+
+.shelf-product {
+  background: #0a0f0a;
+  border: 1px solid rgba(0,255,65,0.2);
+  padding: 0.8rem 1rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  color: #fff;
+  min-width: 80px;
+  text-align: center;
+}
+
+.shelf-note {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #555;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.highlight {
+  color: #f5a623;
+}
+
+/* ===========================
+   CODE DISPLAY VARS
+=========================== */
+.cd-var {
+  color: #9cdcfe;
+  cursor: pointer;
+  transition: text-shadow 0.2s;
+}
+
+.cd-var:hover {
+  text-shadow: 0 0 10px #9cdcfe;
+}
+
+.cd-eq {
+  color: #fff;
+  margin: 0 0.5rem;
+}
+
+.cd-bracket {
+  color: #ffd700;
+  cursor: pointer;
+  transition: text-shadow 0.2s;
+}
+
+.cd-bracket:hover {
+  text-shadow: 0 0 10px #ffd700;
+}
+
+/* ===========================
+   RETO 03 HINT
+=========================== */
+.ch-hint-example {
+  background: #050a05;
+  border: 1px dashed rgba(0,255,65,0.2);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.ch-hint-example pre {
+  color: #6a9955;
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+
+.ch-hint-example .hint-title {
+  color: #f5a623;
+  margin-bottom: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+}
+
+/* ===========================
+   TEXTAREA RETO 03
+=========================== */
+textarea.ch-input.full-code {
+  resize: vertical;
+  min-height: 150px;
+  line-height: 1.6;
+}
