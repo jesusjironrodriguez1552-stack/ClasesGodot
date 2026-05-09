@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 8 — Ciclos / Bucles | CodeMatrix</title>
+  <link rel="stylesheet" href="clase1.css" />
+  <link rel="stylesheet" href="clase8.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="panel.html" class="back-btn">← PANEL</a>
+    <div class="logo">CODE<span>MATRIX</span></div>
+    <div class="clase-badge">CLASE 08</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+    <span class="progress-label" id="progressLabel">0%</span>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <div class="ad-lateral">
+    <script async="async" data-cfasync="false" src="https://pl29395826.profitablecpmratenetwork.com/bb7c7fbe98867611ad82c50d6d5f2b8a/invoke.js"></script>
+    <div id="container-bb7c7fbe98867611ad82c50d6d5f2b8a"></div>
+  </div>
+
+  <main class="main-wrap">
+
+    <!-- ===========================
+         SECCIÓN 01 — INTRO
+    =========================== -->
+    <section class="section active" id="sec-intro">
+      <div class="section-tag">// SECCIÓN 01 — INTRODUCCIÓN</div>
+      <h1 class="sec-title">Repite sin<br/><span>repetirte</span></h1>
+
+      <div class="video-container">
+        <div class="video-placeholder">
+          <span>▶ ESPACIO PARA EL VIDEO DE LA CLASE</span>
+        </div>
+      </div>
+
+      <p class="sec-sub">Hasta ahora para mostrar 5 productos escribías 5 líneas. Hoy lo haces con una sola.</p>
+
+      <div class="idea-box">
+        <div class="idea-icon">🔄</div>
+        <p>"Un cajero que revisa 100 productos uno por uno tarda horas.<br/>
+        Un <strong>bucle</strong> lo hace automáticamente en segundos."</p>
+      </div>
+
+      <div class="cards-row">
+        <div class="card-info">
+          <div class="card-icon">😓</div>
+          <h3>Sin bucle</h3>
+          <p>
+            console.log(productos[0])<br/>
+            console.log(productos[1])<br/>
+            console.log(productos[2])<br/>
+            console.log(productos[3])<br/>
+            console.log(productos[4])
+          </p>
+        </div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-icon">⚡</div>
+          <h3>Con for</h3>
+          <p>
+            for (let i = 0; i &lt; productos.length; i++) {<br/>
+            &nbsp;&nbsp;console.log(productos[i])<br/>
+            }
+          </p>
+        </div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-icon">🚀</div>
+          <h3>Resultado</h3>
+          <p>El mismo resultado con menos código. Funciona para 5, 50 o 5000 productos.</p>
+        </div>
+      </div>
+
+      <div class="analogy-block">
+        <div class="analogy-title">// ANALOGÍA — EL CAJERO AUTOMÁTICO</div>
+        <div class="for-visual">
+          <div class="for-step">
+            <div class="for-step-num">i = 0</div>
+            <div class="for-step-action">¿i &lt; 5? ✅ → muestra productos[0]</div>
+          </div>
+          <div class="for-arrow">↓</div>
+          <div class="for-step">
+            <div class="for-step-num">i = 1</div>
+            <div class="for-step-action">¿i &lt; 5? ✅ → muestra productos[1]</div>
+          </div>
+          <div class="for-arrow">↓</div>
+          <div class="for-step">
+            <div class="for-step-num">i = 2</div>
+            <div class="for-step-action">¿i &lt; 5? ✅ → muestra productos[2]</div>
+          </div>
+          <div class="for-arrow">↓</div>
+          <div class="for-step for-step-end">
+            <div class="for-step-num">i = 5</div>
+            <div class="for-step-action">¿i &lt; 5? ❌ → TERMINA</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-next" onclick="goTo('sec-historia')">SIGUIENTE: LA HISTORIA →</button>
+    </section>
+
+    <!-- ===========================
+         SECCIÓN 02 — HISTORIA
+    =========================== -->
+    <section class="section" id="sec-historia">
+      <div class="section-tag">// SECCIÓN 02 — MISIÓN</div>
+      <h2 class="sec-title">BYTE necesita<br/><span>revisar todo el stock</span></h2>
+
+      <div class="robot-scene">
+        <div class="robot-container">
+          <div class="robot" id="robot">
+            <div class="robot-head">
+              <div class="robot-eyes">
+                <div class="robot-eye" id="eye1"></div>
+                <div class="robot-eye" id="eye2"></div>
+              </div>
+              <div class="robot-mouth" id="robotMouth">···</div>
+            </div>
+            <div class="robot-body">
+              <div class="robot-panel">
+                <div class="panel-light" id="pLight1"></div>
+                <div class="panel-light" id="pLight2"></div>
+                <div class="panel-light" id="pLight3"></div>
+              </div>
+            </div>
+          </div>
+          <div class="robot-bubble">
+            <span>Tengo 100 productos y escribí<br/>100 console.log...<br/>¡Hay que haber una mejor forma!</span>
+          </div>
+        </div>
+
+        <div class="mission-text">
+          <div class="mission-tag">// TU MISIÓN</div>
+          <p>BYTE aprendió a guardar productos en arrays en la clase anterior. Pero ahora necesita revisarlos todos y está escribiendo una línea por cada producto.</p>
+          <p style="margin-top:1rem">Tu misión es enseñarle el bucle <strong>for</strong> para recorrer todo el stock automáticamente con una sola instrucción.</p>
+          <div class="mission-highlight">
+            Un for. Todo el stock. Automático.
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-next" onclick="goTo('sec-editor')">SIGUIENTE: EL EDITOR →</button>
+    </section>
+
+    <!-- ===========================
+         SECCIÓN 03 — EDITOR
+    =========================== -->
+    <section class="section" id="sec-editor">
+      <div class="section-tag">// SECCIÓN 03 — PRIMER BUCLE</div>
+      <h2 class="sec-title">Recorriendo<br/><span>el stock completo</span></h2>
+      <p class="sec-sub">El array ya está. Completa el for para recorrerlo.</p>
+
+      <div class="editor-wrap">
+        <div class="editor-topbar">
+          <div class="editor-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="editor-filename">tienda.js</span>
+          <span class="editor-lang">JavaScript</span>
+        </div>
+
+        <div class="editor-body">
+          <div class="line-numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+          </div>
+          <div class="code-area">
+            <div class="code-line comment">// El stock de la tienda</div>
+            <div class="code-line"><span class="kw">let</span> productos = [<span class="str-open">"leche"</span>, <span class="str-open">"pan"</span>, <span class="str-open">"huevo"</span>, <span class="str-open">"agua"</span>, <span class="str-open">"arroz"</span>];</div>
+            <div class="code-line editable-line">
+              <span class="kw">for</span> <span class="paren">(</span><span class="kw">let</span> i = 0; i &lt; <input
+                type="text"
+                id="codeInput1"
+                class="inline-input"
+                placeholder="¿condición?"
+                maxlength="20"
+                autocomplete="off"
+                style="width:140px"
+              />; i++<span class="paren">)</span> {
+            </div>
+            <div class="code-line editable-line">
+              &nbsp;&nbsp;<span class="kw">console.log</span><span class="paren">(</span><input
+                type="text"
+                id="codeInput2"
+                class="inline-input"
+                placeholder="¿qué muestras?"
+                maxlength="20"
+                autocomplete="off"
+                style="width:160px"
+              /><span class="paren">)</span>
+            </div>
+            <div class="code-line">}</div>
+          </div>
+        </div>
+
+        <div class="editor-toolbar">
+          <button class="run-btn" onclick="ejecutarCodigo()">▶ EJECUTAR</button>
+          <button class="hint-btn" onclick="mostrarHint()">💡 PISTA</button>
+          <button class="reset-btn" onclick="resetEditor()">↺ LIMPIAR</button>
+        </div>
+      </div>
+
+      <div class="terminal-wrap" id="terminalWrap">
+        <div class="terminal-bar">
+          <span>CONSOLA</span>
+          <span id="termStatus">LISTO</span>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <span class="term-prompt">></span> <span class="term-wait">esperando ejecución...</span>
+        </div>
+      </div>
+
+      <div class="byte-reaction" id="byteReaction">
+        <div class="byte-mini">🤖</div>
+        <div class="byte-msg" id="byteMsg"></div>
+      </div>
+
+      <div class="hint-box" id="hintBox">
+        <div class="hint-title">// PISTA</div>
+        <p>La condición debe ser <strong>productos.length</strong> para que el for sepa cuándo parar.<br/>
+        Dentro del for usa <strong>productos[i]</strong> para acceder a cada elemento.<br/>
+        La <strong>i</strong> cambia en cada vuelta: 0, 1, 2, 3, 4...</p>
+      </div>
+
+      <button class="btn-next" id="btnSiguienteEditor" onclick="goTo('sec-explicacion')">SIGUIENTE: EXPLICACIÓN →</button>
+    </section>
+
+    <div class="ad-space">
+      <script>
+        atOptions = {
+          'key' : 'e7d80bf2b292e04aa06a826ad57eda64',
+          'format' : 'iframe',
+          'height' : 90,
+          'width' : 728,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/e7d80bf2b292e04aa06a826ad57eda64/invoke.js"></script>
+    </div>
+
+    <!-- ===========================
+         SECCIÓN 04 — EXPLICACIÓN
+    =========================== -->
+    <section class="section" id="sec-explicacion">
+      <div class="section-tag">// SECCIÓN 04 — ¿QUÉ ACABAS DE HACER?</div>
+      <h2 class="sec-title">Entendiendo<br/><span>cada parte del for</span></h2>
+
+      <div class="code-display" style="font-size:1.2rem">
+        <span class="cd-kw" data-part="for">for</span>
+        <span class="cd-paren"> (</span>
+        <span class="cd-var" data-part="init">let i = 0</span>
+        <span class="cd-eq">;</span>
+        <span class="cd-str" data-part="condicion">i &lt; productos.length</span>
+        <span class="cd-eq">;</span>
+        <span class="cd-var" data-part="incremento">i++</span>
+        <span class="cd-paren">) { }</span>
+      </div>
+
+      <div class="parts-grid">
+        <div class="part-card" id="part-for" onclick="highlightPart('for')">
+          <div class="part-name">for</div>
+          <div class="part-tag">PALABRA CLAVE</div>
+          <p>Le dice a JavaScript que vas a crear un bucle. Una instrucción que se va a repetir.</p>
+          <div class="part-example">for (...) { }</div>
+        </div>
+
+        <div class="part-card" id="part-init" onclick="highlightPart('init')">
+          <div class="part-name">let i = 0</div>
+          <div class="part-tag">INICIO</div>
+          <p>Crea el contador que llevará la cuenta de las vueltas. Empieza en 0 como los índices.</p>
+          <div class="part-example">i = 0 → primera vuelta</div>
+        </div>
+
+        <div class="part-card" id="part-condicion" onclick="highlightPart('condicion')">
+          <div class="part-name">i &lt; length</div>
+          <div class="part-tag">CONDICIÓN</div>
+          <p>El for verifica esto antes de cada vuelta. Si es verdad continúa, si es falso termina.</p>
+          <div class="part-example">i &lt; 5 → repite mientras i sea menor a 5</div>
+        </div>
+
+        <div class="part-card" id="part-incremento" onclick="highlightPart('incremento')">
+          <div class="part-name">i++</div>
+          <div class="part-tag">INCREMENTO</div>
+          <p>Al final de cada vuelta suma 1 al contador. Sin esto el bucle sería infinito.</p>
+          <div class="part-example">i++ → i=0, i=1, i=2...</div>
+        </div>
+
+        <div class="part-card" id="part-cuerpo" onclick="highlightPart('cuerpo')">
+          <div class="part-name">{ }</div>
+          <div class="part-tag">CUERPO</div>
+          <p>Lo que va adentro se ejecuta en cada vuelta. Puede ser cualquier instrucción.</p>
+          <div class="part-example">{ console.log(productos[i]) }</div>
+        </div>
+
+        <div class="part-card" id="part-indice" onclick="highlightPart('indice')">
+          <div class="part-name">productos[i]</div>
+          <div class="part-tag">ACCESO DINÁMICO</div>
+          <p>La i cambia en cada vuelta, entonces accede a un producto diferente cada vez.</p>
+          <div class="part-example">i=0→leche, i=1→pan, i=2→huevo</div>
+        </div>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="flow-icon">🔢</div>
+          <div class="flow-label">i empieza en</div>
+          <div class="flow-code">0</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">❓</div>
+          <div class="flow-label">¿condición?</div>
+          <div class="flow-code">i &lt; length</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">⚡</div>
+          <div class="flow-label">ejecuta</div>
+          <div class="flow-code">productos[i]</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">➕</div>
+          <div class="flow-label">suma</div>
+          <div class="flow-code">i++</div>
+        </div>
+      </div>
+
+      <button class="btn-next" onclick="goTo('sec-quiz')">SIGUIENTE: QUIZ →</button>
+    </section>
+
+    <!-- ===========================
+         SECCIÓN 05 — QUIZ
+    =========================== -->
+    <section class="section" id="sec-quiz">
+      <div class="section-tag">// SECCIÓN 05 — COMPRUEBA LO QUE APRENDISTE</div>
+      <h2 class="sec-title">¿Cuánto<br/><span>aprendiste?</span></h2>
+
+      <div class="quiz-container" id="quizContainer"></div>
+
+      <div class="quiz-result" id="quizResult">
+        <div class="qr-score" id="qrScore"></div>
+        <div class="qr-msg" id="qrMsg"></div>
+        <button class="btn-next" onclick="goTo('sec-ejercicio')">SIGUIENTE: EJERCICIOS →</button>
+      </div>
+    </section>
+
+    <!-- ===========================
+         SECCIÓN 06 — EJERCICIOS
+    =========================== -->
+    <section class="section" id="sec-ejercicio">
+      <div class="section-tag">// SECCIÓN 06 — EJERCICIOS FINALES</div>
+      <h2 class="sec-title">Ahora hazlo<br/><span>tú solo</span></h2>
+      <p class="sec-sub">Tres retos. Cada uno más complejo que el anterior.</p>
+
+      <div class="challenges-wrap">
+
+        <!-- RETO 01 -->
+        <div class="challenge" id="ch1">
+          <div class="ch-header">
+            <span class="ch-num">01</span>
+            <span class="ch-title">Recorrer el stock</span>
+            <span class="ch-status" id="ch1-status">PENDIENTE</span>
+          </div>
+          <p class="ch-desc">Tienes este array: <code>["leche", "pan", "huevo", "agua", "arroz"]</code><br/>
+          Escribe un for completo que muestre cada producto en la consola.</p>
+          <div class="ch-editor">
+            <textarea class="ch-input full-code" id="ch1-input" placeholder='Escribe tu for aquí...' rows="5" autocomplete="off"></textarea>
+          </div>
+          <button class="ch-run" onclick="checkChallenge(1)">▶ EJECUTAR</button>
+          <div class="ch-output" id="ch1-output"></div>
+        </div>
+
+        <div class="ad-space">
+          <script>
+            atOptions = {
+              'key' : 'e7d80bf2b292e04aa06a826ad57eda64',
+              'format' : 'iframe',
+              'height' : 90,
+              'width' : 728,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/e7d80bf2b292e04aa06a826ad57eda64/invoke.js"></script>
+        </div>
+
+        <!-- RETO 02 -->
+        <div class="challenge" id="ch2">
+          <div class="ch-header">
+            <span class="ch-num">02</span>
+            <span class="ch-title">Lista de invitados</span>
+            <span class="ch-status" id="ch2-status">PENDIENTE</span>
+          </div>
+          <p class="ch-desc">Tienes este array: <code>["Ana", "Luis", "María", "Pedro", "Sofía", "Juan"]</code><br/>
+          Escribe un for que muestre solo los primeros 3 invitados. Pista: cambia la condición.</p>
+          <div class="ch-editor">
+            <textarea class="ch-input full-code" id="ch2-input" placeholder='Escribe tu for aquí...' rows="5" autocomplete="off"></textarea>
+          </div>
+          <button class="ch-run" onclick="checkChallenge(2)">▶ EJECUTAR</button>
+          <div class="ch-output" id="ch2-output"></div>
+        </div>
+
+        <!-- RETO 03 — BUSCADOR DE STOCK -->
+        <div class="challenge" id="ch3">
+          <div class="ch-header">
+            <span class="ch-num">03</span>
+            <span class="ch-title">🔍 Construye tu buscador de stock</span>
+            <span class="ch-status" id="ch3-status">PENDIENTE</span>
+          </div>
+          <p class="ch-desc">Vas a construir un buscador de stock real usando todo lo que aprendiste en las clases 1 a 8.</p>
+
+          <div class="ch-hint-example">
+            <div class="hint-title">// GUÍA — ¿QUÉ DEBE TENER TU CÓDIGO?</div>
+            <pre>
+// 1. Una variable con tu nombre (clase 2)
+// 2. Un array con al menos 5 productos (clase 7)
+// 3. Una variable con el producto que quieres buscar (clase 2)
+// 4. Un for que recorra todo el array (clase 8)
+// 5. Un if dentro del for que compare cada producto (clases 5 y 6)
+// 6. console.log que diga si lo encontró o no (clase 1)
+// 7. Cada línea con su comentario explicando qué hace (clase 8)
+            </pre>
+          </div>
+
+          <div class="ch-editor">
+            <textarea class="ch-input full-code" id="ch3-input" placeholder='Construye tu buscador aquí...' rows="12" autocomplete="off"></textarea>
+          </div>
+          <button class="ch-run" onclick="checkChallenge(3)">▶ EJECUTAR</button>
+
+          <!-- BUSCADOR INTERACTIVO -->
+          <div class="buscador-app" id="buscadorApp" style="display:none">
+            <div class="buscador-title">🏪 TU BUSCADOR DE STOCK</div>
+            <div class="buscador-input-wrap">
+              <input type="text" id="buscadorInput" class="buscador-input" placeholder="Escribe un producto a buscar..." />
+              <button class="buscador-btn" onclick="buscarProducto()">BUSCAR_</button>
+            </div>
+            <div class="buscador-resultado" id="buscadorResultado"></div>
+            <div class="buscador-log" id="buscadorLog"></div>
+          </div>
+
+          <div class="ch-output" id="ch3-output"></div>
+        </div>
+
+      </div>
+
+      <!-- PANTALLA DE VICTORIA -->
+      <div class="completion-screen" id="completionScreen">
+        <div class="comp-robot">🤖</div>
+        <div class="comp-title">¡CLASE 8 COMPLETADA!</div>
+        <div class="comp-sub">Ya sabes recorrer listas automáticamente. Y construiste tu primer buscador real.</div>
+        <div class="comp-stats">
+          <div class="comp-stat">
+            <div class="cs-num">3</div>
+            <div class="cs-label">Ejercicios</div>
+          </div>
+          <div class="comp-stat">
+            <div class="cs-num">4</div>
+            <div class="cs-label">Conceptos</div>
+          </div>
+          <div class="comp-stat">
+            <div class="cs-num">∞</div>
+            <div class="cs-label">Posibilidades</div>
+          </div>
+        </div>
+        <div class="comp-xp">+150 XP GANADOS</div>
+        <div style="display:flex; gap:10px; justify-content:center;">
+          <a href="panel.html" class="btn-next btn-return" style="background:transparent; color:#00ff41; border:1px solid #00ff41;">PANEL</a>
+          <a href="clase9.html" class="btn-next btn-return">SIGUIENTE CLASE (Objetos) →</a>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="ad-space">
+      <script>
+        atOptions = {
+          'key' : 'e7d80bf2b292e04aa06a826ad57eda64',
+          'format' : 'iframe',
+          'height' : 90,
+          'width' : 728,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/e7d80bf2b292e04aa06a826ad57eda64/invoke.js"></script>
+    </div>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="clase8.js"></script>
+</body>
+</html>
