@@ -58,6 +58,33 @@
     </section>
 
     <!-- ===========================
+         CHAT CON ALUMNOS
+    =========================== -->
+    <section class="chat-instructor-section">
+      <h2 class="section-title">>_ CHAT CON ALUMNOS</h2>
+
+      <div class="chat-instructor-box">
+
+        <!-- Selector de alumno -->
+        <select class="chat-selector" id="chat-selector" onchange="seleccionarAlumnoChat()">
+          <option value="">// Selecciona un alumno...</option>
+        </select>
+
+        <!-- Mensajes -->
+        <div class="chat-instructor-mensajes" id="chat-instructor-mensajes">
+          <div class="chat-vacio-instructor">// Selecciona un alumno para ver su conversación.</div>
+        </div>
+
+        <!-- Input -->
+        <div class="chat-instructor-input-wrap">
+          <input type="text" id="chat-instructor-input" placeholder="Escribe tu mensaje..." />
+          <button onclick="enviarMensajeChat()">ENVIAR_</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===========================
          LISTA DE ALUMNOS
     =========================== -->
     <section class="alumnos-section">
