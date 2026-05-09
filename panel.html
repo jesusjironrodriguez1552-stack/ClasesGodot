@@ -235,6 +235,94 @@
       from { opacity: 0; transform: translateY(-5px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* ===========================
+       CHAT CON INSTRUCTOR
+    =========================== */
+    .chat-section {
+      margin: 3rem 0;
+    }
+
+    .chat-box {
+      background: #0a0f0a;
+      border: 1px solid #222;
+      padding: 1.5rem;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .chat-mensaje {
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      border-radius: 2px;
+    }
+
+    .chat-mensaje.alumno {
+      background: rgba(0,255,65,0.05);
+      border: 1px solid rgba(0,255,65,0.2);
+      color: #00ff41;
+      text-align: right;
+    }
+
+    .chat-mensaje.instructor {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #222;
+      color: #aaa;
+      text-align: left;
+    }
+
+    .chat-mensaje-label {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      opacity: 0.5;
+      margin-bottom: 4px;
+    }
+
+    .chat-vacio {
+      color: #333;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .chat-input-wrap {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .chat-input-wrap input {
+      flex: 1;
+      background: #0d0d0d;
+      border: 1px solid #333;
+      color: #00ff41;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      padding: 0.7rem 1rem;
+      outline: none;
+    }
+
+    .chat-input-wrap input::placeholder {
+      color: #333;
+    }
+
+    .chat-input-wrap button {
+      background: transparent;
+      border: 1px solid #00ff41;
+      color: #00ff41;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      padding: 0.7rem 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .chat-input-wrap button:hover {
+      background: #00ff41;
+      color: #000;
+    }
   </style>
 </head>
 <body class="panel-body">
@@ -433,6 +521,33 @@
     </section>
 
     <div class="ad-space">ESPACIO PARA ANUNCIO (ABAJO)</div>
+
+    <!-- ===========================
+         CHAT CON INSTRUCTOR
+    =========================== -->
+    <section class="chat-section">
+      <h2 class="section-title">>_ MENSAJES AL INSTRUCTOR</h2>
+      <div class="chat-box">
+
+        <div id="chat-mensaje-instructor" class="chat-mensaje instructor" style="display:none">
+          <div class="chat-mensaje-label">// INSTRUCTOR</div>
+          <span id="chat-texto-instructor"></span>
+        </div>
+
+        <div id="chat-mensaje-alumno" class="chat-mensaje alumno" style="display:none">
+          <div class="chat-mensaje-label">// TÚ</div>
+          <span id="chat-texto-alumno"></span>
+        </div>
+
+        <div id="chat-vacio" class="chat-vacio">// Sin mensajes aún. Escribe tu duda abajo.</div>
+
+        <div class="chat-input-wrap">
+          <input type="text" id="chat-input" placeholder="Escribe tu duda al instructor..." />
+          <button onclick="enviarMensaje()">ENVIAR_</button>
+        </div>
+
+      </div>
+    </section>
 
   </main>
 
