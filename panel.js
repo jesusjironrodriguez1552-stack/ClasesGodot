@@ -65,15 +65,27 @@ window.addEventListener('popstate', () => {
 // CHAT CON INSTRUCTOR
 // ===========================
 function cargarChat(data) {
-  const mensajeAlumno     = document.getElementById('chat-mensaje-alumno');
-  const mensajeInstructor = document.getElementById('chat-mensaje-instructor');
+  const msgInstructor  = document.getElementById('chat-mensaje-instructor');
+  const msgAlumno      = document.getElementById('chat-mensaje-alumno');
+  const chatVacio      = document.getElementById('chat-vacio');
+  const textoInstructor = document.getElementById('chat-texto-instructor');
+  const textoAlumno    = document.getElementById('chat-texto-alumno');
 
-  if (mensajeAlumno && data.mensaje_alumno) {
-    mensajeAlumno.textContent = data.mensaje_alumno;
+  let hayMensajes = false;
+
+  if (data.mensaje_instructor) {
+    textoInstructor.textContent = data.mensaje_instructor;
+    msgInstructor.style.display = 'block';
+    hayMensajes = true;
   }
-  if (mensajeInstructor && data.mensaje_instructor) {
-    mensajeInstructor.textContent = data.mensaje_instructor;
+
+  if (data.mensaje_alumno) {
+    textoAlumno.textContent = data.mensaje_alumno;
+    msgAlumno.style.display = 'block';
+    hayMensajes = true;
   }
+
+  chatVacio.style.display = hayMensajes ? 'none' : 'block';
 }
 
 async function enviarMensaje() {
@@ -94,7 +106,9 @@ async function enviarMensaje() {
     return;
   }
 
-  document.getElementById('chat-mensaje-alumno').textContent = texto;
+ document.getElementById('chat-texto-alumno').textContent = texto;
+document.getElementById('chat-mensaje-alumno').style.display = 'block';
+document.getElementById('chat-vacio').style.display = 'none';
   input.value = '';
 }
 
